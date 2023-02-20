@@ -11,12 +11,15 @@ const STORAGE_KEYS: IStorageKeys = {
   tokenType: "SPOTIFY_TOKEN_TYPE",
 };
 
-const validationString = (length: number = 12): string => {
+const validationString = (
+  length: number = 12,
+  randomFn: () => number = Math.random
+): string => {
   const possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let text = "";
   for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    text += possible.charAt(Math.floor(randomFn() * possible.length));
   }
 
   return text;
@@ -89,6 +92,7 @@ interface IStorageProps {
   expiresIn: number;
   tokenType: string;
   storageKeys?: IStorageKeys;
+  storeFn: (key: string, value: string) => void;
 }
 
 const setTokenLocalStore = ({
@@ -96,12 +100,13 @@ const setTokenLocalStore = ({
   expiresIn,
   tokenType,
   storageKeys = STORAGE_KEYS,
+  storeFn = window.localStorage.setItem,
 }: IStorageProps): boolean => {
   try {
     const timestamp = Math.floor(Date.now() / 1000 + expiresIn);
-    window.localStorage.setItem(storageKeys.accessToken, accessToken);
-    window.localStorage.setItem(storageKeys.expTimestamp, timestamp.toString());
-    window.localStorage.setItem(storageKeys.tokenType, tokenType);
+    storeFn(storageKeys.accessToken, accessToken);
+    storeFn(storageKeys.expTimestamp, timestamp.toString());
+    storeFn(storageKeys.tokenType, tokenType);
     return true;
   } catch (error) {
     console.error("Failed to store token to LocalStorage");
@@ -109,12 +114,17 @@ const setTokenLocalStore = ({
   }
 };
 
-const purgeTokenLocalStore = (
-  storageKeys: IStorageKeys = STORAGE_KEYS
+type TTokenStore = (
+  storageKeys: IStorageKeys,
+  removeFn: (key: string) => void
+) => boolean;
+const purgeTokenLocalStore: TTokenStore = (
+  storageKeys = STORAGE_KEYS,
+  removeFn = window.localStorage.removeItem
 ): boolean => {
   try {
     Object.values(storageKeys).forEach((key) => {
-      window.localStorage.removeItem(key);
+      removeFn(key);
     });
     return true;
   } catch (error) {
