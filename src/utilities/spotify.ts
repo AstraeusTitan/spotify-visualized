@@ -42,4 +42,45 @@ const authURL = ({
     checkString
   )}&show_dialog=true`;
 };
+
+interface IAuthResponse {
+  fragment?: string;
+  query?: string;
+}
+
+interface IResponseData {
+  access_token?: string;
+  expires_in?: number;
+  token_type?: string;
+  error?: string;
+  state?: string;
+}
+const parseAuthResponse = ({
+  fragment,
+  query,
+}: IAuthResponse): IResponseData => {
+  let fragmentData: IResponseData = { state: "" };
+  let queryData: IResponseData = { state: "" };
+
+  if (fragment) {
+    const fragmentSearch = new URLSearchParams(fragment);
+    fragmentData = {
+      access_token: fragmentSearch.get("access_token") || undefined,
+      expires_in:
+        parseInt(fragmentSearch.get("expires_in") || "", 10) || undefined,
+      token_type: fragmentSearch.get("token_type") || undefined,
+      state: fragmentSearch.get("state") || undefined,
+    };
+  }
+
+  if (query) {
+    const querySearch = new URLSearchParams(query);
+    queryData = {
+      error: querySearch.get("error") || undefined,
+      state: querySearch.get("state") || undefined,
+    };
+  }
+
+  return { ...fragmentData, ...queryData };
+};
 export {};
