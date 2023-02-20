@@ -21,4 +21,25 @@ const validationString = (length: number = 12): string => {
 
   return text;
 };
+
+interface IAuthURLProps {
+  clientID: string;
+  redirectURI: string;
+  scopes: string[];
+  checkString?: string;
+}
+const authURL = ({
+  redirectURI,
+  scopes,
+  clientID,
+  checkString = validationString(),
+}: IAuthURLProps) => {
+  return `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(
+    clientID
+  )}&redirect_uri=${encodeURIComponent(redirectURI)}&scope=${encodeURIComponent(
+    scopes.join(" ")
+  )}&response_type=token&state=${encodeURIComponent(
+    checkString
+  )}&show_dialog=true`;
+};
 export {};
