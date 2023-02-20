@@ -49,9 +49,9 @@ interface IAuthResponse {
 }
 
 interface IResponseData {
-  access_token?: string;
-  expires_in?: number;
-  token_type?: string;
+  accessToken?: string;
+  expiresIn?: number;
+  tokenType?: string;
   error?: string;
   state?: string;
 }
@@ -65,10 +65,10 @@ const parseAuthResponse = ({
   if (fragment) {
     const fragmentSearch = new URLSearchParams(fragment);
     fragmentData = {
-      access_token: fragmentSearch.get("access_token") || undefined,
-      expires_in:
+      accessToken: fragmentSearch.get("access_token") || undefined,
+      expiresIn:
         parseInt(fragmentSearch.get("expires_in") || "", 10) || undefined,
-      token_type: fragmentSearch.get("token_type") || undefined,
+      tokenType: fragmentSearch.get("token_type") || undefined,
       state: fragmentSearch.get("state") || undefined,
     };
   }
