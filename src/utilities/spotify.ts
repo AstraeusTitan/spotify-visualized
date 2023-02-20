@@ -83,4 +83,44 @@ const parseAuthResponse = ({
 
   return { ...fragmentData, ...queryData };
 };
+
+interface IStorageProps {
+  accessToken: string;
+  expiresIn: number;
+  tokenType: string;
+  storageKeys?: IStorageKeys;
+}
+
+const setTokenLocalStore = ({
+  accessToken,
+  expiresIn,
+  tokenType,
+  storageKeys = STORAGE_KEYS,
+}: IStorageProps): boolean => {
+  try {
+    const timestamp = Math.floor(Date.now() / 1000 + expiresIn);
+    window.localStorage.setItem(storageKeys.accessToken, accessToken);
+    window.localStorage.setItem(storageKeys.expTimestamp, timestamp.toString());
+    window.localStorage.setItem(storageKeys.tokenType, tokenType);
+    return true;
+  } catch (error) {
+    console.error("Failed to store token to LocalStorage");
+    return false;
+  }
+};
+
+const purgeTokenLocalStore = (
+  storageKeys: IStorageKeys = STORAGE_KEYS
+): boolean => {
+  try {
+    Object.values(storageKeys).forEach((key) => {
+      window.localStorage.removeItem(key);
+    });
+    return true;
+  } catch (error) {
+    console.error("Failed to purge token from LocalStorage");
+    return false;
+  }
+};
+
 export {};
