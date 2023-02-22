@@ -30,7 +30,7 @@ export default function Home({
   return (
     <>
       <div>Index page</div>
-      <Spotify.LoginButton onClick={spotify.openLoginPopup}>
+      <Spotify.LoginButton>
         Login to Spotify
       </Spotify.LoginButton>
     </>

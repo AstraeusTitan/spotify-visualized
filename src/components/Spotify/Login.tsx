@@ -27,6 +27,7 @@ export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
         focus:ring-2
         focus:ring-offset-2
         focus:ring-purple-400"
+      onClick={spotify.openLoginPopup}
       {...restProps}
     >
       {children}
