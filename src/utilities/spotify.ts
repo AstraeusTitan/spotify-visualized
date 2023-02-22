@@ -140,6 +140,33 @@ export const openLoginPopup = ({
   };
 };
 
+interface ICallbackProps extends IAuthResponse {
+  state: string;
+  successFn: Function;
+  errorFn: Function;
+}
+
+export const handleCallback = ({
+  fragment,
+  query,
+  state,
+  successFn,
+  errorFn,
+}: ICallbackProps) => {
+  const authResponse = parseAuthResponse({
+    fragment: fragment,
+    query: query,
+  });
+  if (authResponse.state !== state) {
+    authResponse.error = "State mismatch";
+    return errorFn(authResponse);
+  }
+  if (authResponse.error) {
+    return errorFn(authResponse);
+  }
+  return successFn(authResponse);
+};
+
 interface IStorageProps {
   accessToken: string | undefined;
   expiresIn: number | undefined;
