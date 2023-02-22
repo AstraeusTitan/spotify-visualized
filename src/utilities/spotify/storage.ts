@@ -93,4 +93,12 @@ const getState = (
   return getFn(key);
 };
 
-export { setLocalStore, purgeTokenLocalStore, setState, getState };
+const tokenValid = (
+  key = STORAGE_KEYS.expTimestamp,
+  getFn = window.localStorage.getItem.bind(window.localStorage)
+) => {
+  const timestamp = parseInt(getFn(key) || "0");
+  return Math.floor(Date.now() / 1000) < timestamp;
+};
+
+export { setLocalStore, purgeTokenLocalStore, setState, getState, tokenValid };

@@ -10,4 +10,5 @@ export {
   purgeTokenLocalStore,
   setState,
   getState,
+  tokenValid,
 } from "./storage";

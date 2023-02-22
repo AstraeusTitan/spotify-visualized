@@ -4,6 +4,7 @@ import {
   purgeTokenLocalStore,
   handleCallback,
   setState,
+  tokenValid,
 } from "@/utilities/spotify";
 import { useRouter } from "next/router";
 import { PropsWithChildren, useState } from "react";
@@ -33,6 +34,7 @@ export const ContextProvider = ({ children }: PropsWithChildren) => {
     logout,
     setSpotifyConfig,
     handleCallback,
+    tokenValid,
   };
   return (
     <SpotifyContext.Provider value={cxValue}>
