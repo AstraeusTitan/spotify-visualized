@@ -104,6 +104,40 @@ export const parseAuthResponse = ({
 
   return returnData;
 };
+
+// TODO: Setup better types
+export interface IWindow {
+  open: (url: string, target: string, features: string) => object | null;
+  checkState?: string;
+  next?: any;
+}
+interface ILoginPopupProps extends IAuthURLProps {
+  windowObj?: IWindow;
+}
+export const openLoginPopup = ({
+  windowObj = window,
+  redirectURI,
+  scopes,
+  clientID,
+  checkString = validationString(),
+}: ILoginPopupProps): { window: object | null; checkString: string } => {
+  const { url, state } = authURL({
+    redirectURI: redirectURI,
+    scopes: scopes,
+    clientID: clientID,
+    checkString: checkString,
+  });
+  windowObj.checkState = state;
+  const popupWindow = windowObj.open(
+    url,
+    "Login with Spotify",
+    "width=600, height=800"
+  );
+
+  return {
+    window: popupWindow,
+    checkString: checkString,
+  };
 };
 
 interface IStorageProps {
