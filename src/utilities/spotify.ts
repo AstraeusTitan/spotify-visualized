@@ -45,13 +45,13 @@ const authURL = ({
 }: IAuthURLProps): { url: string; state: string } => {
   return {
     url: `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(
-    clientID
+      clientID
     )}&redirect_uri=${encodeURIComponent(
       redirectURI
     )}&scope=${encodeURIComponent(
       scopes
-  )}&response_type=token&state=${encodeURIComponent(
-    checkString
+    )}&response_type=token&state=${encodeURIComponent(
+      checkString
     )}&show_dialog=true`,
     state: checkString,
   };
@@ -141,14 +141,14 @@ export const openLoginPopup = ({
 };
 
 interface IStorageProps {
-  accessToken: string;
-  expiresIn: number;
-  tokenType: string;
+  accessToken: string | undefined;
+  expiresIn: number | undefined;
+  tokenType: string | undefined;
   storageKeys?: IStorageKeys;
-  storeFn: (key: string, value: string) => void;
+  storeFn?: (key: string, value: string) => void;
 }
 
-const setTokenLocalStore = ({
+export const setTokenLocalStore = ({
   accessToken,
   expiresIn,
   tokenType,
@@ -156,10 +156,16 @@ const setTokenLocalStore = ({
   storeFn = window.localStorage.setItem,
 }: IStorageProps): boolean => {
   try {
-    const timestamp = Math.floor(Date.now() / 1000 + expiresIn);
-    storeFn(storageKeys.accessToken, accessToken);
-    storeFn(storageKeys.expTimestamp, timestamp.toString());
-    storeFn(storageKeys.tokenType, tokenType);
+    if (accessToken) {
+      storeFn(storageKeys.accessToken, accessToken);
+    }
+    if (expiresIn) {
+      const timestamp = Math.floor(Date.now() / 1000 + expiresIn);
+      storeFn(storageKeys.expTimestamp, timestamp.toString());
+    }
+    if (tokenType) {
+      storeFn(storageKeys.tokenType, tokenType);
+    }
     return true;
   } catch (error) {
     console.error("Failed to store token to LocalStorage");
@@ -167,14 +173,17 @@ const setTokenLocalStore = ({
   }
 };
 
-type TTokenStore = (
-  storageKeys: IStorageKeys,
-  removeFn: (key: string) => void
-) => boolean;
-const purgeTokenLocalStore: TTokenStore = (
+type TTokenStore = ({
+  storageKeys,
+  removeFn,
+}: {
+  storageKeys?: IStorageKeys;
+  removeFn?: (key: string) => void;
+}) => boolean;
+export const purgeTokenLocalStore: TTokenStore = ({
   storageKeys = STORAGE_KEYS,
-  removeFn = window.localStorage.removeItem
-): boolean => {
+  removeFn = window.localStorage.removeItem,
+}): boolean => {
   try {
     Object.values(storageKeys).forEach((key) => {
       removeFn(key);
