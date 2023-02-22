@@ -28,7 +28,7 @@ const validationString = (
 interface IAuthURLProps {
   clientID: string;
   redirectURI: string;
-  scopes: string[];
+  scopes: string;
   checkString?: string;
 }
 const authURL = ({
@@ -36,14 +36,19 @@ const authURL = ({
   scopes,
   clientID,
   checkString = validationString(),
-}: IAuthURLProps) => {
-  return `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(
+}: IAuthURLProps): { url: string; state: string } => {
+  return {
+    url: `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(
     clientID
-  )}&redirect_uri=${encodeURIComponent(redirectURI)}&scope=${encodeURIComponent(
-    scopes.join(" ")
+    )}&redirect_uri=${encodeURIComponent(
+      redirectURI
+    )}&scope=${encodeURIComponent(
+      scopes
   )}&response_type=token&state=${encodeURIComponent(
     checkString
-  )}&show_dialog=true`;
+    )}&show_dialog=true`,
+    state: checkString,
+  };
 };
 
 interface IAuthResponse {
