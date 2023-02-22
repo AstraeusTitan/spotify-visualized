@@ -1,18 +1,13 @@
-import {
-  authURL,
-  openLoginPopup,
-  handleCallback,
+export { authURL, openLoginPopup, handleCallback } from "./auth";
+export type {
   TResponseData,
   TOpenLoginParams,
   THandleCallbackParams,
 } from "./auth";
-export { authURL, openLoginPopup, handleCallback };
-export type { TResponseData, TOpenLoginParams, THandleCallbackParams };
 
-import {
+export {
   setLocalStore,
   purgeTokenLocalStore,
   setState,
   getState,
 } from "./storage";
-export { setLocalStore, purgeTokenLocalStore, setState, getState };
