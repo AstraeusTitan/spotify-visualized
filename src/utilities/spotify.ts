@@ -1,6 +1,12 @@
 const BASE_API_URL = "https://api.spotify.com/v1";
+export interface ISpotifyProps {
+  clientID: string;
+  redirectURI: string;
+  scopes: string;
+  storageKeys?: IStorageKeys;
+}
 
-interface IStorageKeys {
+export interface IStorageKeys {
   accessToken: string;
   expTimestamp: string;
   tokenType: string;
