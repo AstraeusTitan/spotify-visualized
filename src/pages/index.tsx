@@ -25,7 +25,7 @@ export default function Home({
 }) {
   const spotify = useSpotifyAuth();
   useEffect(() => {
-    spotify.setSpotifyConfig(spotifyConfig);
+    spotify.setSpotifyConfig && spotify.setSpotifyConfig(spotifyConfig);
   }, [spotify, spotifyConfig]);
   return (
     <>

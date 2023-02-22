@@ -1,4 +1,23 @@
-import { createContext } from "react";
+import { THandleCallbackParams } from "@/utilities/spotify";
+import { createContext, Dispatch, SetStateAction } from "react";
 
-// TODO: Setup proper typing
-export const SpotifyContext = createContext({});
+type TSpotifyContext = {
+  openLoginPopup?: () => void;
+  logout?: (redirectURL: string) => void;
+  setSpotifyConfig?: Dispatch<
+    SetStateAction<{
+      clientID: string;
+      redirectURI: string;
+      scopes: string;
+    }>
+  >;
+  handleCallback?: ({
+    fragment,
+    query,
+    state,
+    successFn,
+    errorFn,
+  }: THandleCallbackParams) => any;
+};
+
+export const SpotifyContext = createContext<TSpotifyContext>({});
