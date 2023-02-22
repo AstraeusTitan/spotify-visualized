@@ -57,7 +57,7 @@ const authURL = ({
   };
 };
 
-interface IAuthResponse {
+export interface IAuthResponse {
   fragment?: string;
   query?: string;
 }
