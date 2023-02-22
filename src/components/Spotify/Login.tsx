@@ -1,11 +1,11 @@
-import { useSpotifyAuth } from "@/hooks/useSpotify";
+import { useSpotify } from "@/hooks/useSpotify";
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 
 export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
   children,
   ...restProps
 }) => {
-  const spotify = useSpotifyAuth();
+  const spotify = useSpotify();
   return (
     <button
       type="button"

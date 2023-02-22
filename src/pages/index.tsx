@@ -1,5 +1,5 @@
 import * as Spotify from "@/components/Spotify";
-import { useSpotifyAuth } from "@/hooks/useSpotify";
+import { useSpotify } from "@/hooks/useSpotify";
 import { useEffect } from "react";
 
 export async function getStaticProps() {
@@ -23,7 +23,7 @@ export default function Home({
     scopes: string;
   };
 }) {
-  const spotify = useSpotifyAuth();
+  const spotify = useSpotify();
   useEffect(() => {
     spotify.setSpotifyConfig && spotify.setSpotifyConfig(spotifyConfig);
   }, [spotify, spotifyConfig]);

@@ -1,4 +1,4 @@
-import { useSpotifyAuth } from "@/hooks/useSpotify";
+import { useSpotify } from "@/hooks/useSpotify";
 import { getState, TResponseData } from "@/utilities/spotify";
 import { useLayoutEffect } from "react";
 
@@ -18,7 +18,7 @@ const Callback = ({
   successURL: string;
   errorURL: string;
 }) => {
-  const spotify = useSpotifyAuth();
+  const spotify = useSpotify();
   useLayoutEffect(() => {
     const target = window.opener || window;
     if (spotify.handleCallback) {
