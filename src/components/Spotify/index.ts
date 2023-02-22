@@ -1,7 +1,2 @@
-import { ContextProvider } from "./Context";
-import LoginButton from "./Login";
-
-export const Spotify = {
-  ContextProvider: ContextProvider,
-  LoginButton: LoginButton
-};
+export { ContextProvider } from "./Context";
+export { LoginButton } from "./Login";

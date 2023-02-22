@@ -1,7 +1,7 @@
 import { useSpotifyAuth } from "@/hooks/useSpotify";
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 
-const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
+export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
   children,
   ...restProps
 }) => {
@@ -33,5 +33,3 @@ const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
     </button>
   );
 };
-
-export default LoginButton;

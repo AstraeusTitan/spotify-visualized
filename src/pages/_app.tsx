@@ -1,4 +1,4 @@
-import { Spotify } from "@/components/Spotify";
+import * as Spotify from "@/components/Spotify";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 

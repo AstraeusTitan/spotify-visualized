@@ -1,4 +1,4 @@
-import { Spotify } from "@/components/Spotify";
+import * as Spotify from "@/components/Spotify";
 import { useSpotifyAuth } from "@/hooks/useSpotify";
 import { useEffect } from "react";
 
