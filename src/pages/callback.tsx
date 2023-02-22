@@ -20,20 +20,20 @@ const Callback = ({
 }) => {
   const spotify = useSpotifyAuth();
   useLayoutEffect(() => {
+    const target = window.opener || window;
     if (spotify.handleCallback) {
-      const parent = window.opener;
       spotify.handleCallback({
         fragment: window.location.hash.substring(1),
         query: window.location.search.substring(1),
         state: getState() || "",
         successFn: (response: TResponseData) => {
           console.log(response);
-          parent.next.router.push(successURL);
+          target.next.router.push(successURL);
           window.close();
         },
         errorFn: (response: TResponseData) => {
           console.error(response);
-          parent.next.router.push(errorURL);
+          target.next.router.push(errorURL);
           window.close();
         },
       });
