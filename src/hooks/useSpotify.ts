@@ -1,5 +1,5 @@
-import { SpotifyAuthContext } from "@/contexts/spotifyAuth";
+import { ISpotifyContext, SpotifyAuthContext } from "@/contexts/spotifyAuth";
 import { useContext } from "react";
 
-export const useSpotifyAuth = () => useContext(SpotifyAuthContext);
-export {};
+export const useSpotifyAuth = (): ISpotifyContext =>
+  useContext(SpotifyAuthContext);
