@@ -1,16 +1,16 @@
-import { SpotifyAuthContext } from "@/contexts/spotifyAuth";
+import { SpotifyContext } from "@/contexts/spotify";
 import {
   openLoginPopup,
   purgeTokenLocalStore,
-  ISpotifyProps,
   handleCallback,
+  setState,
 } from "@/utilities/spotify";
 import { useRouter } from "next/router";
 import { PropsWithChildren, useState } from "react";
 
 export const ContextProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
-  const [spotifyConfig, setSpotifyConfig] = useState<ISpotifyProps>({
+  const [spotifyConfig, setSpotifyConfig] = useState({
     clientID: "",
     redirectURI: "",
     scopes: "",
@@ -23,19 +23,20 @@ export const ContextProvider = ({ children }: PropsWithChildren) => {
 
   const cxValue = {
     openLoginPopup: () => {
-      openLoginPopup({
+      const [popup, state] = openLoginPopup({
         redirectURI: spotifyConfig.redirectURI,
         clientID: spotifyConfig.clientID,
         scopes: spotifyConfig.scopes,
       });
+      setState(state);
     },
     logout,
     setSpotifyConfig,
     handleCallback,
   };
   return (
-    <SpotifyAuthContext.Provider value={cxValue}>
+    <SpotifyContext.Provider value={cxValue}>
       {children}
-    </SpotifyAuthContext.Provider>
+    </SpotifyContext.Provider>
   );
 };
