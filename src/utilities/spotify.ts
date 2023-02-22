@@ -52,22 +52,28 @@ interface IAuthResponse {
 }
 
 interface IResponseData {
-  accessToken?: string;
-  expiresIn?: number;
-  tokenType?: string;
-  error?: string;
-  state?: string;
+  accessToken: string | undefined;
+  expiresIn: number | undefined;
+  tokenType: string | undefined;
+  error: string | undefined;
+  state: string | undefined;
 }
-const parseAuthResponse = ({
+export const parseAuthResponse = ({
   fragment,
   query,
 }: IAuthResponse): IResponseData => {
-  let fragmentData: IResponseData = { state: "" };
-  let queryData: IResponseData = { state: "" };
+  let returnData: IResponseData = {
+    accessToken: undefined,
+    expiresIn: undefined,
+    tokenType: undefined,
+    error: undefined,
+    state: undefined,
+  };
 
   if (fragment) {
     const fragmentSearch = new URLSearchParams(fragment);
-    fragmentData = {
+    returnData = {
+      ...returnData,
       accessToken: fragmentSearch.get("access_token") || undefined,
       expiresIn:
         parseInt(fragmentSearch.get("expires_in") || "", 10) || undefined,
@@ -78,13 +84,15 @@ const parseAuthResponse = ({
 
   if (query) {
     const querySearch = new URLSearchParams(query);
-    queryData = {
+    returnData = {
+      ...returnData,
       error: querySearch.get("error") || undefined,
       state: querySearch.get("state") || undefined,
     };
   }
 
-  return { ...fragmentData, ...queryData };
+  return returnData;
+};
 };
 
 interface IStorageProps {
