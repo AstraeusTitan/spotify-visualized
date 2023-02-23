@@ -11,6 +11,7 @@ import { PropsWithChildren, useState } from "react";
 
 export const ContextProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
+  const [tokenValid, setTokenValid] = useState<boolean>(false);
   const [spotifyConfig, setSpotifyConfig] = useState({
     clientID: "",
     redirectURI: "",
@@ -35,6 +36,7 @@ export const ContextProvider = ({ children }: PropsWithChildren) => {
     setSpotifyConfig,
     handleCallback,
     tokenValid,
+    setTokenValid,
   };
   return (
     <SpotifyContext.Provider value={cxValue}>

@@ -1,6 +1,11 @@
 import { useSpotify } from "@/hooks/useSpotify";
-import { getState, TResponseData } from "@/utilities/spotify";
-import { useLayoutEffect } from "react";
+import {
+  getState,
+  purgeTokenLocalStore,
+  setLocalStore,
+  TResponseData,
+} from "@/utilities/spotify";
+import { useEffect } from "react";
 
 export async function getStaticProps() {
   return {
@@ -19,7 +24,7 @@ const Callback = ({
   errorURL: string;
 }) => {
   const spotify = useSpotify();
-  useLayoutEffect(() => {
+  useEffect(() => {
     const target = window.opener || window;
     if (spotify.handleCallback) {
       spotify.handleCallback({
@@ -27,12 +32,12 @@ const Callback = ({
         query: window.location.search.substring(1),
         state: getState() || "",
         successFn: (response: TResponseData) => {
-          console.log(response);
+          setLocalStore(response);
           target.next.router.push(successURL);
           window.close();
         },
         errorFn: (response: TResponseData) => {
-          console.error(response);
+          purgeTokenLocalStore({});
           target.next.router.push(errorURL);
           window.close();
         },

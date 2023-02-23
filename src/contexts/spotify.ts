@@ -18,7 +18,8 @@ type TSpotifyContext = {
     successFn,
     errorFn,
   }: THandleCallbackParams) => any;
-  tokenValid?: () => boolean;
+  tokenValid?: boolean;
+  setTokenValid?: Dispatch<SetStateAction<boolean>>;
 };
 
 export const SpotifyContext = createContext<TSpotifyContext>({});
