@@ -89,7 +89,6 @@ const getState = (
     window.localStorage
   )
 ): string | null => {
-  console.log(getFn);
   return getFn(key);
 };
 
