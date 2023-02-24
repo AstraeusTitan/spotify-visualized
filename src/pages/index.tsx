@@ -1,6 +1,6 @@
 import { Container } from "@/components/Container";
-import * as Spotify from "@/components/Spotify";
-import { useSpotify } from "@/hooks/useSpotify";
+import { LoginButton } from "@/components/Login";
+import SpotifyAPI from "@/utilities/spotifyApi";
 import { useEffect } from "react";
 
 export async function getStaticProps() {
@@ -24,10 +24,9 @@ export default function Home({
     scopes: string;
   };
 }) {
-  const spotify = useSpotify();
   useEffect(() => {
-    spotify.setSpotifyConfig && spotify.setSpotifyConfig(spotifyConfig);
-  }, [spotify, spotifyConfig]);
+    SpotifyAPI.setConfig(spotifyConfig);
+  }, [spotifyConfig]);
   return (
     <Container>
       <div className="grid place-content-center h-screen">
@@ -38,7 +37,7 @@ export default function Home({
             in a whole new way.
           </p>
           <div className="flex justify-center mt-8">
-            <Spotify.LoginButton>Login to Spotify</Spotify.LoginButton>
+            <LoginButton>Login to Spotify</LoginButton>
           </div>
         </div>
       </div>

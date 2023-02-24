@@ -1,10 +1,4 @@
-import { useSpotify } from "@/hooks/useSpotify";
-import {
-  getState,
-  purgeTokenLocalStore,
-  setLocalStore,
-  TResponseData,
-} from "@/utilities/spotify";
+import SpotifyAPI, { SpotifyAPITypes } from "@/utilities/spotifyApi";
 import { useEffect } from "react";
 
 export async function getStaticProps() {
@@ -23,27 +17,23 @@ const Callback = ({
   successURL: string;
   errorURL: string;
 }) => {
-  const spotify = useSpotify();
   useEffect(() => {
-    const target = window.opener || window;
-    if (spotify.handleCallback) {
-      spotify.handleCallback({
-        fragment: window.location.hash.substring(1),
-        query: window.location.search.substring(1),
-        state: getState() || "",
-        successFn: (response: TResponseData) => {
-          setLocalStore(response);
-          target.next.router.push(successURL);
+    const target = (window.opener || window) as SpotifyAPITypes.AuthWindow;
+    if (target.SpotifyAPI) {
+      (target.SpotifyAPI as typeof SpotifyAPI).handleCallback(
+        window.location.hash.substring(1),
+        window.location.search.substring(1),
+        (response) => {
+          target.next && target.next.router.push(successURL);
           window.close();
         },
-        errorFn: (response: TResponseData) => {
-          purgeTokenLocalStore({});
-          target.next.router.push(errorURL);
+        (response) => {
+          target.next && target.next.router.push(errorURL);
           window.close();
-        },
-      });
+        }
+      );
     }
-  }, [spotify, successURL, errorURL]);
+  }, [successURL, errorURL]);
 
   // TODO: Add a loading message
   return <div>Callback page</div>;

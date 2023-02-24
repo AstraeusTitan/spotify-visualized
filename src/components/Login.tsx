@@ -1,11 +1,10 @@
-import { useSpotify } from "@/hooks/useSpotify";
+import SpotifyAPI, { SpotifyAPITypes } from "@/utilities/spotifyApi";
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 
 export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
   children,
   ...restProps
 }) => {
-  const spotify = useSpotify();
   return (
     <button
       type="button"
@@ -27,7 +26,9 @@ export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
         focus:ring-2
         focus:ring-offset-2
         focus:ring-purple-400"
-      onClick={spotify.openLoginPopup}
+      onClick={() => {
+        SpotifyAPI.openLoginPopup(window as SpotifyAPITypes.AuthWindow);
+      }}
       {...restProps}
     >
       {children}
