@@ -67,6 +67,11 @@ const Mood = ({
         measure={values.measure}
         compare={values.compare}
         label={label}
+        margins={{
+          top:5,
+          left: 5,
+          right: 5
+        }}
         classes={classes}
       />
     );
