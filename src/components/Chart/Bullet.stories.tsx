@@ -2,7 +2,7 @@ import Bullet, { BulletProps } from "./Bullet";
 
 export default {
   component: Bullet,
-  title: "Bullet Chart",
+  title: "Charts/Bullet Chart",
 };
 const Template = (args) => <Bullet {...args} />;
 

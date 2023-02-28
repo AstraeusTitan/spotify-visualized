@@ -2,7 +2,7 @@ import AlbumCover from "./AlbumCover";
 
 export default {
   component: AlbumCover,
-  title: "Album Cover",
+  title: "TrackCard/Album Cover",
 };
 
 const Template = (args) => <AlbumCover {...args} />;
