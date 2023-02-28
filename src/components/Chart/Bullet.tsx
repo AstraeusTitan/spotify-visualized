@@ -20,7 +20,7 @@ const drawChart = (
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0,
+    bottom: 20,
     ...margins,
   };
   const _classes = {
@@ -81,7 +81,16 @@ const drawChart = (
       ])
     )
     .attr("class", _classes.compare);
-  // TODO: Add label
+
+  // TODO: Add ability to style label
+  chart
+    .append("text")
+    .text(label)
+    .attr("text-anchor", "middle")
+    .attr("x", xScale(0))
+    .attr("y", yScale(min))
+    .attr("dy", 15);
+  // TODO: Add tooltips
 };
 
 type Data = {
@@ -99,7 +108,7 @@ export type BulletProps = {
   measure: number;
   compare: number;
   label: string;
-  classes: {
+  classes?: {
     measure?: string;
     compare?: string;
     axis?: string;
