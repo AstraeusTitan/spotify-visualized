@@ -22,3 +22,16 @@ Default.args = {
     right: 5,
   },
 };
+
+export const NoCompare = Template.bind({});
+NoCompare.args = {
+  ...Default.args,
+  compare: undefined,
+};
+
+export const NoLabel = Template.bind({});
+NoLabel.args = {
+  ...Default.args,
+  label: undefined,
+  margins: {},
+};
