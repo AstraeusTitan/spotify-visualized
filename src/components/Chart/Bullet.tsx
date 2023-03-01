@@ -20,9 +20,10 @@ const drawChart = (
     top: 0,
     left: 0,
     right: 0,
-    bottom: 20,
+    bottom: label !== undefined ? 20 : 0,
     ...margins,
   };
+  console.info(_margins);
   const _classes = {
     axis: "stroke-zinc-700",
     measure: "stroke-sky-400 stroke-[5px]",
@@ -71,25 +72,28 @@ const drawChart = (
     )
     .attr("class", _classes.measure);
 
-  chart
-    .append("path")
-    .attr(
-      "d",
-      scaledLine([
-        [-1, compare],
-        [1, compare],
-      ])
-    )
-    .attr("class", _classes.compare);
-
+  if (compare !== undefined) {
+    chart
+      .append("path")
+      .attr(
+        "d",
+        scaledLine([
+          [-1, compare],
+          [1, compare],
+        ])
+      )
+      .attr("class", _classes.compare);
+  }
   // TODO: Add ability to style label
-  chart
-    .append("text")
-    .text(label)
-    .attr("text-anchor", "middle")
-    .attr("x", xScale(0))
-    .attr("y", yScale(min))
-    .attr("dy", 15);
+  if (label !== undefined) {
+    chart
+      .append("text")
+      .text(label)
+      .attr("text-anchor", "middle")
+      .attr("x", xScale(0))
+      .attr("y", yScale(min))
+      .attr("dy", 15);
+  }
   // TODO: Add tooltips
 };
 
@@ -106,8 +110,8 @@ export type BulletProps = {
   min: number;
   max: number;
   measure: number;
-  compare: number;
-  label: string;
+  compare?: number;
+  label?: string;
   classes?: {
     measure?: string;
     compare?: string;
