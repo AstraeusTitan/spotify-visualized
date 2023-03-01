@@ -15,4 +15,5 @@ Default.args = {
   mode: 1,
   songKey: "b",
   duration: 80000,
+  popularity: 75,
 };

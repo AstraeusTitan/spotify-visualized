@@ -1,6 +1,11 @@
 import Bullet from "../Chart/Bullet";
 
-const Popularity = ({ value, className }) => {
+type PopularityProps = {
+  value: number;
+  height: number;
+  className?: string;
+};
+const Popularity = ({ value, height, className }: PopularityProps) => {
   const classes = {
     measure: "stroke-[7px] stroke-sky-400",
   };
@@ -8,7 +13,7 @@ const Popularity = ({ value, className }) => {
     <div className={className}>
       <Bullet
         width={25}
-        height={96}
+        height={height || 96}
         min={0}
         max={100}
         measure={value}

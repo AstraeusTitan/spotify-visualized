@@ -1,3 +1,5 @@
+import Popularity from "./Popularity";
+
 const formatDuration = (durationMs: number) => {
   let duration = durationMs / 1000;
   return `${Math.floor(duration / 60) || 0}:${(duration % 60 || 0)
@@ -12,6 +14,7 @@ type DetailsProps = {
   tempo?: number;
   songKey?: string;
   duration: number;
+  popularity: number;
 };
 const Details = ({
   title,
@@ -20,26 +23,30 @@ const Details = ({
   mode,
   songKey,
   duration,
+  popularity,
 }: DetailsProps) => {
   return (
-    <div className="">
-      <h4 className="text-2xl mb-3">{title}</h4>
-      <p className="text-zinc-700 text-lg">{artist}</p>
-      <div
-        className="
-          flex
-          text-sm
-          gap-2
-          items-center
-          text-zinc-700"
-      >
-        <p>key: {songKey || "N/A"}</p>
-        <span className="w-2 border-b-2 border-zinc-700" />
-        <p>{mode === 1 ? "Major" : "Minor"}</p>
-        <span className="w-2 border-b-2 border-zinc-700" />
-        <p>{tempo} bpm</p>
-        <span className="w-2 border-b-2 border-zinc-700" />
-        <p>{formatDuration(duration)}</p>
+    <div className="flex gap-4">
+      <Popularity value={popularity} height={90} />
+      <div>
+        <h4 className="text-2xl mb-3">{title}</h4>
+        <p className="text-zinc-700 text-lg">{artist}</p>
+        <div
+          className="
+            flex
+            text-sm
+            gap-2
+            items-center
+            text-zinc-700"
+        >
+          <p>key: {songKey || "N/A"}</p>
+          <span className="w-2 border-b-2 border-zinc-700" />
+          <p>{mode === 1 ? "Major" : "Minor"}</p>
+          <span className="w-2 border-b-2 border-zinc-700" />
+          <p>{tempo} bpm</p>
+          <span className="w-2 border-b-2 border-zinc-700" />
+          <p>{formatDuration(duration)}</p>
+        </div>
       </div>
     </div>
   );
