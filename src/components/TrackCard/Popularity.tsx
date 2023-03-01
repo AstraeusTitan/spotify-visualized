@@ -8,6 +8,7 @@ type PopularityProps = {
 const Popularity = ({ value, height, className }: PopularityProps) => {
   const classes = {
     measure: "stroke-[7px] stroke-sky-400",
+    axis: "stroke-zinc-400",
   };
   return (
     <div className={className}>

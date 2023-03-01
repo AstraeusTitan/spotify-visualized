@@ -1,41 +1,20 @@
 import clsx from "clsx";
 import Bullet from "../Chart/Bullet";
-
+export type MoodData = {
+  measure: number;
+  compare: number;
+};
 type MoodProps = {
   bulletWidth: number;
   height: number;
-  accousticness: {
-    measure: number;
-    compare: number;
-  };
-  danceability: {
-    measure: number;
-    compare: number;
-  };
-  energy: {
-    measure: number;
-    compare: number;
-  };
-  instrumentalness: {
-    measure: number;
-    compare: number;
-  };
-  liveness: {
-    measure: number;
-    compare: number;
-  };
-  loudness: {
-    measure: number;
-    compare: number;
-  };
-  speachiness: {
-    measure: number;
-    compare: number;
-  };
-  valence: {
-    measure: number;
-    compare: number;
-  };
+  accousticness: MoodData;
+  danceability: MoodData;
+  energy: MoodData;
+  instrumentalness: MoodData;
+  liveness: MoodData;
+  loudness: MoodData;
+  speachiness: MoodData;
+  valence: MoodData;
   className?: string;
 };
 
@@ -57,6 +36,8 @@ const Mood = ({
   const MoodBullet = ({ min = 0, max = 1, label, values }) => {
     const classes = {
       measure: "stroke-[7px] stroke-sky-400",
+      axis: "stroke-zinc-400",
+      compare: "stroke-zinc-600 stroke-[2px]",
     };
     return (
       <Bullet
@@ -68,9 +49,9 @@ const Mood = ({
         compare={values.compare}
         label={label}
         margins={{
-          top:5,
+          top: 5,
           left: 5,
-          right: 5
+          right: 5,
         }}
         classes={classes}
       />
