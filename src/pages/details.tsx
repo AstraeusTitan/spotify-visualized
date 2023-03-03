@@ -64,8 +64,7 @@ const Details: FC = () => {
           Object.keys(sums).forEach((key) => (sums[key] = sums[key] / 50));
           return sums;
         })
-        .then((avgs) => (setRecentlyPlayedAverages(avgs), avgs))
-        .then((data) => console.log(data));
+        .then((avgs) => (setRecentlyPlayedAverages(avgs), avgs));
     }
   }, [spotify]);
 
