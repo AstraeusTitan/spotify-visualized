@@ -6,7 +6,7 @@ import Mood from "./Mood";
 type TrackCardProps = {
   track: Track;
   features: AudioFeatures;
-  averages: AudioFeatures;
+  averages?: AudioFeatures;
 };
 const TrackCard = ({ track, features, averages }: TrackCardProps) => {
   return (

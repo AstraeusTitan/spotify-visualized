@@ -10,7 +10,7 @@ const formatDuration = (durationMs: number) => {
 
 type DetailsProps = {
   track: Track;
-  features: AudioFeatures;
+  features?: AudioFeatures;
 };
 const Details = ({ track, features }: DetailsProps) => {
   return (
@@ -32,13 +32,13 @@ const Details = ({ track, features }: DetailsProps) => {
           items-center
           text-zinc-700"
       >
-        <p>key: {features.key || "N/A"}</p>
+        <p>key: {features?.key || "N/A"}</p>
         <span className="w-2 border-b-2 border-zinc-700" />
-        <p>{features.mode ? "Major" : "Minor"}</p>
+        <p>{features?.mode ? "Major" : "Minor"}</p>
         <span className="w-2 border-b-2 border-zinc-700" />
-        <p>{Math.round(features.tempo)} bpm</p>
+        <p>{Math.round(features?.tempo || 0)} bpm</p>
         <span className="w-2 border-b-2 border-zinc-700" />
-        <p>{formatDuration(features.duration_ms)}</p>
+        <p>{formatDuration(features?.duration_ms || 0)}</p>
       </div>
     </div>
   );
