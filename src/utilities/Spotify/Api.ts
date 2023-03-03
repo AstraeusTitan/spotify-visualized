@@ -57,7 +57,9 @@ class Api {
     };
     const query = this._buildQuery(params);
     const url = `${this.baseUrl}${route}${params ? query : ""}`;
-    return this.config.fetch(url, { headers });
+    return this.config
+      .fetch(url, { headers })
+      .then((response) => response.json());
   }
 
   getRecentlyPlayed(params: QueryParams = { limit: 20 }) {
