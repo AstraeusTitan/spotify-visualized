@@ -9,7 +9,7 @@ export async function getStaticProps() {
     props: {
       spotifyConfig: {
         clientId: process.env.CLIENT_ID,
-        redirectUri: process.env.REDIRECT_URI,
+        redirectUri: `${process.env.VERCEL_URL}/callback`,
         scopes: process.env.SPOTIFY_SCOPES?.split(" "),
       } as SpotifyConfig,
     },
