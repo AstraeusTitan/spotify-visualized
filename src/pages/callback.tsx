@@ -1,22 +1,7 @@
 import Auth from "@/utilities/Spotify/Auth";
 import { useEffect } from "react";
 
-export async function getStaticProps() {
-  return {
-    props: {
-      successURL: "/details",
-      errorURL: "/",
-    },
-  };
-}
-
-const Callback = ({
-  successURL,
-  errorURL,
-}: {
-  successURL: string;
-  errorURL: string;
-}) => {
+const Callback = () => {
   useEffect(() => {
     const target = window.opener || window;
     const spotifyAuth = target.SpotifyAuth as Auth;
@@ -26,16 +11,16 @@ const Callback = ({
         window.location.search.substring(1),
         (err, data) => {
           if (err) {
-            target.next && target.next.router.push(errorURL);
+            target.next && target.next.router.push("/");
             window.close();
           } else {
-            target.next && target.next.router.push(successURL);
+            target.next && target.next.router.push("/details");
             window.close();
           }
         }
       );
     }
-  }, [successURL, errorURL]);
+  }, []);
 
   // TODO: Add a loading message
   return <div>Callback page</div>;
