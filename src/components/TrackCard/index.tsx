@@ -43,7 +43,7 @@ const TrackCard = ({ track, features, averages }: TrackCardProps) => {
         />
         <Details track={track} features={features} />
       </div>
-      <div className="px-2">
+      <div className="flex justify-center px-2">
         <Mood features={features} averages={averages} />
       </div>
     </div>
