@@ -1,16 +1,17 @@
 import { Container } from "@/components/Container";
 import { LoginButton } from "@/components/Login";
-import SpotifyAPI from "@/utilities/spotifyApi";
+import { useSpotify } from "@/hooks/useSpotify";
+import Spotify, { SpotifyConfig } from "@/utilities/Spotify";
 import { useEffect } from "react";
 
 export async function getStaticProps() {
   return {
     props: {
       spotifyConfig: {
-        clientID: process.env.CLIENT_ID,
-        redirectURI: process.env.REDIRECT_URI,
-        scopes: process.env.SPOTIFY_SCOPES,
-      },
+        clientId: process.env.CLIENT_ID,
+        redirectUri: process.env.REDIRECT_URI,
+        scopes: process.env.SPOTIFY_SCOPES?.split(" "),
+      } as SpotifyConfig,
     },
   };
 }
@@ -18,15 +19,26 @@ export async function getStaticProps() {
 export default function Home({
   spotifyConfig,
 }: {
-  spotifyConfig: {
-    clientID: string;
-    redirectURI: string;
-    scopes: string;
-  };
+  spotifyConfig: SpotifyConfig;
 }) {
+  const { spotify, setSpotify } = useSpotify();
   useEffect(() => {
-    SpotifyAPI.setConfig(spotifyConfig);
-  }, [spotifyConfig]);
+    if (setSpotify) {
+      let s = new Spotify({
+        ...spotifyConfig,
+        fetch: fetch.bind(window),
+        storage: window.localStorage,
+      });
+      setSpotify(s);
+    }
+  }, [setSpotify, spotifyConfig]);
+  useEffect(() => {
+    if (spotify) {
+      console.log("attempt to load");
+      spotify?.Auth.loadToken(window.localStorage);
+      console.log(spotify?.config);
+    }
+  }, [spotify]);
   return (
     <Container>
       <div className="grid place-content-center h-screen">

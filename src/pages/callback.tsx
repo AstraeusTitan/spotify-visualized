@@ -1,4 +1,4 @@
-import SpotifyAPI, { SpotifyAPITypes } from "@/utilities/spotifyApi";
+import Auth from "@/utilities/Spotify/Auth";
 import { useEffect } from "react";
 
 export async function getStaticProps() {
@@ -18,18 +18,20 @@ const Callback = ({
   errorURL: string;
 }) => {
   useEffect(() => {
-    const target = (window.opener || window) as SpotifyAPITypes.AuthWindow;
-    if (target.SpotifyAPI) {
-      (target.SpotifyAPI as typeof SpotifyAPI).handleCallback(
+    const target = window.opener || window;
+    const spotifyAuth = target.SpotifyAuth as Auth;
+    if (spotifyAuth) {
+      spotifyAuth.handleCallback(
         window.location.hash.substring(1),
         window.location.search.substring(1),
-        (response) => {
-          target.next && target.next.router.push(successURL);
-          window.close();
-        },
-        (response) => {
-          target.next && target.next.router.push(errorURL);
-          window.close();
+        (err, data) => {
+          if (err) {
+            target.next && target.next.router.push(errorURL);
+            window.close();
+          } else {
+            target.next && target.next.router.push(successURL);
+            window.close();
+          }
         }
       );
     }

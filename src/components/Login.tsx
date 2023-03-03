@@ -1,10 +1,15 @@
+import { useSpotify } from "@/hooks/useSpotify";
+import Spotify from "@/utilities/Spotify";
 import SpotifyAPI, { SpotifyAPITypes } from "@/utilities/spotifyApi";
+import { useRouter } from "next/router";
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 
 export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
   children,
   ...restProps
 }) => {
+  const { spotify } = useSpotify();
+  const router = useRouter();
   return (
     <button
       type="button"
@@ -27,7 +32,14 @@ export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
         focus:ring-offset-2
         focus:ring-purple-400"
       onClick={() => {
-        SpotifyAPI.openLoginPopup(window as SpotifyAPITypes.AuthWindow);
+        if (spotify) {
+          console.log(spotify);
+          if (spotify.Auth.tokenValid()) {
+            router.push("/details");
+          } else {
+            spotify.Auth.openLoginPopup(window);
+          }
+        }
       }}
       {...restProps}
     >
