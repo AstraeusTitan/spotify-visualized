@@ -152,6 +152,7 @@ export type ExternalIds = {
 };
 
 export type AudioFeatures = {
+  [key: string]: any;
   danceability: number;
   energy: number;
   key: number;

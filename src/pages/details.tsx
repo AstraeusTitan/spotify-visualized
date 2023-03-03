@@ -58,7 +58,7 @@ const Details: FC = () => {
               (key) => (avg[key] = feat[key] + (avg[key] || 0))
             );
             return avg;
-          }, {}) as AudioFeatures;
+          }, {} as AudioFeatures);
         })
         .then((sums) => {
           Object.keys(sums).forEach((key) => (sums[key] = sums[key] / 50));
