@@ -1,10 +1,12 @@
 import Bullet, { BulletProps } from "./Bullet";
+import { Meta, StoryFn } from "@storybook/react";
 
 export default {
   component: Bullet,
   title: "Charts/Bullet Chart",
-};
-const Template = (args) => <Bullet {...args} />;
+} as Meta;
+
+const Template: StoryFn = (args: any) => <Bullet {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

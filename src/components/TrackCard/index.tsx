@@ -3,7 +3,7 @@ import AlbumCover from "./AlbumCover";
 import Details from "./Details";
 import Mood from "./Mood";
 
-type TrackCardProps = {
+export type TrackCardProps = {
   track: Track;
   features: AudioFeatures;
   averages?: AudioFeatures;

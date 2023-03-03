@@ -8,10 +8,11 @@ const formatDuration = (durationMs: number) => {
     .padStart(2, "0")}`;
 };
 
-type DetailsProps = {
+export type DetailsProps = {
   track: Track;
   features?: AudioFeatures;
 };
+
 const Details = ({ track, features }: DetailsProps) => {
   return (
     <div>

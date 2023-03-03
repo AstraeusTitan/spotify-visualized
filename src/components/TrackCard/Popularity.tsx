@@ -1,6 +1,6 @@
 import Bullet from "../Chart/Bullet";
 
-type PopularityProps = {
+export type PopularityProps = {
   value: number;
   height: number;
   className?: string;

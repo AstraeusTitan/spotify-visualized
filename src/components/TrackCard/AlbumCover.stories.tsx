@@ -1,11 +1,12 @@
 import AlbumCover, { AlbumCoverProps } from "./AlbumCover";
+import { Meta, StoryFn } from "@storybook/react";
 
 export default {
   component: AlbumCover,
   title: "TrackCard/Album Cover",
-};
+} as Meta;
 
-const Template = (args: any) => <AlbumCover {...args} />;
+const Template: StoryFn = (args: any) => <AlbumCover {...args} />;
 
 export const Default = Template.bind({});
 (Default as any).args = {

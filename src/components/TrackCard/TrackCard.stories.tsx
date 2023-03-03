@@ -1,11 +1,12 @@
-import TrackCard from ".";
+import { Meta, StoryFn } from "@storybook/react";
+import TrackCard, { TrackCardProps } from ".";
 
 export default {
   title: "TrackCard",
   component: TrackCard,
-};
+} as Meta;
 
-const Template = (args) => <TrackCard {...args} />;
+const Template: StoryFn = (args) => <TrackCard {...(args as TrackCardProps)} />;
 
 export const Default = Template.bind({});
 Default.args = {

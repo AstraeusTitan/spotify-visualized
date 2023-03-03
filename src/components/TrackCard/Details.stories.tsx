@@ -1,11 +1,12 @@
-import Details from "./Details";
+import { Meta, StoryFn } from "@storybook/react";
+import Details, { DetailsProps } from "./Details";
 
 export default {
   title: "TrackCard/Details",
   component: Details,
-};
+} as Meta;
 
-const Template = (args) => <Details {...args} />;
+const Template: StoryFn = (args) => <Details {...(args as DetailsProps)} />;
 
 export const Default = Template.bind({});
 Default.args = {

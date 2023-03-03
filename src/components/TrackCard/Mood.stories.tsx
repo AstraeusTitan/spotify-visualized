@@ -1,11 +1,12 @@
+import { Meta, StoryFn } from "@storybook/react";
 import Mood from "./Mood";
 
 export default {
   title: "TrackCard/Mood",
   component: Mood,
-};
+} as Meta;
 
-const Template = (args) => <Mood {...args} />;
+const Template: StoryFn = (args) => <Mood {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
