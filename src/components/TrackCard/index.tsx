@@ -1,30 +1,14 @@
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
 import AlbumCover from "./AlbumCover";
 import Details from "./Details";
-import Mood, { MoodData } from "./Mood";
-import Popularity from "./Popularity";
+import Mood from "./Mood";
 
-type TrackData = {
-  title: string;
-  artist: string;
-  albumCoverURL: string;
-  mode?: 1 | 0;
-  tempo?: number;
-  songKey?: string;
-  duration: number;
-  popularity: number;
-  accousticness: MoodData;
-  danceability: MoodData;
-  energy: MoodData;
-  instrumentalness: MoodData;
-  liveness: MoodData;
-  loudness: MoodData;
-  speachiness: MoodData;
-  valence: MoodData;
-};
 type TrackCardProps = {
-  trackData: TrackData;
+  track: Track;
+  features: AudioFeatures;
+  averages: AudioFeatures;
 };
-const TrackCard = ({ trackData }: TrackCardProps) => {
+const TrackCard = ({ track, features, averages }: TrackCardProps) => {
   return (
     <div
       className="
@@ -48,15 +32,11 @@ const TrackCard = ({ trackData }: TrackCardProps) => {
         gap-4
         sm:grow"
       >
-        <AlbumCover
-          url={trackData.albumCoverURL}
-          alt={trackData.title}
-          className="w-32 h-32"
-        />
-        <Details {...trackData} />
+        <AlbumCover album={track.album} className="w-32 h-32" />
+        <Details track={track} features={features} />
       </div>
       <div className="px-2">
-        <Mood {...trackData} height={128} bulletWidth={25} />
+        <Mood features={features} averages={averages} />
       </div>
     </div>
   );

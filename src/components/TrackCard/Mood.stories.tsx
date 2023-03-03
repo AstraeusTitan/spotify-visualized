@@ -9,38 +9,24 @@ const Template = (args) => <Mood {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  bulletWidth: 20,
-  height: 96,
-  accousticness: {
-    measure: 0.1,
-    compare: 0.5,
+  features: {
+    danceability: 0.4,
+    energy: 0.4,
+    loudness: -40,
+    speechiness: 0.4,
+    acousticness: 0.4,
+    instrumentalness: 0.4,
+    liveness: 0.4,
+    valence: 0.4,
   },
-  danceability: {
-    measure: 0.4,
-    compare: 0.2,
-  },
-  energy: {
-    measure: 0.678,
-    compare: 0.467,
-  },
-  instrumentalness: {
-    measure: 0.02,
-    compare: 0.1,
-  },
-  liveness: {
-    measure: 0.2,
-    compare: 0.8,
-  },
-  loudness: {
-    measure: -45,
-    compare: -20,
-  },
-  speachiness: {
-    measure: 0.378,
-    compare: 0.256,
-  },
-  valence: {
-    measure: 0.5,
-    compare: 0.45,
+  averages: {
+    danceability: 0.6,
+    energy: 0.6,
+    loudness: -20,
+    speechiness: 0.6,
+    acousticness: 0.6,
+    instrumentalness: 0.6,
+    liveness: 0.6,
+    valence: 0.6,
   },
 };

@@ -1,12 +1,15 @@
+import { Album } from "@/utilities/Spotify/Api";
 import clsx from "clsx";
 import Image from "next/image";
 
-type AlbumCoverProps = {
-  url: string;
-  alt: string;
+export type AlbumCoverProps = {
+  album: Album;
   className?: string;
 };
-const AlbumCover = ({ url, alt, className }: AlbumCoverProps) => {
+const AlbumCover = ({ album, className }: AlbumCoverProps) => {
+  const url = album.images[0].url;
+  const alt = `${album.name} Cover Image`;
+
   const baseClasses = [
     "relative",
     "object-cover",

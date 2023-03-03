@@ -1,3 +1,4 @@
+import { AudioFeatures } from "@/utilities/Spotify/Api";
 import clsx from "clsx";
 import Bullet from "../Chart/Bullet";
 export type MoodData = {
@@ -5,35 +6,15 @@ export type MoodData = {
   compare: number;
 };
 type MoodProps = {
-  bulletWidth: number;
-  height: number;
-  accousticness: MoodData;
-  danceability: MoodData;
-  energy: MoodData;
-  instrumentalness: MoodData;
-  liveness: MoodData;
-  loudness: MoodData;
-  speachiness: MoodData;
-  valence: MoodData;
+  features: AudioFeatures;
+  averages: AudioFeatures;
   className?: string;
 };
 
-const Mood = ({
-  bulletWidth,
-  height,
-  accousticness,
-  danceability,
-  energy,
-  instrumentalness,
-  liveness,
-  loudness,
-  speachiness,
-  valence,
-  className,
-}: MoodProps) => {
-  const chartWidth = bulletWidth;
-  const chartHeight = height;
-  const MoodBullet = ({ min = 0, max = 1, label, values }) => {
+const Mood = ({ features, averages, className }: MoodProps) => {
+  const chartWidth = 25;
+  const chartHeight = 128;
+  const MoodBullet = ({ min = 0, max = 1, label, measure, compare }) => {
     const classes = {
       measure: "stroke-[7px] stroke-sky-400",
       axis: "stroke-zinc-400",
@@ -45,8 +26,8 @@ const Mood = ({
         height={chartHeight}
         min={min}
         max={max}
-        measure={values.measure}
-        compare={values.compare}
+        measure={measure}
+        compare={compare}
         label={label}
         margins={{
           top: 5,
@@ -60,14 +41,48 @@ const Mood = ({
   const baseClasses = ["flex", "flex-row", "justify-evenly", "max-w-sm"];
   return (
     <div className={clsx(baseClasses, className)}>
-      <MoodBullet values={accousticness} label="A" />
-      <MoodBullet values={danceability} label="D" />
-      <MoodBullet values={energy} label="E" />
-      <MoodBullet values={instrumentalness} label="I" />
-      <MoodBullet values={liveness} label="LI" />
-      <MoodBullet values={loudness} min={-65} max={0} label="LO" />
-      <MoodBullet values={speachiness} label="S" />
-      <MoodBullet values={valence} label="V" />
+      <MoodBullet
+        measure={features.acousticness || 0}
+        compare={averages.acousticness}
+        label="A"
+      />
+      <MoodBullet
+        measure={features.danceability || 0}
+        compare={averages.danceability}
+        label="D"
+      />
+      <MoodBullet
+        measure={features.energy || 0}
+        compare={averages.energy}
+        label="E"
+      />
+      <MoodBullet
+        measure={features.instrumentalness || 0}
+        compare={averages.instrumentalness}
+        label="I"
+      />
+      <MoodBullet
+        measure={features.liveness || 0}
+        compare={averages.liveness}
+        label="LI"
+      />
+      <MoodBullet
+        measure={features.loudness || -65}
+        compare={averages.loudness}
+        min={-65}
+        max={0}
+        label="LO"
+      />
+      <MoodBullet
+        measure={features.speechiness || 0}
+        compare={averages.speechiness}
+        label="S"
+      />
+      <MoodBullet
+        measure={features.valence || 0}
+        compare={averages.valence}
+        label="V"
+      />
     </div>
   );
 };

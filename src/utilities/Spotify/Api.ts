@@ -76,3 +76,96 @@ class Api {
 }
 
 export default Api;
+
+export type RecentlyPlayedTrack = {
+  context?: Context;
+  played_at: string;
+  track: Track;
+};
+
+export type Context = {
+  type: string;
+  href: string;
+  external_urls: ExternalUrls;
+  uri: string;
+};
+
+export type Track = {
+  album: Album;
+  artists: Artist[];
+  available_markets: string[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_ids: ExternalIds;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  is_local: boolean;
+  name: string;
+  popularity: number;
+  preview_url: string;
+  track_number: number;
+  type: "track";
+  uri: string;
+};
+
+export type Artist = {
+  href: string;
+  id: string;
+  name: string;
+  type: "artist";
+  uri: string;
+  external_urls: ExternalUrls;
+};
+
+export type Album = {
+  type: "album";
+  album_type: "single" | "album" | "compilation";
+  artists: Artist[];
+  available_markets: string[];
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  images: Image[];
+  name: string;
+  release_date: string;
+  release_date_precision: "year" | "month" | "day";
+  total_tracks: number;
+  uri: string;
+};
+
+export type Image = {
+  url: string;
+  height: number;
+  width: number;
+};
+
+export type ExternalUrls = {
+  spotify: string;
+};
+
+export type ExternalIds = {
+  isrc: string;
+};
+
+export type AudioFeatures = {
+  danceability: number;
+  energy: number;
+  key: number;
+  loudness: number;
+  mode: number;
+  speechiness: number;
+  acousticness: number;
+  instrumentalness: number;
+  liveness: number;
+  valence: number;
+  tempo: number;
+  type: "audio_features";
+  id: string;
+  uri: string;
+  track_href: string;
+  analysis_url: string;
+  duration_ms: number;
+  time_signature: number;
+};

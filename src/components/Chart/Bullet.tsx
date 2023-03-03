@@ -23,7 +23,7 @@ const drawChart = (
     bottom: label !== undefined ? 20 : 0,
     ...margins,
   };
-  console.info(_margins);
+
   const _classes = {
     axis: "stroke-zinc-700",
     measure: "stroke-sky-400 stroke-[5px]",
