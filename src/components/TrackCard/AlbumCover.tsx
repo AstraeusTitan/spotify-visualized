@@ -13,8 +13,6 @@ const AlbumCover = ({ album, className }: AlbumCoverProps) => {
   const baseClasses = [
     "relative",
     "object-cover",
-    "w-16",
-    "h-16",
     "rounded-lg",
     "overflow-hidden",
   ];

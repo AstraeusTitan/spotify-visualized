@@ -73,10 +73,18 @@ const Details: FC = () => {
       <Container>
         <Section className="mt-16">
           <Section.Header>
-            <Section.Eyebrow>Last 50 tracks played</Section.Eyebrow>
+            <Section.Eyebrow className="text-sky-500">
+              Last 50 tracks played
+            </Section.Eyebrow>
             <Section.Title>Recent Tracks</Section.Title>
           </Section.Header>
-          <div>
+          <div
+            className="
+            flex
+            flex-col
+            gap-4
+            mt-8"
+          >
             {!!renderDetails &&
               recentlyPlayed.map((track, i) => {
                 return (

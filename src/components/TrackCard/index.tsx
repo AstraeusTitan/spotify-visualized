@@ -20,7 +20,7 @@ const TrackCard = ({ track, features, averages }: TrackCardProps) => {
       rounded
       px-6
       py-6
-      max-w-3xl
+      max-w-4xl
       gap-4"
     >
       <div
@@ -32,7 +32,15 @@ const TrackCard = ({ track, features, averages }: TrackCardProps) => {
         gap-4
         sm:grow"
       >
-        <AlbumCover album={track.album} className="w-32 h-32" />
+        <AlbumCover
+          album={track.album}
+          className="
+          w-40
+          h-40
+          sm:w-32
+          sm:h-32
+          sm:min-w-[8rem]"
+        />
         <Details track={track} features={features} />
       </div>
       <div className="px-2">

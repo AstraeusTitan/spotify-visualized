@@ -19,19 +19,34 @@ const Details = ({ track, features }: DetailsProps) => {
       <div className="flex gap-4">
         <Popularity value={track.popularity} height={90} />
         <div>
-          <h4 className="text-xl mb-3">{track.name}</h4>
-          <p className="text-zinc-700 text-lg">
+          <h4
+            className="
+            text-lg
+            sm:text-xl
+            mb-3"
+          >
+            {track.name}
+          </h4>
+          <p
+            className="
+            text-zinc-700
+            text-sm
+            sm:text-base"
+          >
             {track.artists.map((artist) => artist.name).join(", ")}
           </p>
         </div>
       </div>
       <div
         className="
-          flex
-          text-xs
-          gap-2
-          items-center
-          text-zinc-700"
+        flex
+        text-xs
+        gap-2
+        justify-center
+        sm:justify-start
+        items-center
+        text-zinc-700
+        mt-4"
       >
         <p>key: {features?.key || "N/A"}</p>
         <span className="w-2 border-b-2 border-zinc-700" />

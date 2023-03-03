@@ -23,16 +23,16 @@ export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
         rounded-full
         shadow-sm
         text-white
-        bg-purple-600
-        hover:bg-purple-700
+        bg-sky-400
+        hover:bg-sky-600
         focus:outline-none
         focus:ring-2
         focus:ring-offset-2
-        focus:ring-purple-400"
+        focus:ring-sky-400"
       onClick={() => {
         if (spotify?.Auth.tokenValid()) {
-            router.push("/details");
-          } else {
+          router.push("/details");
+        } else {
           spotify?.Auth.openLoginPopup(window);
         }
       }}

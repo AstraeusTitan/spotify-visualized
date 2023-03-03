@@ -50,7 +50,13 @@ const Mood = ({ features, averages, className }: MoodProps) => {
       />
     );
   };
-  const baseClasses = ["flex", "flex-row", "justify-evenly", "max-w-sm"];
+  const baseClasses = [
+    "flex",
+    "flex-row",
+    "justify-center",
+    "gap-1",
+    "max-w-sm",
+  ];
   return (
     <div className={clsx(baseClasses, className)}>
       <MoodBullet
