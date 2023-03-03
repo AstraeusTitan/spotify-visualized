@@ -30,15 +30,9 @@ export default function Home({
         storage: window.localStorage,
       });
       setSpotify(s);
+      s.Auth.loadToken(window.localStorage);
     }
   }, [setSpotify, spotifyConfig]);
-  useEffect(() => {
-    if (spotify) {
-      console.log("attempt to load");
-      spotify?.Auth.loadToken(window.localStorage);
-      console.log(spotify?.config);
-    }
-  }, [spotify]);
   return (
     <Container>
       <div className="grid place-content-center h-screen">

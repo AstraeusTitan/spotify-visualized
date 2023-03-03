@@ -5,25 +5,23 @@ const Callback = () => {
   useEffect(() => {
     const target = window.opener;
     if (!target) {
-      window.next.router.push("/");
+      (window as any).next.router.push("/");
       return;
     }
     const spotifyAuth = target.SpotifyAuth as Auth;
-    if (spotifyAuth) {
-      spotifyAuth.handleCallback(
-        window.location.hash.substring(1),
-        window.location.search.substring(1),
-        (err, data) => {
-          if (err) {
-            target.next && target.next.router.push("/");
-            window.close();
-          } else {
-            target.next && target.next.router.push("/details");
-            window.close();
-          }
+    spotifyAuth?.handleCallback(
+      window.location.hash.substring(1),
+      window.location.search.substring(1),
+      (err, data) => {
+        if (err) {
+          target.next && target.next.router.push("/");
+          window.close();
+        } else {
+          target.next && target.next.router.push("/details");
+          window.close();
         }
-      );
-    }
+      }
+    );
   }, []);
 
   // TODO: Add a loading message

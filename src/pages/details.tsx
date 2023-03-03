@@ -34,7 +34,7 @@ const Details: FC = () => {
 
   // TODO: Refactor this mess of thens
   useEffect(() => {
-    if (spotify && spotify.Auth.tokenValid()) {
+    if (spotify?.Auth.tokenValid()) {
       spotify.Api.getRecentlyPlayed({ limit: 50 })
         .then((json) =>
           (json.items as RecentlyPlayedTrack[]).map(

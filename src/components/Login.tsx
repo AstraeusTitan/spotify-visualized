@@ -30,13 +30,10 @@ export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
         focus:ring-offset-2
         focus:ring-purple-400"
       onClick={() => {
-        if (spotify) {
-          console.log(spotify);
-          if (spotify.Auth.tokenValid()) {
+        if (spotify?.Auth.tokenValid()) {
             router.push("/details");
           } else {
-            spotify.Auth.openLoginPopup(window);
-          }
+          spotify?.Auth.openLoginPopup(window);
         }
       }}
       {...restProps}
