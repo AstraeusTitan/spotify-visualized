@@ -3,7 +3,11 @@ import { useEffect } from "react";
 
 const Callback = () => {
   useEffect(() => {
-    const target = window.opener || window;
+    const target = window.opener;
+    if (!target) {
+      window.next.router.push("/");
+      return;
+    }
     const spotifyAuth = target.SpotifyAuth as Auth;
     if (spotifyAuth) {
       spotifyAuth.handleCallback(
