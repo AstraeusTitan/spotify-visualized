@@ -223,6 +223,34 @@ describe("Spotify.Auth", () => {
     });
   });
 
+  describe("tokenValid", () => {
+    let auth: Auth;
+    beforeEach(() => {
+      auth = new Auth(passedConfig);
+    });
+
+    it("should be false when token undefined", () => {
+      auth.config.token = undefined;
+      expect(auth.tokenValid()).toBe(false);
+    });
+
+    it("should be false when past expiration", () => {
+      auth.config.token = {
+        accessToken: "TOKEN",
+        expiresAt: Math.floor(Date.now() / 1000) - 1000,
+      };
+      expect(auth.tokenValid()).toBe(false);
+    });
+
+    it("should be true when not past expiration", () => {
+      auth.config.token = {
+        accessToken: "TOKEN",
+        expiresAt: Math.floor(Date.now() / 1000) + 1000,
+      };
+      expect(auth.tokenValid()).toBe(true);
+    });
+  });
+
   describe("storeToken", () => {
     let auth: Auth;
     let mock: any;

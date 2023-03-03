@@ -83,7 +83,7 @@ class Auth {
     return response;
   }
 
-  openLoginPopup(target): void {
+  openLoginPopup(target: any): void {
     target.SpotifyAuth = this;
     target.open(this.url(), "Login with Spotify", "width=600, height=800");
   }
@@ -112,6 +112,12 @@ class Auth {
     if (callback) {
       callback(null, token);
     }
+  }
+
+  tokenValid(): boolean {
+    const token = this.config.token;
+    const now = Math.floor(Date.now() / 1000);
+    return token !== undefined && token.expiresAt > now;
   }
 
   setToken(token: AuthToken) {

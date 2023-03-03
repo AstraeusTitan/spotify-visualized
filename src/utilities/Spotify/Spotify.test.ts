@@ -25,4 +25,28 @@ describe("Spotify", () => {
       expect(spotify.config).toBe(spotify.Auth.config);
     });
   });
+
+  describe("Auth", () => {
+    let spotify: Spotify, mock: any;
+    beforeEach(() => {
+      spotify = new Spotify(passedConfig);
+      mock = {
+        open: (url?: string, target?: string, features?: string) => {
+          return this;
+        },
+      };
+    });
+
+    describe("openLoginPopup", () => {
+      it("should call the correct url", () => {
+        const spy = jest.spyOn(mock, "open");
+        spotify.Auth.openLoginPopup(mock);
+        expect(spy).toHaveBeenCalledWith(
+          spotify.Auth.url(spotify.Auth._checkState),
+          "Login with Spotify",
+          "width=600, height=800"
+        );
+      });
+    });
+  });
 });
