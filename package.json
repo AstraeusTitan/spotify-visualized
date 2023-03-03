@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
+    "test:coverage": "jest --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
