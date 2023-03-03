@@ -8,6 +8,22 @@ const formatDuration = (durationMs: number) => {
     .padStart(2, "0")}`;
 };
 
+const keys = [
+  "C",
+  "C♯",
+  "D",
+  "D♯",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B",
+  "N/A",
+];
+
 export type DetailsProps = {
   track: Track;
   features?: AudioFeatures;
@@ -48,7 +64,7 @@ const Details = ({ track, features }: DetailsProps) => {
         text-zinc-700
         mt-4"
       >
-        <p>key: {features?.key || "N/A"}</p>
+        <p>key: {keys[features?.key || 12] || "N/A"}</p>
         <span className="w-2 border-b-2 border-zinc-700" />
         <p>{features?.mode ? "Major" : "Minor"}</p>
         <span className="w-2 border-b-2 border-zinc-700" />
