@@ -1,6 +1,4 @@
 import { useSpotify } from "@/hooks/useSpotify";
-import Spotify from "@/utilities/Spotify";
-import SpotifyAPI, { SpotifyAPITypes } from "@/utilities/spotifyApi";
 import { useRouter } from "next/router";
 import { ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 
