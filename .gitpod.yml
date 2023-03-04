@@ -1,2 +1,18 @@
 tasks:
   - init: yarn install
+
+  - name: Restore .env
+  - command: |
+      if [ -f .env ]; then
+        echo "Found .env in workspace"
+      else
+        if [ -z "${SPOTIFY_VISUALIZED_ENV}" ]; then
+          # There is no $SPOTIFY_VISUALIZED_ENV from a previous workspace
+          # Here you take an action like copying a sample env file to the desired file name
+        else
+          # To persist a current env file to gitpod, run:
+          #   gp env SPOTIFY_VISUALIZED_ENV="$(base64 -w 0 .env)"
+          echo "Restoring .env from Gitpod"
+          echo "${SPOTIFY_VISUALIZED_ENV}" | base64 -d > .env
+        fi
+      fi
