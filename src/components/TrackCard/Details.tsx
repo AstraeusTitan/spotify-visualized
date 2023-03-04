@@ -10,9 +10,9 @@ const formatDuration = (durationMs: number) => {
 
 const keys = [
   "C",
-  "C♯",
+  "C#",
   "D",
-  "D♯",
+  "D#",
   "E",
   "F",
   "F#",
