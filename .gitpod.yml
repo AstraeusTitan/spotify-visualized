@@ -7,8 +7,7 @@ tasks:
         echo "Found .env in workspace"
       else
         if [ -z "${SPOTIFY_VISUALIZED_ENV}" ]; then
-          # There is no $SPOTIFY_VISUALIZED_ENV from a previous workspace
-          # Here you take an action like copying a sample env file to the desired file name
+          echo "No env to restore"
         else
           # To persist a current env file to gitpod, run:
           #   gp env SPOTIFY_VISUALIZED_ENV="$(base64 -w 0 .env)"
