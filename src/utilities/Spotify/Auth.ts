@@ -56,7 +56,7 @@ class Auth {
       this.config.scopes.join(" ")
     )}&response_type=token&state=${encodeURIComponent(
       state || this.generateCheckState()
-    )}&show_dialog=true`;
+    )}&show_dialog=false`;
   }
 
   parseAuthResponse(
