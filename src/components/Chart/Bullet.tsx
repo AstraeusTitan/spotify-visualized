@@ -32,11 +32,7 @@ const drawChart = (
     ...classes,
   };
   const targetAccess = d3.select(target);
-  targetAccess.selectAll("svg").remove();
-  const chart = targetAccess
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  const chart = d3.create("svg").attr("width", width).attr("height", height);
   const xScale = d3
     .scaleLinear()
     .domain([-1, 1])
@@ -95,6 +91,9 @@ const drawChart = (
       .attr("dy", 15);
   }
   // TODO: Add tooltips
+
+  targetAccess.selectAll("svg").remove();
+  targetAccess.append(() => chart.node());
 };
 
 type Data = {
