@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import Section from "@/components/Section";
 import TrackCard from "@/components/TrackCard";
 import { useSpotify } from "@/hooks/useSpotify";
+import Spotify, { SpotifyConfig } from "@/utilities/Spotify";
 import {
   AudioFeatures,
   RecentlyPlayedTrack,
@@ -10,7 +11,19 @@ import {
 import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 
-const Details: FC = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      spotifyConfig: {
+        clientId: process.env.CLIENT_ID,
+        redirectUri: `${process.env.NEXT_PUBLIC_URL}/callback`,
+        scopes: process.env.SPOTIFY_SCOPES?.split(" "),
+      } as SpotifyConfig,
+    },
+  };
+}
+
+const Details = ({ spotifyConfig }: { spotifyConfig: SpotifyConfig }) => {
   const router = useRouter();
   const [recentlyPlayed, setRecentlyPlayed] = useState<Track[]>([]);
   const [recentlyPlayedFeatures, setRecentlyPlayedFeatures] = useState<
@@ -19,7 +32,7 @@ const Details: FC = () => {
   const [recentlyPlayedAverages, setRecentlyPlayedAverages] =
     useState<AudioFeatures>();
 
-  const { spotify } = useSpotify();
+  const { spotify, setSpotify } = useSpotify();
 
   const renderDetails =
     recentlyPlayed.length &&
@@ -27,10 +40,23 @@ const Details: FC = () => {
     recentlyPlayedAverages;
 
   useEffect(() => {
-    if (!spotify || !spotify.Auth.tokenValid()) {
-      router.push("/");
+    if (!spotify && setSpotify) {
+      let s = new Spotify({
+        ...spotifyConfig,
+        fetch: fetch.bind(window),
+        storage: window.localStorage,
+      });
+      setSpotify(s);
+      s.Auth.loadToken(window.localStorage);
+      if (!s.Auth.tokenValid()) {
+        router.push("/");
+      }
+    } else {
+      if (!spotify?.Auth.tokenValid()) {
+        router.push("/");
+      }
     }
-  }, [router, spotify]);
+  }, [router, setSpotify, spotify, spotifyConfig]);
 
   // TODO: Refactor this mess of thens
   useEffect(() => {
