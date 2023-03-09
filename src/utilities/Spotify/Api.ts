@@ -20,21 +20,22 @@ class Api {
     return `?${strings.join("&")}`;
   }
 
-  _hasScope(scope: string): boolean {
-    return this.config.scopes.includes(scope);
+  _hasScopes(scopes: string[]): boolean {
+    let checks = scopes.map((scope) => this.config.scopes.includes(scope));
+    return !checks.includes(false);
   }
 
   _makeRequest(
     route: string,
-    requiredScope?: string | null | undefined,
+    requiredScopes?: string[] | null | undefined,
     params?: QueryParams
   ) {
     if (this.config.fetch === undefined) {
       throw new Error("No fetch is defined");
     }
 
-    if (requiredScope && !this._hasScope(requiredScope)) {
-      throw new Error(`Token missing scope: ${requiredScope}`);
+    if (requiredScopes && !this._hasScopes(requiredScopes)) {
+      throw new Error(`Token missing scope`);
     }
 
     const headers = {
@@ -56,7 +57,7 @@ class Api {
   getRecentlyPlayed(params?: RecentlyPlayedTracksQuery) {
     return this._makeRequest(
       "/me/player/recently-played",
-      "user-read-recently-played",
+      ["user-read-recently-played"],
       params
     ) as Promise<RecentlyPlayedTracksResponse>;
   }
@@ -80,7 +81,7 @@ class Api {
   getUsersTopItems(type: "artists" | "tracks", params?: UsersTopItemsQuery) {
     return this._makeRequest(
       `/me/top/${type}`,
-      "user-top-read",
+      ["user-top-read"],
       params
     ) as Promise<UsersTopItemsResponse>;
   }

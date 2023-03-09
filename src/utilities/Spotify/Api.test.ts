@@ -47,11 +47,19 @@ describe("Spotify.Api", () => {
     });
 
     it("should return true when scope is available", () => {
-      expect(api._hasScope("SCOPE_1")).toBe(true);
+      expect(api._hasScopes(["SCOPE_1"])).toBe(true);
+    });
+
+    it("should return true when all scopes are available", () => {
+      expect(api._hasScopes(["SCOPE_1", "SCOPE_2"])).toBe(true);
     });
 
     it("should return false when scope is not available", () => {
-      expect(api._hasScope("SCOPE_3")).toBe(false);
+      expect(api._hasScopes(["SCOPE_3"])).toBe(false);
+    });
+
+    it("should return false when not all scopes are available", () => {
+      expect(api._hasScopes(["SCOPE_2", "SCOPE_3"])).toBe(false);
     });
   });
 
@@ -98,11 +106,11 @@ describe("Spotify.Api", () => {
     });
 
     it("should throw error on missing scope", () => {
-      expect(() => api._makeRequest("route", "SCOPE_3")).toThrow();
+      expect(() => api._makeRequest("route", ["SCOPE_3"])).toThrow();
     });
 
     it("should not trow when scope is available", () => {
-      expect(() => api._makeRequest("/route", "SCOPE_1")).toThrow();
+      expect(() => api._makeRequest("/route", ["SCOPE_1"])).toThrow();
     });
   });
 
