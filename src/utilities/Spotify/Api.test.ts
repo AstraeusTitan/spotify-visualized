@@ -116,6 +116,12 @@ describe("Spotify.Api", () => {
       api = new Api({ ...passedConfig, scopes: ["user-read-recently-played"] });
     });
 
+    it("should throw if scope is missing", () => {
+      api.config.scopes = [];
+      api.config.fetch = mock.fetch;
+      expect(() => api.getRecentlyPlayed()).toThrow();
+    });
+
     it("should call fetch with the correct args", () => {
       const spy = jest.spyOn(mock, "fetch");
       api.config.fetch = spy as any;
