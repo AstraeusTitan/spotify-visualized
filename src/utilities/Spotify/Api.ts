@@ -1,19 +1,5 @@
 import { AuthToken } from "./Auth";
 
-export type ApiConfig = {
-  token?: AuthToken;
-  scopes: string[];
-  fetch?: (input: string, init?: any) => Promise<any>;
-};
-
-export type QueryParams = {
-  [key: string]: number | string | number[] | undefined;
-  limit?: number;
-  after?: number;
-  before?: number;
-  ids?: string | number[];
-};
-
 class Api {
   baseUrl = "https://api.spotify.com/v1";
   config: ApiConfig;
@@ -67,7 +53,7 @@ class Api {
   // Artist requests
 
   // Player Requests
-  getRecentlyPlayed(params: QueryParams = { limit: 20 }) {
+  getRecentlyPlayed(params?: RecentlyPlayedTracksQuery) {
     return this._makeRequest(
       "/me/player/recently-played",
       "user-read-recently-played",
@@ -80,7 +66,7 @@ class Api {
   // Search requests
 
   // Tracks requests
-  getTracksAudioFeatures(params: QueryParams) {
+  getTracksAudioFeatures(params: TracksAudioFeaturesQuery) {
     return this._makeRequest("/audio-features", null, {
       ids: params.ids,
     }) as Promise<TracksAudioFeaturesResponse>;
@@ -94,6 +80,21 @@ class Api {
 
 export default Api;
 
+export type ApiConfig = {
+  token?: AuthToken;
+  scopes: string[];
+  fetch?: (input: string, init?: any) => Promise<any>;
+};
+
+export type QueryParams = RecentlyPlayedTracksQuery | TracksAudioFeaturesQuery;
+
+export type RecentlyPlayedTracksQuery = {
+  [key: string]: number | undefined;
+  limit?: number;
+  after?: number;
+  before?: number;
+};
+
 export type RecentlyPlayedTracksResponse = {
   href: string;
   limit: number;
@@ -104,6 +105,11 @@ export type RecentlyPlayedTracksResponse = {
   };
   total: number;
   items: RecentlyPlayedTrack[];
+};
+
+export type TracksAudioFeaturesQuery = {
+  [key: string]: string | number[] | undefined;
+  ids: string | number[];
 };
 
 export type TracksAudioFeaturesResponse = {
