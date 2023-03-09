@@ -203,12 +203,16 @@ export type Track = {
 };
 
 export type Artist = {
+  external_urls: ExternalUrls;
+  followers: Followers;
+  genres: string[];
   href: string;
   id: string;
+  images: Image[];
   name: string;
+  popularity: number;
   type: "artist";
   uri: string;
-  external_urls: ExternalUrls;
 };
 
 export type Album = {
