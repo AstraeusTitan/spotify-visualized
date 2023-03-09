@@ -212,7 +212,7 @@ describe("Spotify.Api", () => {
     });
   });
 
-  describe("getRecentlyPlayed", () => {
+  describe("getUsersTopItems", () => {
     let mock: any, api: Api;
     beforeEach(() => {
       mock = {
