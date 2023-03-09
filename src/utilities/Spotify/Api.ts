@@ -67,17 +67,34 @@ class Api {
       "/me/player/recently-played",
       "user-read-recently-played",
       params
-    );
+    ) as Promise<RecentlyPlayedTracksResponse>;
   }
 
   getTracksAudioFeatures(params: QueryParams) {
     return this._makeRequest("/audio-features", null, {
       ids: params.ids,
-    });
+    }) as Promise<TracksAudioFeaturesResponse>;
+  }
   }
 }
 
 export default Api;
+
+export type RecentlyPlayedTracksResponse = {
+  href: string;
+  limit: number;
+  next: string | null;
+  cursors: {
+    after: string;
+    before: string;
+  };
+  total: number;
+  items: RecentlyPlayedTrack[];
+};
+
+export type TracksAudioFeaturesResponse = {
+  audio_features: AudioFeatures[];
+};
 
 export type RecentlyPlayedTrack = {
   context?: Context;

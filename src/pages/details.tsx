@@ -62,11 +62,7 @@ const Details = ({ spotifyConfig }: { spotifyConfig: SpotifyConfig }) => {
   useEffect(() => {
     if (spotify?.Auth.tokenValid()) {
       spotify.Api.getRecentlyPlayed({ limit: 50 })
-        .then((json) =>
-          (json.items as RecentlyPlayedTrack[]).map(
-            (wrappedTrack) => wrappedTrack.track
-          )
-        )
+        .then((json) => json.items.map((wrappedTrack) => wrappedTrack.track))
         .then((tracks) => (setRecentlyPlayed(tracks), tracks))
         .then((tracks) => tracks.map((track) => track.id))
         .then((ids) =>
@@ -74,8 +70,7 @@ const Details = ({ spotifyConfig }: { spotifyConfig: SpotifyConfig }) => {
         )
         .then(
           (json) => (
-            setRecentlyPlayedFeatures(json.audio_features),
-            json.audio_features as AudioFeatures[]
+            setRecentlyPlayedFeatures(json.audio_features), json.audio_features
           )
         )
         .then((features) => {
