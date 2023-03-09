@@ -97,7 +97,8 @@ export type ApiConfig = {
 export type QueryParams =
   | RecentlyPlayedTracksQuery
   | TracksAudioFeaturesQuery
-  | UsersTopItemsQuery;
+  | UsersTopItemsQuery
+  | CurrentUsersPlaylistsQuery;
 
 export type RecentlyPlayedTracksQuery = {
   [key: string]: number | undefined;
@@ -125,6 +126,22 @@ export type TracksAudioFeaturesQuery = {
 
 export type TracksAudioFeaturesResponse = {
   audio_features: AudioFeatures[];
+};
+
+export type CurrentUsersPlaylistsQuery = {
+  [key: string]: number | undefined;
+  limit?: number;
+  offset?: number;
+};
+
+export type CurrentUsersPlaylistsResponse = {
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+  items: Playlist & { tracks: { href: string; total: number } | null[] }[];
 };
 
 export type UsersTopItemsQuery = {
@@ -238,23 +255,62 @@ export type AudioFeatures = {
   time_signature: number;
 };
 
-export type Profile = {
+export type User = {
+  external_urls: ExternalUrls;
+  followers: Followers;
+  href: string;
+  id: string;
+  type: "user";
+  uri: string;
+};
+
+export type Profile = User & {
   country?: string;
   display_name: string | null;
   email?: string;
-  explicit_content?: {
-    filter_enabled: boolean;
-    filter_locked: boolean;
-  };
+  explicit_content?: ExplicitContent;
+  images: Image[];
+  product?: string;
+};
+
+export type Playlist = {
+  collaborative: boolean;
+  description: string | null;
   external_urls: ExternalUrls;
-  followers: {
-    href: null;
-    total: number;
-  };
+  followers: Followers;
   href: string;
   id: string;
   images: Image[];
-  product?: string;
-  type: "user";
-  uri: string;
+  name: string;
+  owner: User & {
+    display_name: string | null;
+  };
+  public: boolean | null;
+  snapshot_id: string;
+  tracks: {
+    href: string;
+    limit: number;
+    next: string;
+    offset: number;
+    previous: string;
+    total: number;
+    items: PlaylistTrack[];
+  };
+};
+
+export type PlaylistTrack = {
+  added_at: string;
+  added_by: User;
+  is_local: boolean;
+  track: Track;
+};
+
+export type Followers = {
+  href: null;
+  total: number;
+};
+
+export type ExplicitContent = {
+  filter_enabled: boolean;
+  filter_locked: boolean;
 };
