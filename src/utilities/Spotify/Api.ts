@@ -62,6 +62,11 @@ class Api {
       .then((response) => response.json());
   }
 
+  // Album requests
+
+  // Artist requests
+
+  // Player Requests
   getRecentlyPlayed(params: QueryParams = { limit: 20 }) {
     return this._makeRequest(
       "/me/player/recently-played",
@@ -70,11 +75,20 @@ class Api {
     ) as Promise<RecentlyPlayedTracksResponse>;
   }
 
+  // Playlist requests
+
+  // Search requests
+
+  // Tracks requests
   getTracksAudioFeatures(params: QueryParams) {
     return this._makeRequest("/audio-features", null, {
       ids: params.ids,
     }) as Promise<TracksAudioFeaturesResponse>;
   }
+
+  // User requests
+  getCurrentUsersProfile() {
+    return this._makeRequest("/me") as Promise<Profile>;
   }
 }
 
@@ -188,4 +202,25 @@ export type AudioFeatures = {
   analysis_url: string;
   duration_ms: number;
   time_signature: number;
+};
+
+export type Profile = {
+  country?: string;
+  display_name: string | null;
+  email?: string;
+  explicit_content?: {
+    filter_enabled: boolean;
+    filter_locked: boolean;
+  };
+  external_urls: ExternalUrls;
+  followers: {
+    href: null;
+    total: number;
+  };
+  href: string;
+  id: string;
+  images: Image[];
+  product?: string;
+  type: "user";
+  uri: string;
 };
