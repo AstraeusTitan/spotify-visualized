@@ -63,6 +63,13 @@ class Api {
   }
 
   // Playlist requests
+  getCurrentUsersPlaylists(params?: CurrentUsersPlaylistsQuery) {
+    return this._makeRequest(
+      "/me/playlists",
+      ["playlist-read-private", "playlist-read-collaborative"],
+      params
+    );
+  }
 
   // Search requests
 

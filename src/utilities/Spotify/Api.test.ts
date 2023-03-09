@@ -258,4 +258,54 @@ describe("Spotify.Api", () => {
       });
     });
   });
+
+  describe("getCurrentUsersPlaylists", () => {
+    let mock: any, api: Api;
+    beforeEach(() => {
+      mock = {
+        fetch: (input: string, init?: any) =>
+          new Promise((resolve, reject) => input),
+      };
+      api = new Api({
+        ...passedConfig,
+        scopes: ["playlist-read-private", "playlist-read-collaborative"],
+      });
+    });
+
+    it("should throw if scope is missing", () => {
+      api.config.scopes = [];
+      api.config.fetch = mock.fetch;
+
+      expect(() => api.getCurrentUsersPlaylists()).toThrow();
+    });
+
+    it("should call fetch with the correct args", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      api.config.fetch = spy as any;
+      const route = "/me/playlists";
+
+      api.getCurrentUsersPlaylists();
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+
+    it("should call fetch with the correct args when params set", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      api.config.fetch = spy as any;
+      const route = "/me/playlists";
+      const query = "?limit=50";
+
+      api.getCurrentUsersPlaylists({ limit: 50 });
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  });
 });
