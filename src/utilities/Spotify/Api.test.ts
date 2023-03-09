@@ -158,7 +158,7 @@ describe("Spotify.Api", () => {
         fetch: (input: string, init?: any) =>
           new Promise((resolve, reject) => input),
       };
-      api = new Api({ ...passedConfig, scopes: ["user-read-recently-played"] });
+      api = new Api({ ...passedConfig });
     });
 
     it("should call fetch with the correct args", () => {
