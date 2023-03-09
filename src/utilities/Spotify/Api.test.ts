@@ -119,6 +119,7 @@ describe("Spotify.Api", () => {
     it("should throw if scope is missing", () => {
       api.config.scopes = [];
       api.config.fetch = mock.fetch;
+
       expect(() => api.getRecentlyPlayed()).toThrow();
     });
 
@@ -126,9 +127,9 @@ describe("Spotify.Api", () => {
       const spy = jest.spyOn(mock, "fetch");
       api.config.fetch = spy as any;
       const route = "/me/player/recently-played";
-      const query = "?limit=20";
+
       api.getRecentlyPlayed();
-      expect(spy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
         headers: {
           Authorization: `Bearer TOKEN`,
           "Content-Type": "application/json",
@@ -141,6 +142,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/me/player/recently-played";
       const query = "?limit=50";
+
       api.getRecentlyPlayed({ limit: 50 });
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
         headers: {
@@ -166,6 +168,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/audio-features";
       const query = `?ids=${encodeURIComponent([1, 2, 3].join(","))}`;
+
       api.getTracksAudioFeatures({ ids: [1, 2, 3] });
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
         headers: {
