@@ -76,6 +76,14 @@ class Api {
   getCurrentUsersProfile() {
     return this._makeRequest("/me") as Promise<Profile>;
   }
+
+  getUsersTopItems(type: "artists" | "tracks", params?: UsersTopItemsQuery) {
+    return this._makeRequest(
+      `/me/top/${type}`,
+      "user-top-read",
+      params
+    ) as Promise<UsersTopItemsResponse>;
+  }
 }
 
 export default Api;
@@ -86,7 +94,10 @@ export type ApiConfig = {
   fetch?: (input: string, init?: any) => Promise<any>;
 };
 
-export type QueryParams = RecentlyPlayedTracksQuery | TracksAudioFeaturesQuery;
+export type QueryParams =
+  | RecentlyPlayedTracksQuery
+  | TracksAudioFeaturesQuery
+  | UsersTopItemsQuery;
 
 export type RecentlyPlayedTracksQuery = {
   [key: string]: number | undefined;
@@ -114,6 +125,23 @@ export type TracksAudioFeaturesQuery = {
 
 export type TracksAudioFeaturesResponse = {
   audio_features: AudioFeatures[];
+};
+
+export type UsersTopItemsQuery = {
+  [key: string]: string | number | undefined;
+  limit?: number;
+  offset?: number;
+  time_range?: "short_term" | "medium_term" | "long_term";
+};
+
+export type UsersTopItemsResponse = {
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+  items: Track[] | Artist[];
 };
 
 export type RecentlyPlayedTrack = {
