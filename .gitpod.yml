@@ -1,17 +1,5 @@
 tasks:
   - init: yarn install
-
-  - name: Restore .env
-  - command: |
-      if [ -f .env ]; then
-        echo "Found .env in workspace"
-      else
-        if [ -z "${SPOTIFY_VISUALIZED_ENV}" ]; then
-          echo "No env to restore"
-        else
-          # To persist a current env file to gitpod, run:
-          #   gp env SPOTIFY_VISUALIZED_ENV="$(base64 -w 0 .env)"
-          echo "Restoring .env from Gitpod"
-          echo "${SPOTIFY_VISUALIZED_ENV}" | base64 -d > .env
-        fi
-      fi
+  - command: yarn dev
+  - command: yarn test
+  - command: yarn storybook
