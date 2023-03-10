@@ -21,21 +21,21 @@ describe("Spotify.Auth", () => {
     });
   });
 
-  describe("generateCheckState", () => {
+  describe("_generateCheckState", () => {
     let auth: Auth;
     beforeEach(() => {
       auth = new Auth(passedConfig);
     });
 
     it("should generate a check state", () => {
-      const generatedState = auth.generateCheckState();
+      const generatedState = auth._generateCheckState();
       expect(typeof generatedState).toBe("string");
       expect(generatedState.length).toBeGreaterThan(1);
     });
 
     it("should default to using Math.random", () => {
       const spy = jest.spyOn(Math, "random");
-      auth.generateCheckState();
+      auth._generateCheckState();
       expect(spy).toHaveBeenCalled();
     });
 
@@ -45,19 +45,19 @@ describe("Spotify.Auth", () => {
       };
       const length = 4;
       const spy = jest.spyOn(mock, "random");
-      const generatedState = auth.generateCheckState(length, mock.random);
+      const generatedState = auth._generateCheckState(length, mock.random);
       expect(generatedState.length).toBe(length);
       expect(generatedState).toBe("AAAA");
       expect(spy).toBeCalledTimes(length);
     });
 
     it("should store the generated state", () => {
-      const generatedState = auth.generateCheckState();
+      const generatedState = auth._generateCheckState();
       expect(auth._checkState).toBe(generatedState);
     });
   });
 
-  describe("url", () => {
+  describe("_url", () => {
     let auth: Auth;
     beforeEach(() => {
       auth = new Auth(passedConfig);
@@ -65,7 +65,7 @@ describe("Spotify.Auth", () => {
 
     it("should create a url using the passed config", () => {
       const baseUrl = "https://accounts.spotify.com/authorize?";
-      const url = auth.url();
+      const url = auth._url();
       const state = auth._checkState;
 
       expect(typeof url).toBe("string");
@@ -88,13 +88,13 @@ describe("Spotify.Auth", () => {
     });
 
     it("should use a passed state", () => {
-      auth.generateCheckState();
-      const url = auth.url(auth._checkState);
+      auth._generateCheckState();
+      const url = auth._url(auth._checkState);
       expect(url.indexOf(`state=${auth._checkState}`)).toBeGreaterThan(0);
     });
   });
 
-  describe("parseAuthResponse", () => {
+  describe("_parseAuthResponse", () => {
     let auth: Auth, fragment: string, query: string;
     beforeEach(() => {
       auth = new Auth(passedConfig);
@@ -105,14 +105,14 @@ describe("Spotify.Auth", () => {
 
     it("should return a token from a fragment", () => {
       const future = Math.floor(Date.now() / 1000) + 3600;
-      const response = auth.parseAuthResponse(fragment);
+      const response = auth._parseAuthResponse(fragment);
       expect(response.accessToken).toBe("ACCESS_TOKEN");
       expect(response.state).toBe("123");
       expect(response.expiresAt).toBeGreaterThanOrEqual(future);
     });
 
     it("should return an error from a query", () => {
-      const response = auth.parseAuthResponse(null, query);
+      const response = auth._parseAuthResponse(null, query);
       expect(response.error).toBe("access_denied");
       expect(response.state).toBe("123");
     });
@@ -134,7 +134,7 @@ describe("Spotify.Auth", () => {
       const spy = jest.spyOn(mock, "open");
       auth.openLoginPopup(mock);
       expect(spy).toHaveBeenCalledWith(
-        auth.url(auth._checkState),
+        auth._url(auth._checkState),
         "Login with Spotify",
         "width=600, height=800"
       );

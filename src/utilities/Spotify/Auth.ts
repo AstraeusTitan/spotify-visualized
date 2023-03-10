@@ -33,7 +33,7 @@ class Auth {
     this.config = config;
   }
 
-  generateCheckState(
+  _generateCheckState(
     length: number = 12,
     random: () => number = Math.random
   ): string {
@@ -47,7 +47,7 @@ class Auth {
     return text;
   }
 
-  url(state?: string): string {
+  _url(state?: string): string {
     return `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(
       this.config.clientId
     )}&redirect_uri=${encodeURIComponent(
@@ -55,11 +55,11 @@ class Auth {
     )}&scope=${encodeURIComponent(
       this.config.scopes.join(" ")
     )}&response_type=token&state=${encodeURIComponent(
-      state || this.generateCheckState()
+      state || this._generateCheckState()
     )}&show_dialog=false`;
   }
 
-  parseAuthResponse(
+  _parseAuthResponse(
     fragment: string | null | undefined,
     query?: string | null | undefined
   ): AuthResponse {
@@ -85,7 +85,7 @@ class Auth {
 
   openLoginPopup(target: any): void {
     target.SpotifyAuth = this;
-    target.open(this.url(), "Login with Spotify", "width=600, height=800");
+    target.open(this._url(), "Login with Spotify", "width=600, height=800");
   }
 
   handleCallback(
@@ -93,7 +93,7 @@ class Auth {
     query: string | null | undefined,
     callback?: (err?: string | null | undefined, data?: AuthToken) => void
   ) {
-    const response = this.parseAuthResponse(fragment, query);
+    const response = this._parseAuthResponse(fragment, query);
     if (response.state !== this._checkState) {
       response.error = "state_mismatch";
     }

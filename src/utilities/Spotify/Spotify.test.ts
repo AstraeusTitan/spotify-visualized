@@ -42,7 +42,7 @@ describe("Spotify", () => {
         const spy = jest.spyOn(mock, "open");
         spotify.Auth.openLoginPopup(mock);
         expect(spy).toHaveBeenCalledWith(
-          spotify.Auth.url(spotify.Auth._checkState),
+          spotify.Auth._url(spotify.Auth._checkState),
           "Login with Spotify",
           "width=600, height=800"
         );
