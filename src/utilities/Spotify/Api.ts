@@ -21,7 +21,7 @@ class Api {
   }
 
   _hasScopes(scopes: string[]): boolean {
-    let checks = scopes.map((scope) => this.config.scopes.includes(scope));
+    const checks = scopes.map((scope) => this.config.scopes?.includes(scope));
     return !checks.includes(false);
   }
 
@@ -98,7 +98,7 @@ export default Api;
 
 export type ApiConfig = {
   token?: AuthToken;
-  scopes: string[];
+  scopes?: string[];
   fetch?: (input: string, init?: any) => Promise<any>;
 };
 

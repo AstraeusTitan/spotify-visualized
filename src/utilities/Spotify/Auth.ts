@@ -1,9 +1,9 @@
 export type AuthConfig = {
-  clientId: string;
-  scopes: string[];
-  redirectUri: string;
+  clientId?: string;
+  scopes?: string[];
+  redirectUri?: string;
   token?: AuthToken;
-  storage: {
+  storage?: {
     getItem: (key: string) => string | null;
     setItem: (key: string, value: string) => void;
   };
@@ -49,11 +49,11 @@ class Auth {
 
   _url(state?: string): string {
     return `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(
-      this.config.clientId
+      this.config.clientId || ''
     )}&redirect_uri=${encodeURIComponent(
-      this.config.redirectUri
+      this.config.redirectUri || ''
     )}&scope=${encodeURIComponent(
-      this.config.scopes.join(" ")
+      this.config?.scopes?.join(" ") || ''
     )}&response_type=token&state=${encodeURIComponent(
       state || this._generateCheckState()
     )}&show_dialog=false`;
@@ -133,11 +133,11 @@ class Auth {
   storeToken(storage = this.config.storage) {
     if (this.config.token) {
       try {
-        storage.setItem(
+        storage?.setItem(
           this._storageKeys.accessToken,
           this.config.token?.accessToken
         );
-        storage.setItem(
+        storage?.setItem(
           this._storageKeys.expiresAt,
           this.config.token?.expiresAt.toString()
         );
@@ -146,8 +146,8 @@ class Auth {
       }
     } else {
       try {
-        storage.setItem(this._storageKeys.accessToken, "");
-        storage.setItem(this._storageKeys.expiresAt, "0");
+        storage?.setItem(this._storageKeys.accessToken, "");
+        storage?.setItem(this._storageKeys.expiresAt, "0");
       } catch (error) {
         console.error("Error saving to storage", error);
       }
@@ -157,9 +157,9 @@ class Auth {
   loadToken(storage = this.config.storage): AuthToken {
     try {
       let token: AuthToken = {
-        accessToken: storage.getItem(this._storageKeys.accessToken) || "",
+        accessToken: storage?.getItem(this._storageKeys.accessToken) || "",
         expiresAt:
-          parseInt(storage.getItem(this._storageKeys.expiresAt) || "0") || 0,
+          parseInt(storage?.getItem(this._storageKeys.expiresAt) || "0") || 0,
       };
       this.config.token = token;
       return token;
