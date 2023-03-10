@@ -10,8 +10,13 @@ export async function getStaticProps() {
       spotifyConfig: {
         clientId: process.env.CLIENT_ID,
         redirectUri: `${process.env.NEXT_PUBLIC_URL}/callback`,
-        scopes: process.env.SPOTIFY_SCOPES?.split(" "),
-      } as SpotifyConfig,
+        scopes: [
+          "user-top-read",
+          "user-read-recently-played",
+          "playlist-read-private",
+          "playlist-read-collaborative",
+        ],
+      },
     },
   };
 }
