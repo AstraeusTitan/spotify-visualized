@@ -21,18 +21,7 @@ export default function Home({
 }: {
   spotifyConfig: SpotifyConfig;
 }) {
-  const { spotify, setSpotify } = useSpotify();
-  useEffect(() => {
-    if (setSpotify) {
-      let s = new Spotify({
-        ...spotifyConfig,
-        fetch: fetch.bind(window),
-        storage: window.localStorage,
-      });
-      setSpotify(s);
-      s.Auth.loadToken(window.localStorage);
-    }
-  }, [setSpotify, spotifyConfig]);
+  const { spotify, setSpotify } = useSpotify(spotifyConfig);
   return (
     <Container>
       <div className="grid place-content-center h-screen">
