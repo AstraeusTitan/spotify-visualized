@@ -1,7 +1,12 @@
-import { Artist } from "@/utilities/Spotify/Api";
+import * as Api from "@/utilities/Spotify/Api";
 import Image from "next/image";
 
-const Card = ({ name, images }: Artist) => {
+type Props = {
+  name?: string;
+  images?: Api.Image[];
+};
+
+const Card = ({ name, images }: Props) => {
   return (
     <div
       className="
