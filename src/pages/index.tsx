@@ -1,8 +1,7 @@
 import { Container } from "@/components/Container";
 import { LoginButton } from "@/components/Login";
 import { useSpotify } from "@/hooks/useSpotify";
-import Spotify, { SpotifyConfig } from "@/utilities/Spotify";
-import { useEffect } from "react";
+import { SpotifyConfig } from "@/utilities/Spotify";
 
 export async function getStaticProps() {
   return {
@@ -26,7 +25,7 @@ export default function Home({
 }: {
   spotifyConfig: SpotifyConfig;
 }) {
-  const { spotify, setSpotify } = useSpotify(spotifyConfig);
+  const { spotify } = useSpotify(spotifyConfig);
   return (
     <Container>
       <div className="grid place-content-center h-screen">
