@@ -7,7 +7,7 @@ const range = (start: number, stop: number) => {
 
 type Props = {
   artists?: Artist[];
-  title: string;
+  title?: string;
   itemRoute?: string;
   indexRoute?: string;
 };
@@ -15,12 +15,14 @@ type Props = {
 const Grid = ({ artists, title, itemRoute, indexRoute }: Props) => {
   return (
     <div className="w-fill py-8">
-      <div className="flex justify-between items-end mb-6">
-        <h3 className="text-lg font-bold text-zinc-800">{title}</h3>
-        {indexRoute !== undefined && (
+      <div className="flex items-end">
+        {!!title && (
+          <h3 className="text-lg font-bold text-zinc-800 mb-6">{title}</h3>
+        )}
+        {!!indexRoute && (
           <Link
             href={indexRoute}
-            className="uppercase text-sm font-bold text-zinc-500 hover:underline"
+            className="uppercase text-sm font-bold text-zinc-500 hover:underline mb-6 ml-auto"
           >
             Show All
           </Link>
