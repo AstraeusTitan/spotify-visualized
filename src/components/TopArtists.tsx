@@ -8,11 +8,13 @@ const TopArtists = ({
   indexRoute,
   itemRoute,
   time_range = "short_term",
+  limit,
 }: {
   time_range?: "short_term" | "medium_term" | "long_term";
   indexRoute?: string;
   itemRoute?: string;
   title?: string;
+  limit?: number;
 }) => {
   const { spotify } = useSpotify();
   const [data, setData] = useState<Api.Artist[] | undefined>(undefined);
@@ -20,14 +22,14 @@ const TopArtists = ({
   useEffect(() => {
     if (spotify) {
       const result = spotify.Api.getUsersTopItems("artists", {
-        limit: 4,
+        limit: limit || 10,
         time_range: time_range,
       });
       result
         .then((json) => setData(json.items as Api.Artist[]))
         .catch((reason) => console.info(reason));
     }
-  }, [spotify, time_range]);
+  }, [limit, spotify, time_range]);
 
   return (
     <Artist.Grid
