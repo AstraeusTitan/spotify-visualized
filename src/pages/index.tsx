@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import { LoginButton } from "@/components/Login";
 import { useSpotify } from "@/hooks/useSpotify";
 import { SpotifyConfig } from "@/utilities/Spotify";
+import { useEffect } from "react";
 
 export async function getStaticProps() {
   return {
@@ -26,6 +27,18 @@ export default function Home({
   spotifyConfig: SpotifyConfig;
 }) {
   const { spotify } = useSpotify(spotifyConfig);
+  useEffect(() => {
+    if (spotify) {
+      spotify.config.clientId = spotifyConfig.clientId;
+      spotify.config.redirectUri = spotifyConfig.redirectUri;
+      spotify.config.scopes = spotifyConfig.scopes;
+    }
+  }, [
+    spotify,
+    spotifyConfig.clientId,
+    spotifyConfig.redirectUri,
+    spotifyConfig.scopes,
+  ]);
   return (
     <Container>
       <div className="grid place-content-center h-screen">
