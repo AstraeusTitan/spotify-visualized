@@ -7,7 +7,7 @@ export default {
   title: "Artist/Grid",
   decorators: [
     (Story) => (
-      <div className="max-w-3xl">
+      <div className="">
         <Story />
       </div>
     ),

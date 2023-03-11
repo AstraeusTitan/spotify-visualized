@@ -5,6 +5,13 @@ import Card from "./Card";
 export default {
   component: Card,
   title: "Artist/Card",
+  decorators: [
+    (Story) => (
+      <div className="max-w-xs">
+        <Story />
+      </div>
+    ),
+  ],
 } as Meta;
 
 const Template: StoryFn = (args: any) => <Card {...args} />;

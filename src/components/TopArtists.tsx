@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 import Artist from "./Artist";
 
 const TopArtists = ({
-  title = true,
+  title,
+  indexRoute,
+  itemRoute,
   time_range = "short_term",
 }: {
   time_range?: "short_term" | "medium_term" | "long_term";
-  title?: boolean;
+  indexRoute?: string;
+  itemRoute?: string;
+  title?: string;
 }) => {
   const { spotify } = useSpotify();
   const [data, setData] = useState<Api.Artist[] | undefined>(undefined);
@@ -27,10 +31,10 @@ const TopArtists = ({
 
   return (
     <Artist.Grid
-      title={title ? "Top Artists" : undefined}
+      title={title}
       artists={data}
-      indexRoute="/me/top/artists"
-      itemRoute="/artist"
+      indexRoute={indexRoute}
+      itemRoute={itemRoute}
     />
   );
 };

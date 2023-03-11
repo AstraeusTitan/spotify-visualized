@@ -12,74 +12,34 @@ type Props = {
 
 const Card = ({ name, images, id, route }: Props) => {
   return (
-    <Link
-      href={route ? `${route}/${id || ""}` : ""}
-      className={clsx(route ? "" : "cursor-auto")}
-    >
-      <div
-        className="
-        flex
-        flex-col
-        rounded
-        bg-zinc-100
-        shadow
-        w-32
-        sm:w-fit
-        sm:p-4"
-      >
-        <div
-          className="
-          bg-zinc-300
-          rounded
-          h-32
-          w-32
-          sm:h-48
-          sm:w-48
-          relative
-          object-cover
-          overflow-hidden"
-        >
+    <li className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+      <div className="flex flex-1 flex-col py-8">
+        <div className="relative mx-auto h-48 w-48 md:w-40 md:h-40 xl:w-48 xl:h-48 flex-shrink-0 rounded overflow-hidden bg-gray-300">
           {images !== undefined && (
             <Image src={images[0].url} alt={name || "Artist Image"} fill />
           )}
         </div>
-        <div
-          className="
-          h-12
-          sm:h-16
-          m-2
-          flex
-          justify-center
-          sm:justify-start
-          items-center
-          sm:max-w-[192px]"
-        >
-          {name !== undefined ? (
-            <h4
-              className="
-              text-center
-              sm:text-left
-              text-sm
-              overflow-hidden
-              max-h-11
-              sm:max-h-16
-              sm:text-lg"
-            >
-              {name}
-            </h4>
-          ) : (
-            <div
-              className="
-              bg-zinc-300
-              rounded
-              h-8
-              w-24
-              sm:w-32"
-            ></div>
-          )}
+        {!!name ? (
+          <h3 className="mt-6 font-semibold text-gray-900">{name}</h3>
+        ) : (
+          <div className="mt-6 bg-gray-300 w-48 h-8 rounded mx-auto"></div>
+        )}
+      </div>
+      <div>
+        <div className="-mt-px flex divide-x divide-gray-200">
+          <div className="flex w-0 flex-1">
+            {!!route && (
+              <Link
+                href={route ? `${route}/${id || ""}` : ""}
+                className="relative -mr-px w-0 flex-1 items-center-justify center gap-x-3 rounded-b-lg border border-transparent py-4 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+              >
+                View
+              </Link>
+            )}
+          </div>
         </div>
       </div>
-    </Link>
+    </li>
   );
 };
 
