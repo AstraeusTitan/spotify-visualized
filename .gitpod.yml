@@ -1,8 +1,13 @@
 tasks:
-  - init: yarn install
-  - command: |
+  - name: Package Install
+    init: yarn install
+  - name: .env Setup
+    command: |
       [ ! -f ".env" ] && echo "${SPOTIFY_VISUALIZED_ENV}" | base64 -d > .env & echo ".env created" || echo ".env found"
   # store env: gp env SPOTIFY_VISUALIZED_ENV="$(base64 -w 0 .env)"
-  - command: yarn dev
-  - command: yarn test
-  - command: yarn storybook
+  - name: Dev Server
+    command: yarn dev
+  - name: Test Suite
+    command: yarn test
+  - name: Storybook Server
+    command: yarn storybook
