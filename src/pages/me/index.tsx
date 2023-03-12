@@ -21,7 +21,7 @@ const Me = () => {
       <Container>
         <div className="py-8">
           <RecentTracks
-            title="Recent Tracks"
+            title="Recently Played Tracks"
             indexRoute="/me/recent/tracks"
             itemRoute="/track"
           />

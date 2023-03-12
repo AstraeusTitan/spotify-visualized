@@ -16,7 +16,7 @@ type Props = {
 
 const List = ({ tracks, features, title, itemRoute, indexRoute }: Props) => {
   return (
-    <div className="divide-y divide-gray-200 overflow-hidden rounded-lg">
+    <div className="divide-y divide-gray-200 overflow-hidden">
       {(!!title || !!indexRoute) && (
         <div className="px-4 py-5 sm:px-6">
           <div className="md:flex md:items-center md:justify-between">
