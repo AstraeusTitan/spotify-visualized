@@ -1,5 +1,5 @@
 import { Container } from "@/components/Container";
-import TopArtists from "@/components/TopArtists";
+import TopArtists from "@/components/Artist/TopArtists";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

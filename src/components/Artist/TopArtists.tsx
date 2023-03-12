@@ -1,7 +1,7 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
-import Artist from "./Artist";
+import Artist from ".";
 
 const TopArtists = ({
   title,
