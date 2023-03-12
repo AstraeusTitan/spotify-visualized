@@ -3,6 +3,7 @@ import TopArtists from "@/components/Artist/TopArtists";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import TopTracks from "@/components/Track/TopTracks";
 
 const Me = () => {
   const router = useRouter();
@@ -23,6 +24,14 @@ const Me = () => {
             title="Top Artists"
             indexRoute="/me/top/artists"
             itemRoute="/artist"
+          />
+        </div>
+        <div>
+          <TopTracks
+            time_range="short_term"
+            title="Top Tracks"
+            indexRoute="/me/top/tracks"
+            itemRoute="/track"
           />
         </div>
       </Container>

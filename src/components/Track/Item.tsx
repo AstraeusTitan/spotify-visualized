@@ -90,7 +90,7 @@ const Item = ({ track, features, route }: Props) => {
                 <div className="md:w-16">
                   {!!features ? (
                     <p className="text-sm text-gray-500 w-fit whitespace-nowrap">
-                      {`${keys[features?.key || 12] || "N/A"} ${
+                      {`${keys[features?.key || 12] || "key?"} ${
                         features?.mode ? "Major" : "Minor"
                       }`}
                     </p>
