@@ -3,19 +3,21 @@ import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import Artist from ".";
 
+type Props = {
+  time_range?: "short_term" | "medium_term" | "long_term";
+  indexRoute?: string;
+  itemRoute?: string;
+  title?: string;
+  limit?: number;
+};
+
 const TopArtists = ({
   title,
   indexRoute,
   itemRoute,
   time_range = "short_term",
   limit,
-}: {
-  time_range?: "short_term" | "medium_term" | "long_term";
-  indexRoute?: string;
-  itemRoute?: string;
-  title?: string;
-  limit?: number;
-}) => {
+}: Props) => {
   const { spotify } = useSpotify();
   const [data, setData] = useState<Api.Artist[] | undefined>(undefined);
 
