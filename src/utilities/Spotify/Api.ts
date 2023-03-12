@@ -128,8 +128,8 @@ export type RecentlyPlayedTracksResponse = {
 };
 
 export type TracksAudioFeaturesQuery = {
-  [key: string]: string | number[] | undefined;
-  ids: string | number[];
+  [key: string]: string | string[] | number[] | undefined;
+  ids: string | string[] | number[];
 };
 
 export type TracksAudioFeaturesResponse = {
