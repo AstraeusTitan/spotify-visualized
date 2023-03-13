@@ -319,6 +319,7 @@ export type PlaylistBase = {
   name: string;
   owner: Owner;
   public: boolean | null;
+  _public: boolean | null;
   snapshot_id: string;
   type: "playlist";
   uri: string;
