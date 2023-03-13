@@ -24,6 +24,7 @@ const Me = () => {
             title="Recently Played Tracks"
             indexRoute="/me/recent/tracks"
             itemRoute="/track"
+            limit={5}
           />
         </div>
         <div className="py-8">
@@ -32,6 +33,7 @@ const Me = () => {
             title="Top Artists"
             indexRoute="/me/top/artists"
             itemRoute="/artist"
+            limit={5}
           />
         </div>
         <div className="py-8">
@@ -40,6 +42,7 @@ const Me = () => {
             title="Top Tracks"
             indexRoute="/me/top/tracks"
             itemRoute="/track"
+            limit={5}
           />
         </div>
       </Container>
