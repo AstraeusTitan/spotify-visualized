@@ -149,7 +149,7 @@ export type CurrentUsersPlaylistsResponse = {
   offset: number;
   previous: string | null;
   total: number;
-  items: Playlist & { tracks: { href: string; total: number } | null[] }[];
+  items: UserPlaylist[];
 };
 
 export type UsersTopItemsQuery = {
@@ -233,8 +233,8 @@ export type Album = {
 
 export type Image = {
   url: string;
-  height: number;
-  width: number;
+  height: number | null;
+  width: number | null;
 };
 
 export type ExternalUrls = {
@@ -269,7 +269,7 @@ export type AudioFeatures = {
 
 export type User = {
   external_urls: ExternalUrls;
-  followers: Followers;
+  followers?: Followers;
   href: string;
   id: string;
   type: "user";
@@ -285,20 +285,18 @@ export type Profile = User & {
   product?: string;
 };
 
-export type Playlist = {
-  collaborative: boolean;
-  description: string | null;
-  external_urls: ExternalUrls;
-  followers: Followers;
-  href: string;
-  id: string;
-  images: Image[];
-  name: string;
-  owner: User & {
-    display_name: string | null;
+export type Owner = User & {
+  display_name: string | null;
+};
+
+export type UserPlaylist = PlaylistBase & {
+  tracks: {
+    href: string;
+    total: number;
   };
-  public: boolean | null;
-  snapshot_id: string;
+};
+
+export type FullPlaylist = PlaylistBase & {
   tracks: {
     href: string;
     limit: number;
@@ -308,6 +306,22 @@ export type Playlist = {
     total: number;
     items: PlaylistTrack[];
   };
+};
+
+export type PlaylistBase = {
+  collaborative: boolean;
+  description: string | null;
+  external_urls: ExternalUrls;
+  followers?: Followers;
+  href: string;
+  id: string;
+  images: Image[];
+  name: string;
+  owner: Owner;
+  public: boolean | null;
+  snapshot_id: string;
+  type: "playlist";
+  uri: string;
 };
 
 export type PlaylistTrack = {
