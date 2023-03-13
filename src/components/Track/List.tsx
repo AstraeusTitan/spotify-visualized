@@ -1,23 +1,15 @@
-import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
 import Link from "next/link";
-import Item from "./Item";
-
-const range = (start: number, stop: number) => {
-  return new Array(stop - start).fill(0).map((x, i) => start + i);
-};
+import { PropsWithChildren } from "react";
 
 type Props = {
-  tracks?: Track[];
-  features?: AudioFeatures[];
   title?: string;
-  itemRoute?: string;
-  indexRoute?: string;
+  route?: string;
 };
 
-const List = ({ tracks, features, title, itemRoute, indexRoute }: Props) => {
+const List = ({ title, route, children }: PropsWithChildren<Props>) => {
   return (
     <div className="divide-y divide-gray-200 overflow-hidden">
-      {(!!title || !!indexRoute) && (
+      {(!!title || !!route) && (
         <div className="px-4 py-5 sm:px-6">
           <div className="md:flex md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
@@ -25,10 +17,10 @@ const List = ({ tracks, features, title, itemRoute, indexRoute }: Props) => {
                 {title}
               </h2>
             </div>
-            {!!indexRoute && (
+            {!!route && (
               <div className="mt-4 flex md:mt-0">
                 <Link
-                  href={indexRoute}
+                  href={route}
                   className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Show All
@@ -40,18 +32,7 @@ const List = ({ tracks, features, title, itemRoute, indexRoute }: Props) => {
       )}
       <div className="px-4 py-5 sm:p-6">
         <ul role="list" className="divide-y divide-gray-200">
-          {tracks === undefined && range(0, 9).map((n, i) => <Item key={i} />)}
-          {/* TODO: Add an empty state */}
-          {tracks?.map((track) => {
-            return (
-              <Item
-                track={track}
-                features={features?.find((f) => f.id === track.id)}
-                key={track.id}
-                route={itemRoute}
-              />
-            );
-          })}
+          {children}
         </ul>
       </div>
     </div>

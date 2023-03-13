@@ -51,5 +51,5 @@ const exampleArtist: Artist = {
 };
 
 export const Skeleton = Template.bind({});
-export const Filled = Template.bind({});
-Filled.args = { ...exampleArtist, route: "/artist" };
+export const WithData = Template.bind({});
+WithData.args = { ...exampleArtist, route: "/artist" };

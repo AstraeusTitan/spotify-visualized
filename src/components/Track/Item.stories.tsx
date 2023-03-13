@@ -120,8 +120,8 @@ const exampleFeatures = {
 };
 
 export const Skeleton = Template.bind({});
-export const Filled = Template.bind({});
-Filled.args = {
+export const WithData = Template.bind({});
+WithData.args = {
   track: exampleTrack,
   features: exampleFeatures,
   route: "/track",

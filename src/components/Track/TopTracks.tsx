@@ -41,20 +41,34 @@ const TopTracks = ({
       const ids = tracks.map((t) => t.id);
       const result = spotify.Api.getTracksAudioFeatures({ ids: ids });
       result
-        .then((json) => (console.log(json), json))
         .then((json) => setFeatures(json.audio_features))
         .catch((reason) => console.info(reason));
     }
   }, [spotify, tracks]);
 
   return (
-    <Track.List
-      title={title}
-      tracks={tracks}
-      features={features}
-      indexRoute={indexRoute}
-      itemRoute={itemRoute}
-    />
+    <Track.List title={title} route="/me/recent/tracks">
+      {tracks === undefined && (
+        <>
+          <Track.Item />
+          <Track.Item />
+          <Track.Item />
+          <Track.Item />
+        </>
+      )}
+      {!!tracks?.length && (
+        <>
+          {tracks.map((track, i) => (
+            <Track.Item
+              track={track}
+              features={features?.find((f) => f.id === track.id)}
+              route="/track"
+              key={i}
+            />
+          ))}
+        </>
+      )}
+    </Track.List>
   );
 };
 

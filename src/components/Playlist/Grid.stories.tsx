@@ -1,4 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
+import { WithData1, WithData2, Skeleton } from "./Card.stories";
 import Grid from "./Grid";
 
 export default {
@@ -104,27 +105,35 @@ const examplePlaylist2 = {
 export const Empty = Template.bind({});
 Empty.args = {
   title: "Playlists",
-  itemRoute: "/playlist",
-  playlists: [],
+  route: "/playlists",
 };
 export const Loading = Template.bind({});
 Loading.args = {
   title: "Playlists",
-  itemRoute: "/playlist",
-  playlists: undefined,
+  route: "/playlists",
+  children: (
+    <>
+      <Skeleton {...Skeleton.args} />
+      <Skeleton {...Skeleton.args} />
+      <Skeleton {...Skeleton.args} />
+      <Skeleton {...Skeleton.args} />
+    </>
+  ),
 };
-export const Filled = Template.bind({});
-Filled.args = {
+export const Populated = Template.bind({});
+Populated.args = {
   title: "Playlists",
-  itemRoute: "/playlist",
-  playlists: [
-    examplePlaylist,
-    examplePlaylist2,
-    examplePlaylist,
-    examplePlaylist2,
-    examplePlaylist,
-    examplePlaylist2,
-    examplePlaylist,
-    examplePlaylist2,
-  ],
+  route: "/playlists",
+  children: (
+    <>
+      <WithData1 {...WithData1.args} />
+      <WithData2 {...WithData2.args} />
+      <WithData1 {...WithData1.args} />
+      <WithData2 {...WithData2.args} />
+      <WithData1 {...WithData1.args} />
+      <WithData2 {...WithData2.args} />
+      <WithData1 {...WithData1.args} />
+      <WithData2 {...WithData2.args} />
+    </>
+  ),
 };

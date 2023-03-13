@@ -19,7 +19,7 @@ const TopArtists = ({
   limit,
 }: Props) => {
   const { spotify } = useSpotify();
-  const [data, setData] = useState<Api.Artist[] | undefined>(undefined);
+  const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -28,18 +28,29 @@ const TopArtists = ({
         time_range: time_range,
       });
       result
-        .then((json) => setData(json.items as Api.Artist[]))
+        .then((json) => setArtists(json.items as Api.Artist[]))
         .catch((reason) => console.info(reason));
     }
   }, [limit, spotify, time_range]);
 
   return (
-    <Artist.Grid
-      title={title}
-      artists={data}
-      indexRoute={indexRoute}
-      itemRoute={itemRoute}
-    />
+    <Artist.Grid title={title} route="/me/top/artists">
+      {artists === undefined && (
+        <>
+          <Artist.Card />
+          <Artist.Card />
+          <Artist.Card />
+          <Artist.Card />
+        </>
+      )}
+      {!!artists?.length && (
+        <>
+          {artists.map((artist, i) => (
+            <Artist.Card {...artist} route="/artist" key={i} />
+          ))}
+        </>
+      )}
+    </Artist.Grid>
   );
 };
 

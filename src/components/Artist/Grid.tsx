@@ -1,21 +1,15 @@
-import { Artist } from "@/utilities/Spotify/Api";
 import Link from "next/link";
-import Card from "./Card";
-const range = (start: number, stop: number) => {
-  return new Array(stop - start).fill(0).map((x, i) => start + i);
-};
+import { PropsWithChildren } from "react";
 
 type Props = {
-  artists?: Artist[];
   title?: string;
-  itemRoute?: string;
-  indexRoute?: string;
+  route?: string;
 };
 
-const Grid = ({ artists, title, itemRoute, indexRoute }: Props) => {
+const Grid = ({ title, route, children }: PropsWithChildren<Props>) => {
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg">
-      {(!!title || !!indexRoute) && (
+      {(!!title || !!route) && (
         <div className="px-4 py-5 sm:px-6">
           <div className="md:flex md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
@@ -23,10 +17,10 @@ const Grid = ({ artists, title, itemRoute, indexRoute }: Props) => {
                 {title}
               </h2>
             </div>
-            {!!indexRoute && (
+            {!!route && (
               <div className="mt-4 flex md:mt-0">
                 <Link
-                  href={indexRoute}
+                  href={route}
                   className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Show All
@@ -41,11 +35,7 @@ const Grid = ({ artists, title, itemRoute, indexRoute }: Props) => {
           role="list"
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
-          {artists === undefined && range(0, 9).map((n, i) => <Card key={i} />)}
-          {/* TODO: Add an empty state */}
-          {artists?.map((artist) => {
-            return <Card {...artist} key={artist.name} route={itemRoute} />;
-          })}
+          {children}
         </ul>
       </div>
     </div>

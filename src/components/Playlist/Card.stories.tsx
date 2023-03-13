@@ -103,7 +103,7 @@ const examplePlaylist2 = {
 };
 
 export const Skeleton = Template.bind({});
-export const Filled1 = Template.bind({});
-Filled1.args = { ...examplePlaylist, route: "/artist" };
-export const Filled2 = Template.bind({});
-Filled2.args = { ...examplePlaylist2, route: "/artist" };
+export const WithData1 = Template.bind({});
+WithData1.args = { ...examplePlaylist, route: "/artist" };
+export const WithData2 = Template.bind({});
+WithData2.args = { ...examplePlaylist2, route: "/artist" };
