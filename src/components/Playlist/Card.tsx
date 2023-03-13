@@ -13,7 +13,7 @@ type Props = {
   };
   _public?: boolean | null;
   collaborative?: boolean;
-  followers: Api.Followers;
+  followers?: Api.Followers;
   route?: string;
 };
 
@@ -37,12 +37,14 @@ const Card = ({
             <Image src={images[0].url} alt={name || "Artist Image"} fill />
           )}
         </div>
-        {!!name ? (
-          <h3 className="mt-6 font-semibold text-gray-900">{name}</h3>
-        ) : (
-          <div className="mt-6 bg-gray-300 w-48 h-8 rounded mx-auto"></div>
-        )}
-        <div className="mt-1 flex flex-grow flex-col justify between">
+        <div className="px-6">
+          {!!name ? (
+            <h3 className="mt-6 font-semibold text-gray-900">{name}</h3>
+          ) : (
+            <div className="mt-6 bg-gray-300 w-48 h-8 rounded mx-auto"></div>
+          )}
+        </div>
+        <div className="mt-1 px-6 flex flex-grow flex-col justify between">
           {!!owner ? (
             <p className="text-sm text-gray-500">{owner.display_name}</p>
           ) : (
