@@ -7,9 +7,15 @@ type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
   title?: string;
   limit?: number;
+  showLink?: boolean;
 };
 
-const RecentTracks = ({ title, time_range = "short_term", limit }: Props) => {
+const RecentTracks = ({
+  title,
+  time_range = "short_term",
+  limit,
+  showLink = true,
+}: Props) => {
   const { spotify } = useSpotify();
   const [tracks, setTracks] = useState<Api.Track[] | undefined>(undefined);
   const [features, setFeatures] = useState<Api.AudioFeatures[] | undefined>(
@@ -38,7 +44,10 @@ const RecentTracks = ({ title, time_range = "short_term", limit }: Props) => {
   }, [spotify, tracks]);
 
   return (
-    <Track.List title={title} route="/me/top/tracks">
+    <Track.List
+      title={title}
+      route={showLink ? "/me/recent/tracks" : undefined}
+    >
       {tracks === undefined && (
         <>
           <Track.Item />

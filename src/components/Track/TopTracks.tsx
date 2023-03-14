@@ -5,16 +5,16 @@ import Track from ".";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
-  indexRoute?: string;
-  itemRoute?: string;
   title?: string;
   limit?: number;
+  showLink?: boolean;
 };
 
 const TopTracks = ({
   title,
   time_range = "short_term",
   limit,
+  showLink = true,
 }: Props) => {
   const { spotify } = useSpotify();
   const [tracks, setTracks] = useState<Api.Track[] | undefined>(undefined);
@@ -45,7 +45,7 @@ const TopTracks = ({
   }, [spotify, tracks]);
 
   return (
-    <Track.List title={title} route="/me/recent/tracks">
+    <Track.List title={title} route={showLink ? "/me/top/tracks" : undefined}>
       {tracks === undefined && (
         <>
           <Track.Item />

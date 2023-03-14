@@ -6,9 +6,10 @@ import Playlist from ".";
 type Props = {
   title?: string;
   limit?: number;
+  showLink?: boolean;
 };
 
-const UserPlaylists = ({ title, limit }: Props) => {
+const UserPlaylists = ({ title, limit, showLink = true }: Props) => {
   const { spotify } = useSpotify();
   const [playlists, setPlaylists] = useState<Api.UserPlaylist[] | undefined>(
     undefined
@@ -27,7 +28,7 @@ const UserPlaylists = ({ title, limit }: Props) => {
   }, [limit, spotify]);
 
   return (
-    <Playlist.Grid title={title} route="/me/playlists">
+    <Playlist.Grid title={title} route={showLink ? "/me/playlists" : undefined}>
       {playlists === undefined && (
         <>
           <Playlist.Card />

@@ -25,7 +25,7 @@ const RecentTracksPage = () => {
               </h2>
             </div>
           </div>
-          <RecentTracks limit={50} />
+          <RecentTracks limit={50} showLink={false} />
         </div>
       </Container>
     </main>

@@ -5,13 +5,12 @@ import Artist from ".";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
-  indexRoute?: string;
-  itemRoute?: string;
   title?: string;
   limit?: number;
+  showLink?: boolean;
 };
 
-const TopArtists = ({ title, time_range = "short_term", limit }: Props) => {
+const TopArtists = ({ title, time_range = "short_term", limit, showLink=true }: Props) => {
   const { spotify } = useSpotify();
   const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
 
@@ -28,7 +27,7 @@ const TopArtists = ({ title, time_range = "short_term", limit }: Props) => {
   }, [limit, spotify, time_range]);
 
   return (
-    <Artist.Grid title={title} route="/me/top/artists">
+    <Artist.Grid title={title} route={showLink ? "/me/top/artists" : undefined}>
       {artists === undefined && (
         <>
           <Artist.Card />
