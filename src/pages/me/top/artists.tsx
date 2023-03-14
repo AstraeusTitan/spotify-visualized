@@ -41,7 +41,7 @@ const TopArtistsPage = () => {
               </select>
             </div>
           </div>
-          <TopArtists time_range={timeFrame} itemRoute="/artist" limit={50} />
+          <TopArtists time_range={timeFrame} limit={50} />
         </div>
       </Container>
     </main>

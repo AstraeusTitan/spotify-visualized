@@ -1,16 +1,12 @@
 import { Container } from "@/components/Container";
 import RecentTracks from "@/components/Track/RecentTracks";
-import TopTracks from "@/components/Track/TopTracks";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const RecentTracksPage = () => {
   const router = useRouter();
   const { spotify } = useSpotify();
-  const [timeFrame, setTimeFrame] = useState<
-    "short_term" | "medium_term" | "long_term"
-  >("short_term");
 
   useEffect(() => {
     if (spotify && !spotify.Auth.tokenValid()) {
@@ -29,7 +25,7 @@ const RecentTracksPage = () => {
               </h2>
             </div>
           </div>
-          <RecentTracks itemRoute="/track" limit={50} />
+          <RecentTracks limit={50} />
         </div>
       </Container>
     </main>

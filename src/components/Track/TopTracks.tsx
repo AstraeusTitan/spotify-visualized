@@ -13,8 +13,6 @@ type Props = {
 
 const TopTracks = ({
   title,
-  indexRoute,
-  itemRoute,
   time_range = "short_term",
   limit,
 }: Props) => {

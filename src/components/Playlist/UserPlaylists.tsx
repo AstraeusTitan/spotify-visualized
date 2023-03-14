@@ -15,6 +15,7 @@ const UserPlaylists = ({ title, limit }: Props) => {
   );
 
   useEffect(() => {
+    // TODO: Add handling for paging past 50 results
     if (spotify) {
       const result = spotify.Api.getCurrentUsersPlaylists({
         limit: limit || 10,

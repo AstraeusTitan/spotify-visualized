@@ -11,13 +11,7 @@ type Props = {
   limit?: number;
 };
 
-const TopArtists = ({
-  title,
-  indexRoute,
-  itemRoute,
-  time_range = "short_term",
-  limit,
-}: Props) => {
+const TopArtists = ({ title, time_range = "short_term", limit }: Props) => {
   const { spotify } = useSpotify();
   const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
 

@@ -41,7 +41,7 @@ const TopTracksPage = () => {
               </select>
             </div>
           </div>
-          <TopTracks time_range={timeFrame} itemRoute="/track" limit={50} />
+          <TopTracks time_range={timeFrame} limit={50} />
         </div>
       </Container>
     </main>
