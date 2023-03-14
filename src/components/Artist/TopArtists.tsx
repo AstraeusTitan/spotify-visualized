@@ -2,6 +2,7 @@ import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import Artist from ".";
+import CardGrid from "../Shared/CardGrid";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
@@ -10,7 +11,12 @@ type Props = {
   showLink?: boolean;
 };
 
-const TopArtists = ({ title, time_range = "short_term", limit, showLink=true }: Props) => {
+const TopArtists = ({
+  title,
+  time_range = "short_term",
+  limit,
+  showLink = true,
+}: Props) => {
   const { spotify } = useSpotify();
   const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
 
@@ -27,7 +33,7 @@ const TopArtists = ({ title, time_range = "short_term", limit, showLink=true }: 
   }, [limit, spotify, time_range]);
 
   return (
-    <Artist.Grid title={title} route={showLink ? "/me/top/artists" : undefined}>
+    <CardGrid title={title} route={showLink ? "/me/top/artists" : undefined}>
       {artists === undefined && (
         <>
           <Artist.Card />
@@ -43,7 +49,7 @@ const TopArtists = ({ title, time_range = "short_term", limit, showLink=true }: 
           ))}
         </>
       )}
-    </Artist.Grid>
+    </CardGrid>
   );
 };
 

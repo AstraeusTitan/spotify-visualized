@@ -1,5 +1,4 @@
 import Card from "./Card";
-import Grid from "./Grid";
 
-const Playlist = { Card, Grid };
+const Playlist = { Card };
 export default Playlist;

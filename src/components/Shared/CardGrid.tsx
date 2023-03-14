@@ -6,7 +6,7 @@ type Props = {
   route?: string;
 };
 
-const Grid = ({ title, route, children }: PropsWithChildren<Props>) => {
+const CardGrid = ({ title, route, children }: PropsWithChildren<Props>) => {
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg">
       {(!!title || !!route) && (
@@ -42,4 +42,4 @@ const Grid = ({ title, route, children }: PropsWithChildren<Props>) => {
   );
 };
 
-export default Grid;
+export default CardGrid;

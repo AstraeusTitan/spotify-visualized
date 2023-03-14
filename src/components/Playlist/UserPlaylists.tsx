@@ -2,6 +2,7 @@ import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import Playlist from ".";
+import CardGrid from "../Shared/CardGrid";
 
 type Props = {
   title?: string;
@@ -28,7 +29,7 @@ const UserPlaylists = ({ title, limit, showLink = true }: Props) => {
   }, [limit, spotify]);
 
   return (
-    <Playlist.Grid title={title} route={showLink ? "/me/playlists" : undefined}>
+    <CardGrid title={title} route={showLink ? "/me/playlists" : undefined}>
       {playlists === undefined && (
         <>
           <Playlist.Card />
@@ -49,7 +50,7 @@ const UserPlaylists = ({ title, limit, showLink = true }: Props) => {
           ))}
         </>
       )}
-    </Playlist.Grid>
+    </CardGrid>
   );
 };
 
