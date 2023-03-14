@@ -68,7 +68,7 @@ class Api {
       "/me/playlists",
       ["playlist-read-private", "playlist-read-collaborative"],
       params
-    );
+    ) as Promise<CurrentUsersPlaylistsResponse>;
   }
 
   // Search requests
