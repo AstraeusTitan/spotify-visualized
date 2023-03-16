@@ -32,9 +32,8 @@ const Card = ({
     <li className="col-span-1 flex flex-col divide-y divide-gray-200 bg-white text-center shadow">
       <div className="flex flex-1 flex-col py-8">
         <div className="relative mx-auto h-48 w-48 md:w-40 md:h-40 xl:w-48 xl:h-48 flex-shrink-0 rounded overflow-hidden bg-gray-300">
-          {/* TODO: Change to grid of images */}
           {images !== undefined && (
-            <Image src={images[0].url} alt={name || "Artist Image"} fill />
+            <Image src={images[0].url} alt={name || "Playlist Image"} fill />
           )}
         </div>
         <div className="px-6">
