@@ -50,6 +50,13 @@ class Api {
   }
 
   // Album requests
+  getCurrentUsersSavedAlbums(params?: CurrentUsersSavedAlbumsQuery) {
+    return this._makeRequest(
+      "/me/albums",
+      ["user-library-read"],
+      params
+    ) as Promise<CurrentUsersSavedAlbumsResponse>;
+  }
 
   // Artist requests
 
@@ -169,6 +176,23 @@ export type UsersTopItemsResponse = {
   items: Track[] | Artist[];
 };
 
+export type CurrentUsersSavedAlbumsQuery = {
+  [key: string]: string | number | undefined;
+  limit?: number;
+  market?: string;
+  offset?: number;
+};
+
+export type CurrentUsersSavedAlbumsResponse = {
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string;
+  total: number;
+  items: SavedAlbum[];
+};
+
 export type RecentlyPlayedTrack = {
   context?: Context;
   played_at: string;
@@ -229,6 +253,11 @@ export type Album = {
   release_date_precision: "year" | "month" | "day";
   total_tracks: number;
   uri: string;
+};
+
+export type SavedAlbum = {
+  added_at: string;
+  album: Album;
 };
 
 export type Image = {

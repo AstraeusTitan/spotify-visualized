@@ -308,4 +308,51 @@ describe("Spotify.Api", () => {
       });
     });
   });
+
+  describe("getCurrentUsersSavedAlbums", () => {
+    let mock: any, api: Api;
+    const route = "/me/albums";
+
+    beforeEach(() => {
+      mock = {
+        fetch: (input: string, init?: any) =>
+          new Promise((resolve, reject) => input),
+      };
+      api = new Api({ ...passedConfig, scopes: ["user-library-read"] });
+    });
+
+    it("should throw if scope is missing", () => {
+      api.config.scopes = [];
+      api.config.fetch = mock.fetch;
+
+      expect(() => api.getCurrentUsersSavedAlbums()).toThrow();
+    });
+
+    it("should call fetch with the correct args", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      api.config.fetch = spy as any;
+
+      api.getCurrentUsersSavedAlbums();
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+
+    it("should call fetch with the correct args when params set", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      api.config.fetch = spy as any;
+      const query = "?limit=50";
+
+      api.getCurrentUsersSavedAlbums({ limit: 50 });
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  });
 });
