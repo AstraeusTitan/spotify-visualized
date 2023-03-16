@@ -15,6 +15,7 @@ export async function getStaticProps() {
           "user-read-recently-played",
           "playlist-read-private",
           "playlist-read-collaborative",
+          "user-library-read",
         ],
       },
     },
