@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import * as ReactDOMServer from "react-dom/server";
 import Logo from "@/components/Logo";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -25,7 +26,13 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <SpotifyProvider>
-        <Component {...pageProps} />
+        {pageProps.noHeader ? (
+          <Component {...pageProps} />
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </SpotifyProvider>
     </>
   );

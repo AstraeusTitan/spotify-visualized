@@ -7,6 +7,7 @@ import { useEffect } from "react";
 export async function getStaticProps() {
   return {
     props: {
+      noHeader: true,
       spotifyConfig: {
         clientId: process.env.CLIENT_ID,
         redirectUri: `${process.env.NEXT_PUBLIC_URL}/callback`,
