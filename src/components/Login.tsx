@@ -31,7 +31,7 @@ export const LoginButton: FC<PropsWithChildren<ButtonHTMLAttributes<{}>>> = ({
         focus:ring-sky-400"
       onClick={() => {
         if (spotify?.Auth.tokenValid()) {
-          router.push("/details");
+          router.push("/me");
         } else {
           spotify?.Auth.openLoginPopup(window);
         }

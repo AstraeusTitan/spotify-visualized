@@ -17,7 +17,7 @@ const Callback = () => {
           target.next && target.next.router.push("/");
           window.close();
         } else {
-          target.next && target.next.router.push("/details");
+          target.next && target.next.router.push("/me");
           window.close();
         }
       }
