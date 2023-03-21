@@ -17,16 +17,24 @@ export type FilterTest = {
   name: string;
   matcher: (checkValue: any, testValue?: any) => boolean;
   value?: {
-    component: ({ onChange }: { onChange: (value: any) => any }) => JSX.Element;
+    component: ({
+      onChange,
+      defaultValue,
+    }: {
+      onChange?: (value: any) => any;
+      defaultValue?: any;
+    }) => JSX.Element;
   };
 };
 
 const NumberInput = ({
   rounded,
   onChange,
+  defaultValue,
 }: {
   rounded?: boolean;
   onChange?: (value: number) => any;
+  defaultValue: number;
 }) => {
   return (
     <div className="w-full sm:w-48">
@@ -34,6 +42,7 @@ const NumberInput = ({
       <input
         type="number"
         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        defaultValue={defaultValue}
         onChange={(e) => {
           const parsed = parseFloat(e.target.value);
           const value = rounded ? Math.round(parsed) : parsed;

@@ -5,12 +5,15 @@ import { AppliedFilter, buildAppliedFilter } from "./helpers";
 type Props = {
   filters?: FilterOptions[];
   onChange?: (f: AppliedFilter) => any;
+  initialState?: AppliedFilter;
 };
 
-const Row = ({ filters, onChange }: Props) => {
-  const [filter, setFilter] = useState<FilterOptions | undefined>(undefined);
-  const [test, setTest] = useState<FilterTest | undefined>(undefined);
-  const [value, setValue] = useState(undefined);
+const Row = ({ filters, onChange, initialState }: Props) => {
+  const [filter, setFilter] = useState<FilterOptions | undefined>(
+    initialState?.filter
+  );
+  const [test, setTest] = useState<FilterTest | undefined>(initialState?.test);
+  const [value, setValue] = useState(initialState?.value);
 
   useEffect(() => {
     const appliedFilter = buildAppliedFilter(filter, test, value);
@@ -26,6 +29,7 @@ const Row = ({ filters, onChange }: Props) => {
             name="field"
             id="field"
             className="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            defaultValue={filter?.name}
             onChange={(e) => {
               const filter = filters?.find((f) => f.name === e.target.value);
               setFilter(filter);
@@ -47,7 +51,7 @@ const Row = ({ filters, onChange }: Props) => {
                 name="test"
                 id="test"
                 className="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={test?.name}
+                defaultValue={initialState?.test?.name || test?.name}
                 onChange={(e) => {
                   setTest(filter?.tests.find((t) => t.name === e.target.value));
                 }}
@@ -62,6 +66,7 @@ const Row = ({ filters, onChange }: Props) => {
             {!!test &&
               !!test.value &&
               test.value.component({
+                defaultValue: value,
                 onChange: (value: any) => (
                   console.log("Value", value), setValue(value)
                 ),
