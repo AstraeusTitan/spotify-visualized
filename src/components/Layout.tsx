@@ -8,6 +8,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren } from "react";
+import { Container } from "./Container";
 import Logo from "./Logo";
 
 const links = [
@@ -39,7 +40,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       <Disclosure as="nav" className="border-b border-gray-200 bg-white">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Container>
               <div className="flex h-16 justify-between">
                 <div className="flex">
                   <div className="flex flex-shrink-0 items-center">
@@ -134,7 +135,7 @@ const Layout = ({ children }: PropsWithChildren) => {
                   </Disclosure.Button>
                 </div>
               </div>
-            </div>
+            </Container>
 
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 pt-2 pb-3">
@@ -191,36 +192,3 @@ const Layout = ({ children }: PropsWithChildren) => {
 };
 
 export default Layout;
-
-{
-  /* <Popover.Group className="hidden lg:flex lg:gap-x-12">
-  <Popover className="relative">
-    <Popover.Button className="flex h-full items-center gap-x-1 semibold leading-6 text-gray-900 border-indigo-500 text-gray-900 items-center border-b-2 px-1 pt-1 text-sm font-medium">
-      Top
-      <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" />
-    </Popover.Button>
-
-    <Transition
-      as={Fragment}
-      enter="transition ease-out duration-200"
-      enterFrom="opacity-0 translate-y-1"
-      enterTo="opacity-100 translate-y-0"
-      leave="transition ease-in duration-150"
-      leaveFrom="opacity-100 translate-y-0"
-      leaveTo="opacity-0 translate-y-1"
-    >
-      <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-        <div className="p-4">
-          <div className="group relative flex items-center gap-x-6 rounded-lg p4 text-sm leading-6 hover:bg-gray-50">
-            <div className="flex-auto">
-              <Link href={"#"} className="block font-semibold text-gray-900">
-                Tracks
-              </Link>
-            </div>
-          </div>
-        </div>
-      </Popover.Panel>
-    </Transition>
-  </Popover>
-</Popover.Group>; */
-}
