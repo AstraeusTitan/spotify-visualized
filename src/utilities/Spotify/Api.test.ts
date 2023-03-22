@@ -91,6 +91,20 @@ describe("Spotify.Api", () => {
       });
     });
 
+    it("should not include params with undefined value", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      const route = "/me";
+      api.config.fetch = spy as any;
+      expect(api.config.fetch).toBeDefined();
+      api._makeRequest(route, null, { ids: undefined });
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+
     it("should call fetch with the correct url and query", () => {
       const spy = jest.spyOn(mock, "fetch");
       const route = "/me";

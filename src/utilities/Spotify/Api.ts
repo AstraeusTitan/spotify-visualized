@@ -13,11 +13,20 @@ class Api {
       return "";
     }
     const strings = Object.keys(params).map((key) => {
+      if (params[key] === undefined) {
+        return;
+      }
+
       return `${encodeURIComponent(key)}=${encodeURIComponent(
         params[key] as any
       )}`;
     });
-    return `?${strings.join("&")}`;
+
+    const nonEmptyStrings = strings.filter(Boolean);
+    if (nonEmptyStrings.length === 0) {
+      return "";
+    }
+    return `?${nonEmptyStrings.join("&")}`;
   }
 
   _hasScopes(scopes: string[]): boolean {
