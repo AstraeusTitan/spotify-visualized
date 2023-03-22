@@ -90,6 +90,12 @@ class Api {
   }
 
   // Playlist requests
+  getPlaylist(params: PlaylistQuery) {
+    return this._makeRequest(`/playlists/${params.id}`, null, {
+      market: params.market,
+    }) as Promise<PlaylistResponse | ErrorResponse>;
+  }
+
   getCurrentUsersPlaylists(params?: CurrentUsersPlaylistsQuery) {
     return this._makeRequest(
       "/me/playlists",
@@ -189,6 +195,15 @@ export type TracksAudioFeaturesQuery = {
 export type TracksAudioFeaturesResponse = {
   audio_features: AudioFeatures[];
 };
+
+export type PlaylistQuery = {
+  [key: string]: string | undefined;
+  id: string;
+  market?: string;
+  fields?: string;
+};
+
+export type PlaylistResponse = FullPlaylist;
 
 export type CurrentUsersPlaylistsQuery = {
   [key: string]: number | undefined;
