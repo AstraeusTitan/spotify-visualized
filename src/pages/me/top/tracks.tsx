@@ -1,4 +1,6 @@
 import { Container } from "@/components/Container";
+import DataSection from "@/components/Shared/DataSection";
+import Tabs from "@/components/Shared/Tabs";
 import TopTracks from "@/components/Track/TopTracks";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useRouter } from "next/router";
@@ -20,14 +22,10 @@ const TopTracksPage = () => {
   return (
     <main>
       <Container>
-        <div className="divide-y divide-gray-200 py-8">
-          <div className="md:flex md:items-center md:justify-between">
-            <div className="min-w-0 flex-1">
-              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                Top Tracks
-              </h2>
-            </div>
-            <div className="my-4 flex md:mt-0">
+        <DataSection className="divide-none">
+          <DataSection.Header>
+            <DataSection.Header.Title>Top Tracks</DataSection.Header.Title>
+            <div className="w-fit">
               <select
                 id="time_frame"
                 name="time_frame"
@@ -40,9 +38,26 @@ const TopTracksPage = () => {
                 <option value="long_term">All Time</option>
               </select>
             </div>
-          </div>
-          <TopTracks time_range={timeFrame} limit={50} showLink={false} />
-        </div>
+          </DataSection.Header>
+          <DataSection.Panel className="pt-0">
+            <Tabs.Group>
+              <Tabs.List>
+                <Tabs.BasicTab>Tracks</Tabs.BasicTab>
+                <Tabs.BasicTab>Charts</Tabs.BasicTab>
+              </Tabs.List>
+              <Tabs.Panels>
+                <Tabs.Panel>
+                  <TopTracks
+                    time_range={timeFrame}
+                    limit={50}
+                    showLink={false}
+                  />
+                </Tabs.Panel>
+                <Tabs.Panel>Panel 2</Tabs.Panel>
+              </Tabs.Panels>
+            </Tabs.Group>
+          </DataSection.Panel>
+        </DataSection>
       </Container>
     </main>
   );
