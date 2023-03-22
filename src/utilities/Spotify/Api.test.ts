@@ -373,6 +373,31 @@ describe("Spotify.Api", () => {
     });
   });
 
+  describe("getArtist", () => {
+    let mock: any, api: Api;
+    beforeEach(() => {
+      mock = {
+        fetch: (input: string, init?: any) =>
+          new Promise((resolve, reject) => input),
+      };
+      api = new Api({ ...passedConfig });
+    });
+
+    it("should call fetch with the correct args", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      api.config.fetch = spy as any;
+      const route = "/artists/1234";
+
+      api.getArtist({ id: "1234" });
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  });
+
   describe("getAlbum", () => {
     let mock: any, api: Api;
     beforeEach(() => {

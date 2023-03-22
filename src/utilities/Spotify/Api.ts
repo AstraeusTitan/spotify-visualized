@@ -74,6 +74,11 @@ class Api {
   }
 
   // Artist requests
+  getArtist(params: ArtistQuery) {
+    return this._makeRequest(`/artists/${params.id}`, null, {
+      market: params.market,
+    }) as Promise<ArtistResponse | ErrorResponse>;
+  }
 
   // Player Requests
   getRecentlyPlayed(params?: RecentlyPlayedTracksQuery) {
@@ -217,6 +222,13 @@ export type UsersTopItemsResponse = {
   total: number;
   items: Track[] | Artist[];
 };
+
+export type ArtistQuery = {
+  [key: string]: string | undefined;
+  id: string;
+};
+
+export type ArtistResponse = Artist;
 
 export type AlbumQuery = {
   [key: string]: string | undefined;
