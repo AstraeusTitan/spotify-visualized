@@ -59,6 +59,12 @@ class Api {
   }
 
   // Album requests
+  getAlbum(params: AlbumQuery) {
+    return this._makeRequest(`/albums/${params.id}`, null, {
+      market: params.market,
+    }) as Promise<AlbumResponse | ErrorResponse>;
+  }
+
   getCurrentUsersSavedAlbums(params?: CurrentUsersSavedAlbumsQuery) {
     return this._makeRequest(
       "/me/albums",
@@ -211,6 +217,14 @@ export type UsersTopItemsResponse = {
   total: number;
   items: Track[] | Artist[];
 };
+
+export type AlbumQuery = {
+  [key: string]: string | undefined;
+  id: string;
+  market?: string;
+};
+
+export type AlbumResponse = Album;
 
 export type CurrentUsersSavedAlbumsQuery = {
   [key: string]: string | number | undefined;
