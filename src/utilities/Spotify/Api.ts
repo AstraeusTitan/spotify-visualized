@@ -267,7 +267,7 @@ export type Track = {
   external_urls: ExternalUrls;
   href: string;
   id: string;
-  restriction: Resctriction;
+  restrictions: Resctriction;
   name: string;
   popularity: number;
   preview_url: string;
@@ -291,9 +291,8 @@ export type Artist = {
 };
 
 export type Album = {
-  type: "album";
   album_type: "single" | "album" | "compilation";
-  artists: Artist[];
+  total_tracks: number;
   available_markets: string[];
   external_urls: ExternalUrls;
   href: string;
@@ -302,8 +301,16 @@ export type Album = {
   name: string;
   release_date: string;
   release_date_precision: "year" | "month" | "day";
-  total_tracks: number;
+  restrictions: Resctriction;
+  type: "album";
   uri: string;
+  copyrights: Copyright[];
+  external_ids: ExternalIds;
+  genres: string[];
+  label: string;
+  popularity: number;
+  artists: Artist[];
+  tracks: Track[];
 };
 
 export type SavedAlbum = {
@@ -431,4 +438,9 @@ export type ErrorResponse = {
     status: number;
     message: string;
   };
+};
+
+export type Copyright = {
+  text: string;
+  type: "c" | "p" | string;
 };
