@@ -64,7 +64,7 @@ class Api {
       "/me/albums",
       ["user-library-read"],
       params
-    ) as Promise<CurrentUsersSavedAlbumsResponse>;
+    ) as Promise<CurrentUsersSavedAlbumsResponse | ErrorResponse>;
   }
 
   // Artist requests
@@ -75,7 +75,7 @@ class Api {
       "/me/player/recently-played",
       ["user-read-recently-played"],
       params
-    ) as Promise<RecentlyPlayedTracksResponse>;
+    ) as Promise<RecentlyPlayedTracksResponse | ErrorResponse>;
   }
 
   // Playlist requests
@@ -84,7 +84,7 @@ class Api {
       "/me/playlists",
       ["playlist-read-private", "playlist-read-collaborative"],
       params
-    ) as Promise<CurrentUsersPlaylistsResponse>;
+    ) as Promise<CurrentUsersPlaylistsResponse | ErrorResponse>;
   }
 
   // Search requests
@@ -93,19 +93,19 @@ class Api {
   getTrack(params: TrackQuery) {
     return this._makeRequest(`/tracks/${params.id}`, null, {
       market: params.market,
-    }) as Promise<TrackResponse>;
+    }) as Promise<TrackResponse | ErrorResponse>;
   }
 
   getTrackAudioFeatures(params: TrackAudioFeaturesQuery) {
-    return this._makeRequest(
-      `/audio-features/${params.id}`
-    ) as Promise<TrackAudioFeaturesResponse>;
+    return this._makeRequest(`/audio-features/${params.id}`) as Promise<
+      TrackAudioFeaturesResponse | ErrorResponse
+    >;
   }
 
   getTracksAudioFeatures(params: TracksAudioFeaturesQuery) {
     return this._makeRequest("/audio-features", null, {
       ids: params.ids,
-    }) as Promise<TracksAudioFeaturesResponse>;
+    }) as Promise<TracksAudioFeaturesResponse | ErrorResponse>;
   }
 
   // User requests
@@ -118,7 +118,7 @@ class Api {
       `/me/top/${type}`,
       ["user-top-read"],
       params
-    ) as Promise<UsersTopItemsResponse>;
+    ) as Promise<UsersTopItemsResponse | ErrorResponse>;
   }
 }
 
@@ -410,4 +410,11 @@ export type ExplicitContent = {
 
 export type Resctriction = {
   reason: "market" | "product" | "explicit" | string;
+};
+
+export type ErrorResponse = {
+  error: {
+    status: number;
+    message: string;
+  };
 };
