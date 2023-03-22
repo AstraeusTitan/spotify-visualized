@@ -90,6 +90,18 @@ class Api {
   // Search requests
 
   // Tracks requests
+  getTrack(params: TrackQuery) {
+    return this._makeRequest(`/tracks/${params.id}`, null, {
+      market: params.market,
+    }) as Promise<TrackResponse>;
+  }
+
+  getTrackAudioFeatures(params: TrackAudioFeaturesQuery) {
+    return this._makeRequest(
+      `/audio-features/${params.id}`
+    ) as Promise<TrackAudioFeaturesResponse>;
+  }
+
   getTracksAudioFeatures(params: TracksAudioFeaturesQuery) {
     return this._makeRequest("/audio-features", null, {
       ids: params.ids,
@@ -142,6 +154,21 @@ export type RecentlyPlayedTracksResponse = {
   total: number;
   items: RecentlyPlayedTrack[];
 };
+
+export type TrackQuery = {
+  [key: string]: string | undefined;
+  id: string;
+  market?: string;
+};
+
+export type TrackResponse = Track;
+
+export type TrackAudioFeaturesQuery = {
+  [key: string]: string | undefined;
+  id: string;
+};
+
+export type TrackAudioFeaturesResponse = AudioFeatures;
 
 export type TracksAudioFeaturesQuery = {
   [key: string]: string | string[] | number[] | undefined;
@@ -226,13 +253,14 @@ export type Track = {
   external_urls: ExternalUrls;
   href: string;
   id: string;
-  is_local: boolean;
+  restriction: Resctriction;
   name: string;
   popularity: number;
   preview_url: string;
   track_number: number;
   type: "track";
   uri: string;
+  is_local: boolean;
 };
 
 export type Artist = {
@@ -378,4 +406,8 @@ export type Followers = {
 export type ExplicitContent = {
   filter_enabled: boolean;
   filter_locked: boolean;
+};
+
+export type Resctriction = {
+  reason: "market" | "product" | "explicit" | string;
 };
