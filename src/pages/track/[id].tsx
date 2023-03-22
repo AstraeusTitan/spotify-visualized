@@ -23,7 +23,7 @@ const Track = () => {
   const [features, setFeatures] = useState<Api.AudioFeatures | undefined>(
     undefined
   );
-  // Add data fetch here
+
   useEffect(() => {
     if (spotify) {
       const result = spotify.Api.getTrack({ id: id as string });
@@ -93,20 +93,22 @@ const Track = () => {
             <DescriptionList.Item>
               <DescriptionList.Item.Name>Artist</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
-                {!!track ? (
-                  track?.artists.map((a) => (
-                    // TODO: Style
-                    <Link
-                      href={`/artist/${a.id}`}
-                      key={a.id}
-                      className="underline hover:text-indigo-600"
-                    >
-                      {a.name}
-                    </Link>
-                  ))
-                ) : (
-                  <div className="h-5 w-24 bg-gray-300 rounded"></div>
-                )}
+                <div className="flex gap-2">
+                  {!!track ? (
+                    track?.artists.map((a) => (
+                      // TODO: Style
+                      <Link
+                        href={`/artist/${a.id}`}
+                        key={a.id}
+                        className="underline hover:text-indigo-600"
+                      >
+                        {a.name}
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="h-5 w-24 bg-gray-300 rounded"></div>
+                  )}
+                </div>
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
 
