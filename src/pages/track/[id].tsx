@@ -30,7 +30,7 @@ const Track = () => {
       result
         .then((json) => {
           // TODO: do something once an error is identified
-          if (!(json as Api.ErrorResponse).error) {
+          if (!json.error) {
             setTrack(json as Api.Track);
           }
         })

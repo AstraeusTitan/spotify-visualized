@@ -62,7 +62,7 @@ class Api {
   getAlbum(params: AlbumQuery) {
     return this._makeRequest(`/albums/${params.id}`, null, {
       market: params.market,
-    }) as Promise<AlbumResponse | ErrorResponse>;
+    }) as Promise<AlbumResponse>;
   }
 
   getCurrentUsersSavedAlbums(params?: CurrentUsersSavedAlbumsQuery) {
@@ -70,14 +70,14 @@ class Api {
       "/me/albums",
       ["user-library-read"],
       params
-    ) as Promise<CurrentUsersSavedAlbumsResponse | ErrorResponse>;
+    ) as Promise<CurrentUsersSavedAlbumsResponse>;
   }
 
   // Artist requests
   getArtist(params: ArtistQuery) {
     return this._makeRequest(`/artists/${params.id}`, null, {
       market: params.market,
-    }) as Promise<ArtistResponse | ErrorResponse>;
+    }) as Promise<ArtistResponse>;
   }
 
   // Player Requests
@@ -86,14 +86,14 @@ class Api {
       "/me/player/recently-played",
       ["user-read-recently-played"],
       params
-    ) as Promise<RecentlyPlayedTracksResponse | ErrorResponse>;
+    ) as Promise<RecentlyPlayedTracksResponse>;
   }
 
   // Playlist requests
   getPlaylist(params: PlaylistQuery) {
     return this._makeRequest(`/playlists/${params.id}`, null, {
       market: params.market,
-    }) as Promise<PlaylistResponse | ErrorResponse>;
+    }) as Promise<PlaylistResponse>;
   }
 
   getCurrentUsersPlaylists(params?: CurrentUsersPlaylistsQuery) {
@@ -101,7 +101,7 @@ class Api {
       "/me/playlists",
       ["playlist-read-private", "playlist-read-collaborative"],
       params
-    ) as Promise<CurrentUsersPlaylistsResponse | ErrorResponse>;
+    ) as Promise<CurrentUsersPlaylistsResponse>;
   }
 
   // Search requests
@@ -110,19 +110,19 @@ class Api {
   getTrack(params: TrackQuery) {
     return this._makeRequest(`/tracks/${params.id}`, null, {
       market: params.market,
-    }) as Promise<TrackResponse | ErrorResponse>;
+    }) as Promise<TrackResponse>;
   }
 
   getTrackAudioFeatures(params: TrackAudioFeaturesQuery) {
     return this._makeRequest(`/audio-features/${params.id}`) as Promise<
-      TrackAudioFeaturesResponse | ErrorResponse
+      TrackAudioFeaturesResponse
     >;
   }
 
   getTracksAudioFeatures(params: TracksAudioFeaturesQuery) {
     return this._makeRequest("/audio-features", null, {
       ids: params.ids,
-    }) as Promise<TracksAudioFeaturesResponse | ErrorResponse>;
+    }) as Promise<TracksAudioFeaturesResponse>;
   }
 
   // User requests
@@ -135,7 +135,7 @@ class Api {
       `/me/top/${type}`,
       ["user-top-read"],
       params
-    ) as Promise<UsersTopItemsResponse | ErrorResponse>;
+    ) as Promise<UsersTopItemsResponse>;
   }
 }
 
@@ -161,6 +161,7 @@ export type RecentlyPlayedTracksQuery = {
 };
 
 export type RecentlyPlayedTracksResponse = {
+  error?: Error
   href: string;
   limit: number;
   next: string | null;
@@ -178,14 +179,18 @@ export type TrackQuery = {
   market?: string;
 };
 
-export type TrackResponse = Track;
+export type TrackResponse = Track & {
+  error?: Error;
+};
 
 export type TrackAudioFeaturesQuery = {
   [key: string]: string | undefined;
   id: string;
 };
 
-export type TrackAudioFeaturesResponse = AudioFeatures;
+export type TrackAudioFeaturesResponse = AudioFeatures & {
+  error?: Error;
+};
 
 export type TracksAudioFeaturesQuery = {
   [key: string]: string | string[] | number[] | undefined;
@@ -193,6 +198,7 @@ export type TracksAudioFeaturesQuery = {
 };
 
 export type TracksAudioFeaturesResponse = {
+  error?: Error;
   audio_features: AudioFeatures[];
 };
 
@@ -203,7 +209,9 @@ export type PlaylistQuery = {
   fields?: string;
 };
 
-export type PlaylistResponse = FullPlaylist;
+export type PlaylistResponse = FullPlaylist & {
+  error?: Error;
+};
 
 export type CurrentUsersPlaylistsQuery = {
   [key: string]: number | undefined;
@@ -212,6 +220,7 @@ export type CurrentUsersPlaylistsQuery = {
 };
 
 export type CurrentUsersPlaylistsResponse = {
+  error?: Error;
   href: string;
   limit: number;
   next: string | null;
@@ -229,6 +238,7 @@ export type UsersTopItemsQuery = {
 };
 
 export type UsersTopItemsResponse = {
+  error?: Error;
   href: string;
   limit: number;
   next: string | null;
@@ -243,7 +253,9 @@ export type ArtistQuery = {
   id: string;
 };
 
-export type ArtistResponse = Artist;
+export type ArtistResponse = Artist & {
+  error?: Error;
+};
 
 export type AlbumQuery = {
   [key: string]: string | undefined;
@@ -251,7 +263,9 @@ export type AlbumQuery = {
   market?: string;
 };
 
-export type AlbumResponse = Album;
+export type AlbumResponse = Album & {
+  error?: Error;
+};
 
 export type CurrentUsersSavedAlbumsQuery = {
   [key: string]: string | number | undefined;
@@ -261,6 +275,7 @@ export type CurrentUsersSavedAlbumsQuery = {
 };
 
 export type CurrentUsersSavedAlbumsResponse = {
+  error?: Error;
   href: string;
   limit: number;
   next: string | null;
@@ -460,11 +475,9 @@ export type Resctriction = {
   reason: "market" | "product" | "explicit" | string;
 };
 
-export type ErrorResponse = {
-  error: {
-    status: number;
-    message: string;
-  };
+export type Error = {
+  status: number;
+  message: string;
 };
 
 export type Copyright = {

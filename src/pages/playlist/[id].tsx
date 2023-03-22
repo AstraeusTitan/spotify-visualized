@@ -21,7 +21,7 @@ const Playlist = () => {
       result
         .then((json) => {
           // TODO: do something once an error is identified
-          if (!(json as Api.ErrorResponse).error) {
+          if (!json.error) {
             setPlaylist(json as Api.FullPlaylist);
           }
         })

@@ -19,7 +19,7 @@ const Album = () => {
       result
         .then((json) => {
           // TODO: do something once an error is identified
-          if (!(json as Api.ErrorResponse).error) {
+          if (!json.error) {
             setAlbum(json as Api.Album);
           }
         })
