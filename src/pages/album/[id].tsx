@@ -134,7 +134,7 @@ const Album = () => {
               <DescriptionList.Item.Name>Genres</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
                 {!!album ? (
-                  <div className="flex">
+                  <div className="flex flex-col gap-2 capitalize">
                     {album.genres.length ? (
                       album.genres.map((g) => <span key={g}>{g}</span>)
                     ) : (
