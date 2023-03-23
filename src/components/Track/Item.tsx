@@ -2,6 +2,7 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
 import Image from "next/image";
 import Link from "next/link";
+import ItemList from "../Shared/ItemList";
 
 type Props = {
   track?: Track;
@@ -20,96 +21,53 @@ const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
 const Item = ({ track, features, route }: Props) => {
   return (
-    <li>
-      <Link
-        href={`${route}/${track?.id || ""}`}
-        className="block hover:bg-gray-100 group"
-      >
-        <div className="flex items-center p-4 sm:px-6">
-          <div className="min-w-0 flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex min-w-0 flex-1 gap-4">
-              <div className="flex-shrink-0">
-                <div className="relative h-14 w-14 md:h-20 md:w-20 rounded-lg overflow-hidden bg-gray-300">
-                  {!!track && (
-                    <Image
-                      src={track.album.images[0].url}
-                      alt={`${track.album.name} Album Cover`}
-                      fill
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="flex grow justify-between">
-                <div className="flex flex-col justify-center">
-                  {!!track ? (
-                    <>
-                      <p className="truncate text-sm md:text-base font-medium text-indigo-600 whitespace-pre-line">
-                        {track?.name}
-                      </p>
-                      <p className="mt-2 flex text-sm md:text-base text-gray-500 whitespace-pre-line">
-                        {track?.artists.map((a) => a.name).join(", ")}
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="truncate text-sm font-medium w-32 md:w-48 h-5 bg-gray-300 rounded"></p>
-                      <p className="truncate mt-2 flex text-sm w-32 h-5 bg-gray-300 rounded"></p>
-                    </>
-                  )}
-                </div>
-                <div>
-                  {!!route && (
-                    <ChevronRightIcon
-                      className="h-5 w-5 mt-4 text-gray-400 md:hidden group-hover:text-indigo-600"
-                      aria-hidden="true"
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center justify-center md:justify-end gap-x-8">
-              <div className="flex grow md:grow-0 md:flex-col justify-evenly gap-y-1">
-                <div className="md:w-16">
-                  {!!track ? (
-                    <p className="text-sm text-gray-500 w-fit">
-                      {formatDuration(track?.duration_ms || 0)}
-                    </p>
-                  ) : (
-                    <p className="text-sm h-5 bg-gray-300 rounded w-16"></p>
-                  )}
-                </div>
-                <div className="md:w-16">
-                  {!!features ? (
-                    <p className="text-sm text-gray-500 w-fit whitespace-nowrap">
-                      {`${Math.round(features.tempo)} bpm`}
-                    </p>
-                  ) : (
-                    <p className="text-sm h-5 bg-gray-300 rounded w-16"></p>
-                  )}
-                </div>
-                <div className="md:w-16">
-                  {!!features ? (
-                    <p className="text-sm text-gray-500 w-fit whitespace-nowrap">
-                      {`${keys[features?.key || 12] || "key?"} ${
-                        features?.mode ? "Major" : "Minor"
-                      }`}
-                    </p>
-                  ) : (
-                    <p className="text-sm h-5 bg-gray-300 rounded w-16"></p>
-                  )}
-                </div>
-              </div>
-              {!!route && (
-                <ChevronRightIcon
-                  className="h-5 w-5 text-gray-400 hidden md:block group-hover:text-indigo-600"
-                  aria-hidden="true"
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </Link>
-    </li>
+    <ItemList.Item route={`/track/${track?.id}`}>
+      <ItemList.Item.Thumbnail
+        src={track?.album.images[0].url}
+        alt={`${track?.album.name} Album Cover`}
+      />
+      <div className="flex flex-col gap-2">
+        <ItemList.Item.Title>{track?.name}</ItemList.Item.Title>
+        <ItemList.Item.Subtitle>
+          {track?.artists.map((artist, i) => (
+            <Link
+              key={artist.id}
+              href={`/artist/${artist.id}`}
+              className="underline hover:text-indigo-600 px-1 py-1"
+            >
+              {artist.name}
+            </Link>
+          ))}
+        </ItemList.Item.Subtitle>
+      </div>
+      <div className="flex flex-grow flex-wrap justify-evenly md:justify-end gap-2 md:gap-6 md:pr-8">
+        <ItemList.Item.DataBlock
+          label="popularity"
+          data={track?.popularity}
+          className="hidden md:flex"
+        />
+        <ItemList.Item.DataBlock
+          label="pop."
+          data={track?.popularity}
+          className="md:hidden"
+        />
+        <ItemList.Item.DataBlock
+          label="duration"
+          data={track && formatDuration(track.duration_ms)}
+        />
+        <ItemList.Item.DataBlock
+          label="tempo"
+          data={features && Math.round(features.tempo)}
+        />
+        <ItemList.Item.DataBlock
+          label="key"
+          data={
+            features &&
+            `${keys[features.key] || "?"} ${features.mode ? "Major" : "Minor"}`
+          }
+        />
+      </div>
+    </ItemList.Item>
   );
 };
 

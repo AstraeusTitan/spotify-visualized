@@ -1,7 +1,8 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
-import Track from ".";
+import ItemList from "../Shared/ItemList";
+import Item from "./Item";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
@@ -44,31 +45,32 @@ const RecentTracks = ({
   }, [spotify, tracks]);
 
   return (
-    <Track.List
-      title={title}
-      route={showLink ? "/me/recent/tracks" : undefined}
-    >
-      {tracks === undefined && (
-        <>
-          <Track.Item />
-          <Track.Item />
-          <Track.Item />
-          <Track.Item />
-        </>
-      )}
-      {!!tracks?.length && (
-        <>
-          {tracks.map((track, i) => (
-            <Track.Item
+    <ItemList>
+      <>
+        {tracks === undefined && (
+          <>
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+          </>
+        )}
+
+        {tracks?.length ? (
+          tracks.map((track, i) => (
+            <Item
               track={track}
               features={features?.find((f) => f.id === track.id)}
               route="/track"
               key={i}
             />
-          ))}
-        </>
-      )}
-    </Track.List>
+          ))
+        ) : (
+          <div>Empty State</div>
+        )}
+      </>
+    </ItemList>
   );
 };
 
