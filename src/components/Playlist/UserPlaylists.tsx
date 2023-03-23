@@ -1,8 +1,8 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
-import Playlist from ".";
-import CardGrid from "../Shared/CardGrid";
+import ItemList from "../Shared/ItemList";
+import Item from "./Item";
 
 type Props = {
   title?: string;
@@ -29,28 +29,27 @@ const UserPlaylists = ({ title, limit, showLink = true }: Props) => {
   }, [limit, spotify]);
 
   return (
-    <CardGrid title={title} route={showLink ? "/me/playlists" : undefined}>
-      {playlists === undefined && (
-        <>
-          <Playlist.Card />
-          <Playlist.Card />
-          <Playlist.Card />
-          <Playlist.Card />
-        </>
-      )}
-      {!!playlists?.length && (
-        <>
-          {playlists.map((playlist, i) => (
-            <Playlist.Card
-              {...playlist}
-              _public={playlist.public}
-              route="/playlist"
-              key={i}
-            />
-          ))}
-        </>
-      )}
-    </CardGrid>
+    <ItemList>
+      <>
+        {playlists === undefined && (
+          <>
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+          </>
+        )}
+
+        {playlists?.length ? (
+          playlists?.map((playlist) => (
+            <Item playlist={playlist} key={playlist.id} />
+          ))
+        ) : (
+          <div>Empty State</div>
+        )}
+      </>
+    </ItemList>
   );
 };
 
