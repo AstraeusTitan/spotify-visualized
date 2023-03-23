@@ -1,6 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
 import * as PlaylistCard from "../Playlist/Card.stories";
-import * as ArtistCard from "../Artist/Card.stories";
 import * as AlbumCard from "../Album/Card.stories";
 import CardGrid from "../Shared/CardGrid";
 
@@ -84,38 +83,6 @@ PopulatedAlbums.args = {
       <AlbumCard.WithData {...AlbumCard.WithData.args} />
       <AlbumCard.WithData {...AlbumCard.WithData.args} />
       <AlbumCard.WithData {...AlbumCard.WithData.args} />
-    </>
-  ),
-};
-
-// Artists
-export const LoadingArtists = Template.bind({});
-LoadingArtists.args = {
-  title: "Artists",
-  route: "/artists",
-  children: (
-    <>
-      <ArtistCard.Skeleton {...ArtistCard.Skeleton.args} />
-      <ArtistCard.Skeleton {...ArtistCard.Skeleton.args} />
-      <ArtistCard.Skeleton {...ArtistCard.Skeleton.args} />
-      <ArtistCard.Skeleton {...ArtistCard.Skeleton.args} />
-    </>
-  ),
-};
-export const PopulatedArtists = Template.bind({});
-PopulatedArtists.args = {
-  title: "Artists",
-  route: "/artists",
-  children: (
-    <>
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
-      <ArtistCard.WithData {...ArtistCard.WithData.args} />
     </>
   ),
 };
