@@ -1,6 +1,14 @@
 import Auth from "@/utilities/Spotify/Auth";
 import { useEffect } from "react";
 
+export async function getStaticProps() {
+  return {
+    props: {
+      noHeader: true,
+    },
+  };
+}
+
 const Callback = () => {
   useEffect(() => {
     const target = window.opener;
