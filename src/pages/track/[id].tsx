@@ -4,6 +4,7 @@ import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -95,6 +96,24 @@ const Track = () => {
             </DescriptionList.Item>
 
             <DescriptionList.Item>
+              <DescriptionList.Item.Name>Album Cover</DescriptionList.Item.Name>
+              <DescriptionList.Item.Description>
+                {!!track ? (
+                  // TODO: Style
+                  <div className="relative w-32 h-32 rounded overflow-hidden">
+                    <Image
+                      src={track.album.images[0].url}
+                      alt={`${track.album.name} Image`}
+                      fill
+                    />
+                  </div>
+                ) : (
+                  <div className="h-32 w-32 bg-gray-300 rounded"></div>
+                )}
+              </DescriptionList.Item.Description>
+            </DescriptionList.Item>
+
+            <DescriptionList.Item>
               <DescriptionList.Item.Name>Artist</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
                 <div className="flex gap-2">
@@ -151,8 +170,8 @@ const Track = () => {
               <DescriptionList.Item.Name>Key</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
                 {!!features ? (
-                  `${keys[features?.key || 12] || "key?"} ${
-                    features?.mode ? "Major" : "Minor"
+                  `${keys[features.key] || "?"} ${
+                    features.mode ? "Major" : "Minor"
                   }`
                 ) : (
                   <div className="h-5 w-12 bg-gray-300 rounded"></div>
