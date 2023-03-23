@@ -2,6 +2,7 @@ import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -53,6 +54,9 @@ const Track = () => {
   }, [id, spotify, track]);
   return (
     <main className="mt-8">
+      <Head>
+        <title>{`Track: ${track?.name || id} - Spotify Visualized`}</title>
+      </Head>
       <Container>
         <DescriptionList>
           <DescriptionList.Header>

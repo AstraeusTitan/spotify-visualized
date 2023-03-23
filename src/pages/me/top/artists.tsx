@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DataSection from "@/components/Shared/DataSection";
 import Tabs from "@/components/Shared/Tabs";
+import Head from "next/head";
 
 const TopArtistsPage = () => {
   const router = useRouter();
@@ -21,6 +22,9 @@ const TopArtistsPage = () => {
 
   return (
     <main>
+      <Head>
+        <title>My Top Artists - Spotify Visualized</title>
+      </Head>
       <Container>
         <DataSection className="divide-none">
           <DataSection.Header>

@@ -3,6 +3,7 @@ import DataSection from "@/components/Shared/DataSection";
 import Tabs from "@/components/Shared/Tabs";
 import TopTracks from "@/components/Track/TopTracks";
 import { useSpotify } from "@/hooks/useSpotify";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -21,6 +22,9 @@ const TopTracksPage = () => {
 
   return (
     <main>
+      <Head>
+        <title>My Top Tracks - Spotify Visualized</title>
+      </Head>
       <Container>
         <DataSection className="divide-none">
           <DataSection.Header>

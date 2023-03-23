@@ -3,6 +3,7 @@ import DataSection from "@/components/Shared/DataSection";
 import Tabs from "@/components/Shared/Tabs";
 import RecentTracks from "@/components/Track/RecentTracks";
 import { useSpotify } from "@/hooks/useSpotify";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -18,6 +19,9 @@ const RecentTracksPage = () => {
 
   return (
     <main>
+      <Head>
+        <title>My Recently Played Tracks - Spotify Visualized</title>
+      </Head>
       <Container>
         <DataSection className="divide-none">
           <DataSection.Header>

@@ -7,6 +7,7 @@ import TopTracks from "@/components/Track/TopTracks";
 import RecentTracks from "@/components/Track/RecentTracks";
 import UserPlaylists from "@/components/Playlist/UserPlaylists";
 import DataSection from "@/components/Shared/DataSection";
+import Head from "next/head";
 
 const Me = () => {
   const router = useRouter();
@@ -26,6 +27,9 @@ const Me = () => {
 
   return (
     <main>
+      <Head>
+        <title>Profile - Spotify Visualized</title>
+      </Head>
       <Container>
         <div className="py-8">
           <DataSection>

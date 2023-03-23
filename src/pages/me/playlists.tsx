@@ -3,6 +3,7 @@ import UserPlaylists from "@/components/Playlist/UserPlaylists";
 import DataSection from "@/components/Shared/DataSection";
 import Tabs from "@/components/Shared/Tabs";
 import { useSpotify } from "@/hooks/useSpotify";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -18,6 +19,9 @@ const UserPlaylistsPage = () => {
 
   return (
     <main>
+      <Head>
+        <title>My Playlists - Spotify Visualized</title>
+      </Head>
       <Container>
         <DataSection className="divide-none">
           <DataSection.Header>
