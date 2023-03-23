@@ -8,8 +8,10 @@ const Item = ({ artist }: { artist?: Artist }) => {
         src={artist?.images && artist?.images[0].url}
         alt={artist?.name}
       />
-      <div className="flex flex-col gap-2">
-        <ItemList.Item.Title>{artist?.name}</ItemList.Item.Title>
+      <div className="flex flex-col gap-2 max-w-[65%]">
+        <ItemList.Item.Title className="line-clamp-2">
+          {artist?.name}
+        </ItemList.Item.Title>
       </div>
       <div className="flex flex-grow flex-wrap justify-evenly md:justify-end gap-2 md:gap-6 md:pr-8">
         <ItemList.Item.DataBlock label="popularity" data={artist?.popularity} />

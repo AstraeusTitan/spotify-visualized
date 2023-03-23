@@ -26,9 +26,11 @@ const Item = ({ track, features, route }: Props) => {
         src={track?.album.images[0].url}
         alt={`${track?.album.name} Album Cover`}
       />
-      <div className="flex flex-col gap-2">
-        <ItemList.Item.Title>{track?.name}</ItemList.Item.Title>
-        <ItemList.Item.Subtitle>
+      <div className="flex flex-col gap-2 max-w-[65%]">
+        <ItemList.Item.Title className="line-clamp-2">
+          {track?.name}
+        </ItemList.Item.Title>
+        <ItemList.Item.Subtitle className="line-clamp-1">
           {track?.artists.map((artist, i) => (
             <Link
               key={artist.id}
