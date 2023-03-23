@@ -63,7 +63,7 @@ const Me = () => {
             <DataSection.Panel>
               <TopArtists
                 time_range={artistTimeFrame}
-                limit={4}
+                limit={5}
                 showLink={false}
               />
             </DataSection.Panel>
