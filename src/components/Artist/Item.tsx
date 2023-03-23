@@ -4,7 +4,10 @@ import ItemList from "../Shared/ItemList";
 const Item = ({ artist }: { artist?: Artist }) => {
   return (
     <ItemList.Item route={`/artist/${artist?.id}`}>
-      <ItemList.Item.Thumbnail src={artist?.images[0].url} alt={artist?.name} />
+      <ItemList.Item.Thumbnail
+        src={artist?.images && artist?.images[0].url}
+        alt={artist?.name}
+      />
       <div className="flex flex-col gap-2">
         <ItemList.Item.Title>{artist?.name}</ItemList.Item.Title>
       </div>

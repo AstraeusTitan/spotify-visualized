@@ -183,7 +183,6 @@ export const Playlist: StoryFn = (args) => (
         <ItemList.Item.Subtitle>by {args.owner}</ItemList.Item.Subtitle>
       </div>
       <div className="flex items-center flex-grow flex-wrap justify-evenly md:justify-end gap-2 md:gap-6 md:pr-8">
-        {/* TODO: turn into a tag */}
         <ItemList.Item.Tag className="bg-blue-300 text-blue-900">
           {args.visible}
         </ItemList.Item.Tag>
