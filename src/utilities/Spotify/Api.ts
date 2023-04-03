@@ -199,7 +199,6 @@ export type RecentlyPlayedTracksResponse = {
 
 export type TrackQuery = {
   [key: string]: string | undefined;
-  id: string;
   market?: string;
 };
 
@@ -209,7 +208,6 @@ export type TrackResponse = Track & {
 
 export type TrackAudioFeaturesQuery = {
   [key: string]: string | undefined;
-  id: string;
 };
 
 export type TrackAudioFeaturesResponse = AudioFeatures & {
@@ -228,7 +226,6 @@ export type TracksAudioFeaturesResponse = {
 
 export type PlaylistQuery = {
   [key: string]: string | undefined;
-  id: string;
   market?: string;
   fields?: string;
 };
@@ -274,7 +271,6 @@ export type UsersTopItemsResponse = {
 
 export type ArtistQuery = {
   [key: string]: string | undefined;
-  id: string;
 };
 
 export type ArtistResponse = Artist & {
@@ -283,13 +279,11 @@ export type ArtistResponse = Artist & {
 
 export type AlbumQuery = {
   [key: string]: string | undefined;
-  id: string;
   market?: string;
 };
 
 export type AlbumTracksQuery = {
   [key: string]: string | number | undefined;
-  id: string;
   market?: string;
   limit?: number;
   offset?: number;
