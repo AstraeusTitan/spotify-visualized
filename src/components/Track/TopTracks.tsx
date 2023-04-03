@@ -1,21 +1,21 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
-import ItemList from "../Shared/ItemList";
-import Item from "./Item";
+import Tabs from "../Shared/Tabs";
+import TrackList from "./TrackList";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
-  title?: string;
   limit?: number;
-  showLink?: boolean;
+  includeCharts?: boolean;
+  className?: string;
 };
 
 const TopTracks = ({
-  title,
   time_range = "short_term",
   limit,
-  showLink = true,
+  includeCharts = false,
+  className,
 }: Props) => {
   const { spotify } = useSpotify();
   const [tracks, setTracks] = useState<Api.Track[] | undefined>(undefined);
@@ -46,32 +46,24 @@ const TopTracks = ({
   }, [spotify, tracks]);
 
   return (
-    <ItemList>
-      <>
-        {tracks === undefined && (
-          <>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-          </>
-        )}
-
-        {tracks?.length ? (
-          tracks.map((track, i) => (
-            <Item
-              track={track}
-              features={features?.find((f) => f.id === track.id)}
-              route="/track"
-              key={i}
-            />
-          ))
-        ) : (
-          <div>Empty State</div>
-        )}
-      </>
-    </ItemList>
+    <div className={className}>
+      {includeCharts ? (
+        <Tabs.Group>
+          <Tabs.List>
+            <Tabs.BasicTab>Tracks</Tabs.BasicTab>
+            <Tabs.BasicTab>Graphs</Tabs.BasicTab>
+          </Tabs.List>
+          <Tabs.Panels>
+            <Tabs.Panel>
+              <TrackList tracks={tracks} features={features} />
+            </Tabs.Panel>
+            <Tabs.Panel>Graphs go here</Tabs.Panel>
+          </Tabs.Panels>
+        </Tabs.Group>
+      ) : (
+        <TrackList tracks={tracks} features={features} />
+      )}
+    </div>
   );
 };
 

@@ -44,18 +44,7 @@ const TopTracksPage = () => {
             </div>
           </DataSection.Header>
           <DataSection.Panel className="pt-0">
-            <Tabs.Group>
-              <Tabs.List>
-                <Tabs.BasicTab>Tracks</Tabs.BasicTab>
-                <Tabs.BasicTab>Charts</Tabs.BasicTab>
-              </Tabs.List>
-              <Tabs.Panels>
-                <Tabs.Panel>
-                  <TopTracks time_range={timeFrame} limit={50} />
-                </Tabs.Panel>
-                <Tabs.Panel>Panel 2</Tabs.Panel>
-              </Tabs.Panels>
-            </Tabs.Group>
+            <TopTracks time_range={timeFrame} limit={50} includeCharts />
           </DataSection.Panel>
         </DataSection>
       </Container>
