@@ -5,18 +5,12 @@ import Tabs from "../Shared/Tabs";
 import TrackList from "./TrackList";
 
 type Props = {
-  time_range?: "short_term" | "medium_term" | "long_term";
   limit?: number;
   includeCharts?: boolean;
   className?: string;
 };
 
-const RecentTracks = ({
-  time_range = "short_term",
-  limit,
-  includeCharts = false,
-  className,
-}: Props) => {
+const RecentTracks = ({ limit, includeCharts = false, className }: Props) => {
   const { spotify } = useSpotify();
   const [tracks, setTracks] = useState<Api.Track[] | undefined>(undefined);
   const [features, setFeatures] = useState<Api.AudioFeatures[] | undefined>(
@@ -32,7 +26,7 @@ const RecentTracks = ({
         .then((json) => setTracks(json.items.map((w) => w.track)))
         .catch((reason) => console.info(reason));
     }
-  }, [limit, spotify, time_range]);
+  }, [limit, spotify]);
 
   useEffect(() => {
     if (spotify && tracks?.length) {
