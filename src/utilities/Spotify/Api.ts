@@ -68,7 +68,11 @@ class Api {
   }
 
   getAlbumTracks(id: string, params?: AlbumTracksQuery) {
-    return this._makeRequest(`/albums/${id}/tracks`, null, params);
+    return this._makeRequest(
+      `/albums/${id}/tracks`,
+      null,
+      params
+    ) as Promise<AlbumTracksResponse>;
   }
 
   getCurrentUsersSavedAlbums(params?: CurrentUsersSavedAlbumsQuery) {
@@ -293,6 +297,17 @@ export type AlbumTracksQuery = {
 
 export type AlbumResponse = Album & {
   error?: Error;
+};
+
+export type AlbumTracksResponse = {
+  error?: Error;
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+  items: Track[];
 };
 
 export type CurrentUsersSavedAlbumsQuery = {
