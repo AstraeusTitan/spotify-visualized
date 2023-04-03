@@ -190,7 +190,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/tracks/1234";
 
-      api.getTrack({ id: "1234" });
+      api.getTrack("1234");
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
         headers: {
           Authorization: `Bearer TOKEN`,
@@ -338,7 +338,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/playlists/1234";
 
-      api.getPlaylist({ id: "1234" });
+      api.getPlaylist("1234");
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
         headers: {
           Authorization: `Bearer TOKEN`,
@@ -413,7 +413,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/artists/1234";
 
-      api.getArtist({ id: "1234" });
+      api.getArtist("1234");
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
         headers: {
           Authorization: `Bearer TOKEN`,
@@ -438,7 +438,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/albums/1234";
 
-      api.getAlbum({ id: "1234" });
+      api.getAlbum("1234");
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
         headers: {
           Authorization: `Bearer TOKEN`,

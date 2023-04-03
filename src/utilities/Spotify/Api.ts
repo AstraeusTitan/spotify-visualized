@@ -59,10 +59,12 @@ class Api {
   }
 
   // Album requests
-  getAlbum(params: AlbumQuery) {
-    return this._makeRequest(`/albums/${params.id}`, null, {
-      market: params.market,
-    }) as Promise<AlbumResponse>;
+  getAlbum(id: string, params?: AlbumQuery) {
+    return this._makeRequest(
+      `/albums/${id}`,
+      null,
+      params
+    ) as Promise<AlbumResponse>;
   }
 
   getCurrentUsersSavedAlbums(params?: CurrentUsersSavedAlbumsQuery) {
@@ -74,10 +76,12 @@ class Api {
   }
 
   // Artist requests
-  getArtist(params: ArtistQuery) {
-    return this._makeRequest(`/artists/${params.id}`, null, {
-      market: params.market,
-    }) as Promise<ArtistResponse>;
+  getArtist(id: string, params?: ArtistQuery) {
+    return this._makeRequest(
+      `/artists/${id}`,
+      null,
+      params
+    ) as Promise<ArtistResponse>;
   }
 
   // Player Requests
@@ -90,10 +94,12 @@ class Api {
   }
 
   // Playlist requests
-  getPlaylist(params: PlaylistQuery) {
-    return this._makeRequest(`/playlists/${params.id}`, null, {
-      market: params.market,
-    }) as Promise<PlaylistResponse>;
+  getPlaylist(id: string, params?: PlaylistQuery) {
+    return this._makeRequest(
+      `/playlists/${id}`,
+      null,
+      params
+    ) as Promise<PlaylistResponse>;
   }
 
   getCurrentUsersPlaylists(params?: CurrentUsersPlaylistsQuery) {
@@ -107,22 +113,26 @@ class Api {
   // Search requests
 
   // Tracks requests
-  getTrack(params: TrackQuery) {
-    return this._makeRequest(`/tracks/${params.id}`, null, {
-      market: params.market,
-    }) as Promise<TrackResponse>;
+  getTrack(id: string, params?: TrackQuery) {
+    return this._makeRequest(
+      `/tracks/${id}`,
+      null,
+      params
+    ) as Promise<TrackResponse>;
   }
 
   getTrackAudioFeatures(params: TrackAudioFeaturesQuery) {
-    return this._makeRequest(`/audio-features/${params.id}`) as Promise<
-      TrackAudioFeaturesResponse
-    >;
+    return this._makeRequest(
+      `/audio-features/${params.id}`
+    ) as Promise<TrackAudioFeaturesResponse>;
   }
 
   getTracksAudioFeatures(params: TracksAudioFeaturesQuery) {
-    return this._makeRequest("/audio-features", null, {
-      ids: params.ids,
-    }) as Promise<TracksAudioFeaturesResponse>;
+    return this._makeRequest(
+      "/audio-features",
+      null,
+      params
+    ) as Promise<TracksAudioFeaturesResponse>;
   }
 
   // User requests
@@ -161,7 +171,7 @@ export type RecentlyPlayedTracksQuery = {
 };
 
 export type RecentlyPlayedTracksResponse = {
-  error?: Error
+  error?: Error;
   href: string;
   limit: number;
   next: string | null;
@@ -261,6 +271,14 @@ export type AlbumQuery = {
   [key: string]: string | undefined;
   id: string;
   market?: string;
+};
+
+export type AlbumTracksQuery = {
+  [key: string]: string | number | undefined;
+  id: string;
+  market?: string;
+  limit?: number;
+  offset?: number;
 };
 
 export type AlbumResponse = Album & {
