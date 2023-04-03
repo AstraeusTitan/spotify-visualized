@@ -44,10 +44,12 @@ const Layout = ({ children }: PropsWithChildren) => {
               <div className="flex h-16 justify-between">
                 <div className="flex">
                   <div className="flex flex-shrink-0 items-center">
-                    <Logo
-                      className="h-8 w-auto"
-                      strokeClass="stroke-indigo-500"
-                    />
+                    <Link href="/">
+                      <Logo
+                        className="h-8 w-auto"
+                        strokeClass="stroke-indigo-500"
+                      />
+                    </Link>
                   </div>
                   <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                     {links.map((link, i) =>
