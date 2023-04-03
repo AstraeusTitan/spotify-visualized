@@ -6,9 +6,7 @@ import Item from "./Item";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
-  title?: string;
   limit?: number;
-  showLink?: boolean;
 };
 
 const TopArtists = ({ time_range = "short_term", limit }: Props) => {

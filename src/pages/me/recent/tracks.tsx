@@ -37,7 +37,7 @@ const RecentTracksPage = () => {
               </Tabs.List>
               <Tabs.Panels>
                 <Tabs.Panel>
-                  <RecentTracks limit={50} showLink={false} />
+                  <RecentTracks limit={50} />
                 </Tabs.Panel>
                 <Tabs.Panel>Panel 2</Tabs.Panel>
               </Tabs.Panels>

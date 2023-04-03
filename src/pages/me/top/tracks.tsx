@@ -51,11 +51,7 @@ const TopTracksPage = () => {
               </Tabs.List>
               <Tabs.Panels>
                 <Tabs.Panel>
-                  <TopTracks
-                    time_range={timeFrame}
-                    limit={50}
-                    showLink={false}
-                  />
+                  <TopTracks time_range={timeFrame} limit={50} />
                 </Tabs.Panel>
                 <Tabs.Panel>Panel 2</Tabs.Panel>
               </Tabs.Panels>

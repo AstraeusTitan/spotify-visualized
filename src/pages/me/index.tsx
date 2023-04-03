@@ -39,7 +39,7 @@ const Me = () => {
               </DataSection.Header.Title>
             </DataSection.Header>
             <DataSection.Panel>
-              <RecentTracks limit={5} showLink={false} />
+              <RecentTracks limit={5} />
             </DataSection.Panel>
           </DataSection>
         </div>
@@ -65,11 +65,7 @@ const Me = () => {
               </div>
             </DataSection.Header>
             <DataSection.Panel>
-              <TopArtists
-                time_range={artistTimeFrame}
-                limit={5}
-                showLink={false}
-              />
+              <TopArtists time_range={artistTimeFrame} limit={5} />
             </DataSection.Panel>
           </DataSection>
         </div>
@@ -95,11 +91,7 @@ const Me = () => {
               </div>
             </DataSection.Header>
             <DataSection.Panel>
-              <TopTracks
-                time_range={trackTimeFrame}
-                limit={5}
-                showLink={false}
-              />
+              <TopTracks time_range={trackTimeFrame} limit={5} />
             </DataSection.Panel>
           </DataSection>
         </div>
@@ -112,7 +104,7 @@ const Me = () => {
               </DataSection.Header.Title>
             </DataSection.Header>
             <DataSection.Panel>
-              <UserPlaylists limit={4} showLink={false} />
+              <UserPlaylists limit={4} />
             </DataSection.Panel>
           </DataSection>
         </div>

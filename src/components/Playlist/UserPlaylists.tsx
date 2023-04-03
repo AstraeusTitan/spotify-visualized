@@ -5,12 +5,10 @@ import ItemList from "../Shared/ItemList";
 import Item from "./Item";
 
 type Props = {
-  title?: string;
   limit?: number;
-  showLink?: boolean;
 };
 
-const UserPlaylists = ({ title, limit, showLink = true }: Props) => {
+const UserPlaylists = ({ limit }: Props) => {
   const { spotify } = useSpotify();
   const [playlists, setPlaylists] = useState<Api.UserPlaylist[] | undefined>(
     undefined

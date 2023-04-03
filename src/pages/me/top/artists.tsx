@@ -51,11 +51,7 @@ const TopArtistsPage = () => {
               </Tabs.List>
               <Tabs.Panels>
                 <Tabs.Panel>
-                  <TopArtists
-                    time_range={timeFrame}
-                    limit={50}
-                    showLink={false}
-                  />
+                  <TopArtists time_range={timeFrame} limit={50} />
                 </Tabs.Panel>
                 <Tabs.Panel>Panel 2</Tabs.Panel>
               </Tabs.Panels>

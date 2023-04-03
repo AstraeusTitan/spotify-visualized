@@ -35,7 +35,7 @@ const UserPlaylistsPage = () => {
               </Tabs.List>
               <Tabs.Panels>
                 <Tabs.Panel>
-                  <UserPlaylists limit={50} showLink={false} />
+                  <UserPlaylists limit={50} />
                 </Tabs.Panel>
                 <Tabs.Panel>Panel 2</Tabs.Panel>
               </Tabs.Panels>
