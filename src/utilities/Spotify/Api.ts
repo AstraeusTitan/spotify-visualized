@@ -67,6 +67,10 @@ class Api {
     ) as Promise<AlbumResponse>;
   }
 
+  getAlbumTracks(id: string, params?: AlbumTracksQuery) {
+    return this._makeRequest(`/albums/${id}/tracks`, null, params);
+  }
+
   getCurrentUsersSavedAlbums(params?: CurrentUsersSavedAlbumsQuery) {
     return this._makeRequest(
       "/me/albums",
@@ -158,10 +162,16 @@ export type ApiConfig = {
 };
 
 export type QueryParams =
-  | RecentlyPlayedTracksQuery
+  | TrackQuery
+  | TrackAudioFeaturesQuery
   | TracksAudioFeaturesQuery
+  | PlaylistQuery
+  | CurrentUsersPlaylistsQuery
   | UsersTopItemsQuery
-  | CurrentUsersPlaylistsQuery;
+  | ArtistQuery
+  | AlbumQuery
+  | AlbumTracksQuery
+  | CurrentUsersSavedAlbumsQuery;
 
 export type RecentlyPlayedTracksQuery = {
   [key: string]: number | undefined;
