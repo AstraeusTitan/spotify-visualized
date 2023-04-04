@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ArtistList from "@/components/Artist/ArtistList";
 import TrackArtists from "@/components/Artist/TrackArtists";
+import AlbumList from "@/components/Album/AlbumList";
 
 const formatDuration = (durationMs: number) => {
   let duration = durationMs / 1000;
@@ -28,6 +29,7 @@ const Track = () => {
     undefined
   );
   const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
+  const [album, setAlbum] = useState<Api.Album | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -65,6 +67,16 @@ const Track = () => {
           }
         })
         .catch((reason) => console.info(reason));
+
+      const albumResult = spotify.Api.getAlbum(track.album.id);
+      albumResult
+        .then((json) => {
+          // TODO: do something once an error is identified
+          if (!json.error) {
+            setAlbum(json);
+          }
+        })
+        .catch((reason) => console.info(reason));
     }
   }, [id, spotify, track]);
   return (
@@ -95,35 +107,7 @@ const Track = () => {
             <DescriptionList.Item>
               <DescriptionList.Item.Name>Album</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
-                {!!track ? (
-                  // TODO: Style
-                  <Link
-                    href={`/album/${track.album.id}`}
-                    className="underline hover:text-indigo-600"
-                  >
-                    {track.album.name}
-                  </Link>
-                ) : (
-                  <div className="h-5 w-24 bg-gray-300 rounded"></div>
-                )}
-              </DescriptionList.Item.Description>
-            </DescriptionList.Item>
-
-            <DescriptionList.Item>
-              <DescriptionList.Item.Name>Album Cover</DescriptionList.Item.Name>
-              <DescriptionList.Item.Description>
-                {!!track ? (
-                  // TODO: Style
-                  <div className="relative w-32 h-32 rounded overflow-hidden">
-                    <Image
-                      src={track.album.images[0].url}
-                      alt={`${track.album.name} Image`}
-                      fill
-                    />
-                  </div>
-                ) : (
-                  <div className="h-32 w-32 bg-gray-300 rounded"></div>
-                )}
+                <AlbumList albums={!!album ? [album] : undefined} />
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
 
