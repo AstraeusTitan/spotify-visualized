@@ -28,7 +28,7 @@ const Track = () => {
 
   useEffect(() => {
     if (spotify) {
-      const result = spotify.Api.getTrack({ id: id as string });
+      const result = spotify.Api.getTrack(id as string);
       result
         .then((json) => {
           // TODO: do something once an error is identified

@@ -16,7 +16,7 @@ const Artist = () => {
 
   useEffect(() => {
     if (spotify) {
-      const result = spotify.Api.getArtist({ id: id as string });
+      const result = spotify.Api.getArtist(id as string);
       result
         .then((json) => {
           // TODO: do something once an error is identified

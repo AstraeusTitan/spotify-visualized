@@ -1,5 +1,6 @@
 import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
+import AlbumTracks from "@/components/Track/AlbumTracks";
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import Head from "next/head";
@@ -16,7 +17,7 @@ const Album = () => {
 
   useEffect(() => {
     if (spotify) {
-      const result = spotify.Api.getAlbum({ id: id as string });
+      const result = spotify.Api.getAlbum(id as string);
       result
         .then((json) => {
           // TODO: do something once an error is identified
