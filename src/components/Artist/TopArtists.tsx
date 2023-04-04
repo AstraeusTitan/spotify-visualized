@@ -1,8 +1,7 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
-import ItemList from "../Shared/ItemList";
-import Item from "./Item";
+import ArtistList from "./ArtistList";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
@@ -25,27 +24,7 @@ const TopArtists = ({ time_range = "short_term", limit }: Props) => {
     }
   }, [limit, spotify, time_range]);
 
-  return (
-    <ItemList>
-      <>
-        {artists === undefined && (
-          <>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-          </>
-        )}
-
-        {artists?.length ? (
-          artists?.map((artist) => <Item artist={artist} key={artist.id} />)
-        ) : (
-          <div>Empty State</div>
-        )}
-      </>
-    </ItemList>
-  );
+  return <ArtistList artists={artists} />;
 };
 
 export default TopArtists;
