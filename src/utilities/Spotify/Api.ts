@@ -137,7 +137,7 @@ class Api {
     ) as Promise<TrackResponse>;
   }
 
-  getSeveralTracks(params?: SeveralTracksQuery) {
+  getSeveralTracks(params: SeveralTracksQuery) {
     return this._makeRequest(
       `/tracks`,
       null,
@@ -145,9 +145,11 @@ class Api {
     ) as Promise<SeveralTracksResponse>;
   }
 
-  getTrackAudioFeatures(params: TrackAudioFeaturesQuery) {
+  getTrackAudioFeatures(id: string, params?: TrackAudioFeaturesQuery) {
     return this._makeRequest(
-      `/audio-features/${params.id}`
+      `/audio-features/${id}`,
+      null,
+      params
     ) as Promise<TrackAudioFeaturesResponse>;
   }
 
@@ -226,7 +228,7 @@ export type TrackResponse = Track & {
 
 export type SeveralTracksQuery = {
   [key: string]: string | string[] | number[] | undefined;
-  ids?: string[] | number[];
+  ids: string[] | number[];
   market?: string;
 };
 

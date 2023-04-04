@@ -241,7 +241,7 @@ describe("Spotify.Api", () => {
       api.config.fetch = spy as any;
       const route = "/audio-features/1234";
 
-      api.getTrackAudioFeatures({ id: "1234" });
+      api.getTrackAudioFeatures("1234");
       expect(spy).toBeCalledWith(`${api.baseUrl}${route}`, {
         headers: {
           Authorization: `Bearer TOKEN`,
