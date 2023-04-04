@@ -192,8 +192,7 @@ const Album = () => {
             <DescriptionList.Item>
               <DescriptionList.Item.Name>Track List</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
-                {/* TODO: Figure out how to make a track list look nice */}
-                Track list goes here
+                <AlbumTracks album={album} includeCharts />
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
           </DescriptionList.List>
