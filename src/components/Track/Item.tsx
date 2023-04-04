@@ -23,8 +23,8 @@ const Item = ({ track, features, route }: Props) => {
   return (
     <ItemList.Item route={`/track/${track?.id}`}>
       <ItemList.Item.Thumbnail
-        src={track?.album.images[0].url}
-        alt={`${track?.album.name} Album Cover`}
+        src={track?.album?.images[0].url}
+        alt={`${track?.album?.name} Album Cover`}
       />
       <div className="flex flex-col gap-2 max-w-[65%]">
         <ItemList.Item.Title className="line-clamp-2">
