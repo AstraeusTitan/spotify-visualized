@@ -200,6 +200,32 @@ describe("Spotify.Api", () => {
     });
   });
 
+  describe("getSeveralTracks", () => {
+    let mock: any, api: Api;
+    beforeEach(() => {
+      mock = {
+        fetch: (input: string, init?: any) =>
+          new Promise((resolve, reject) => input),
+      };
+      api = new Api({ ...passedConfig });
+    });
+
+    it("should call fetch with the correct args", () => {
+      const spy = jest.spyOn(mock, "fetch");
+      api.config.fetch = spy as any;
+      const route = "/tracks";
+      const query = `?ids=${encodeURIComponent([1, 2, 3].join(","))}`;
+
+      api.getSeveralTracks({ ids: [1, 2, 3] });
+      expect(spy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  });
+
   describe("getTrackAudioFeaatures", () => {
     let mock: any, api: Api;
     beforeEach(() => {
