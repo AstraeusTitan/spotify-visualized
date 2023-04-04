@@ -2,7 +2,7 @@ import { Album } from "@/utilities/Spotify/Api";
 import Link from "next/link";
 import ItemList from "../Shared/ItemList";
 
-const Item = ({ album }: { album: Album }) => {
+const Item = ({ album }: { album?: Album }) => {
   return (
     <ItemList.Item route={`/album/${album?.id}`}>
       <ItemList.Item.Thumbnail
@@ -27,19 +27,19 @@ const Item = ({ album }: { album: Album }) => {
         </ItemList.Item.Subtitle>
       </div>
       <div className="flex items-center flex-grow flex-wrap justify-evenly md:justify-end gap-2 md:gap-6 md:pr-8">
-        {album.album_type === "single" && (
+        {album?.album_type === "single" && (
           <ItemList.Item.Tag className="bg-blue-300 text-blue-900">
-            {album.album_type}
+            {album?.album_type}
           </ItemList.Item.Tag>
         )}
-        {album.album_type === "album" && (
+        {album?.album_type === "album" && (
           <ItemList.Item.Tag className="bg-green-300 text-green-900">
-            {album.album_type}
+            {album?.album_type}
           </ItemList.Item.Tag>
         )}
-        {album.album_type === "compilation" && (
+        {album?.album_type === "compilation" && (
           <ItemList.Item.Tag className="bg-indigo-300 text-indigo-900">
-            {album.album_type}
+            {album?.album_type}
           </ItemList.Item.Tag>
         )}
         <ItemList.Item.DataBlock label="popularity" data={album?.popularity} />
