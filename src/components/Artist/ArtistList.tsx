@@ -1,28 +1,22 @@
-import * as Api from "@/utilities/Spotify/Api";
-import ItemList from "../Shared/ItemList";
 import Item from "./Item";
+import RenderedItemList from "../Shared/RenderedItemList";
+import { Artist } from "@/utilities/Spotify/Api";
 
-const ArtistList = ({ artists }: { artists?: Api.Artist[] }) => {
+const PassedItem = (data: Artist | undefined, index: number | undefined) => {
+  console.info("passed:");
+  console.info("data:", data);
+  return <Item artist={data} key={data ? data.id : index} />;
+};
+
+type Props = { artists?: Artist[]; placeholderCount?: number };
+
+const ArtistList = ({ artists, placeholderCount }: Props) => {
   return (
-    <ItemList>
-      <>
-        {artists === undefined && (
-          <>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-          </>
-        )}
-
-        {artists?.length ? (
-          artists?.map((artist) => <Item artist={artist} key={artist.id} />)
-        ) : (
-          <div>Empty State</div>
-        )}
-      </>
-    </ItemList>
+    <RenderedItemList
+      dataList={artists}
+      itemComponent={PassedItem}
+      placeholderCount={placeholderCount}
+    />
   );
 };
 

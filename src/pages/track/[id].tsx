@@ -107,7 +107,10 @@ const Track = () => {
             <DescriptionList.Item>
               <DescriptionList.Item.Name>Album</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
-                <AlbumList albums={!!album ? [album] : undefined} />
+                <AlbumList
+                  albums={!!album ? [album] : undefined}
+                  placeholderCount={1}
+                />
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
 

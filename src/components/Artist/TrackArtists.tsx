@@ -40,7 +40,7 @@ const TrackArtists = ({ track, className, includeCharts }: Props) => {
           </Tabs.Panels>
         </Tabs.Group>
       ) : (
-        <ArtistList artists={artists} />
+        <ArtistList artists={artists} placeholderCount={1} />
       )}
     </div>
   );

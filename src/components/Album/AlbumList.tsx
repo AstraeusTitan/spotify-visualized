@@ -1,28 +1,20 @@
 import { Album } from "@/utilities/Spotify/Api";
-import ItemList from "../Shared/ItemList";
 import Item from "./Item";
+import RenderedItemList from "../Shared/RenderedItemList";
 
-const AlbumList = ({ albums }: { albums?: Album[] }) => {
+const PassedItem = (data?: Album, index?: number) => {
+  return <Item album={data} key={data ? data.id : index} />;
+};
+
+type Props = { albums?: Album[]; placeholderCount?: number };
+
+const AlbumList = ({ albums, placeholderCount }: Props) => {
   return (
-    <ItemList>
-      <>
-        {albums === undefined && (
-          <>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-          </>
-        )}
-
-        {albums?.length ? (
-          albums?.map((album) => <Item album={album} key={album.id} />)
-        ) : (
-          <div>Empty State</div>
-        )}
-      </>
-    </ItemList>
+    <RenderedItemList
+      dataList={albums}
+      itemComponent={PassedItem}
+      placeholderCount={placeholderCount}
+    />
   );
 };
 
