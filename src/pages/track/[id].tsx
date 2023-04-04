@@ -7,6 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import ArtistList from "@/components/Artist/ArtistList";
+import TrackArtists from "@/components/Artist/TrackArtists";
 
 const formatDuration = (durationMs: number) => {
   let duration = durationMs / 1000;
@@ -25,6 +27,7 @@ const Track = () => {
   const [features, setFeatures] = useState<Api.AudioFeatures | undefined>(
     undefined
   );
+  const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -33,7 +36,7 @@ const Track = () => {
         .then((json) => {
           // TODO: do something once an error is identified
           if (!json.error) {
-            setTrack(json as Api.Track);
+            setTrack(json);
           }
         })
         .catch((reason) => console.info(reason));
@@ -42,12 +45,23 @@ const Track = () => {
 
   useEffect(() => {
     if (spotify && track) {
-      const result = spotify.Api.getTrackAudioFeatures({ id: id as string });
-      result
+      const artistIds = track?.artists.map((a) => a.id);
+      const artistsResult = spotify.Api.getSeveralArtists({ ids: artistIds });
+      artistsResult
         .then((json) => {
           // TODO: do something once an error is identified
           if (!json.error) {
-            setFeatures(json as Api.AudioFeatures);
+            setArtists(json.artists);
+          }
+        })
+        .catch((reason) => console.info(reason));
+
+      const featuresResult = spotify.Api.getTrackAudioFeatures(id as string);
+      featuresResult
+        .then((json) => {
+          // TODO: do something once an error is identified
+          if (!json.error) {
+            setFeatures(json);
           }
         })
         .catch((reason) => console.info(reason));
@@ -117,20 +131,7 @@ const Track = () => {
               <DescriptionList.Item.Name>Artist</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
                 <div className="flex gap-2">
-                  {!!track ? (
-                    track?.artists.map((a) => (
-                      // TODO: Style
-                      <Link
-                        href={`/artist/${a.id}`}
-                        key={a.id}
-                        className="underline hover:text-indigo-600"
-                      >
-                        {a.name}
-                      </Link>
-                    ))
-                  ) : (
-                    <div className="h-5 w-24 bg-gray-300 rounded"></div>
-                  )}
+                  <TrackArtists track={track} className="w-full" />
                 </div>
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
