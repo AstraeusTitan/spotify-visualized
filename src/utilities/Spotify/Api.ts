@@ -92,6 +92,14 @@ class Api {
     ) as Promise<ArtistResponse>;
   }
 
+  getSeveralArtists(params?: SeveralArtistsQuery) {
+    return this._makeRequest(
+      `/artists`,
+      null,
+      params
+    ) as Promise<SeveralArtistsResponse>;
+  }
+
   // Player Requests
   getRecentlyPlayed(params?: RecentlyPlayedTracksQuery) {
     return this._makeRequest(
@@ -182,6 +190,7 @@ export type QueryParams =
   | CurrentUsersPlaylistsQuery
   | UsersTopItemsQuery
   | ArtistQuery
+  | SeveralArtistsQuery
   | AlbumQuery
   | AlbumTracksQuery
   | CurrentUsersSavedAlbumsQuery;
@@ -295,6 +304,16 @@ export type ArtistQuery = {
 
 export type ArtistResponse = Artist & {
   error?: Error;
+};
+
+export type SeveralArtistsQuery = {
+  [key: string]: string[] | number[] | undefined;
+  ids?: string[] | number[];
+};
+
+export type SeveralArtistsResponse = {
+  error?: Error;
+  artists?: Artist[];
 };
 
 export type AlbumQuery = {
