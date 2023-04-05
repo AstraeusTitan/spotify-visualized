@@ -1,5 +1,6 @@
 import Api from ".";
 import { ExternalUrls, SpotifyImage, Followers, RequestError } from "./common";
+import { Track } from "./tracks";
 
 export interface Artist {
   external_urls: ExternalUrls;
@@ -38,4 +39,22 @@ Api.prototype.getSeveralArtists = function (
 export interface GetSeveralArtistsResponse {
   error?: RequestError;
   artists?: Artist[];
+}
+
+// -----------------------------------------------------------
+export interface GetArtistsTopTracksQuery {
+  [key: string]: string | undefined;
+  market?: string;
+}
+
+Api.prototype.getArtistsTopTracks = function (
+  id: string,
+  params?: GetArtistsTopTracksQuery
+): Promise<GetArtistsTopTracksResponse> {
+  return this._makeRequest(`/artists/${id}/top-tracks`, null, params);
+};
+
+export interface GetArtistsTopTracksResponse {
+  error?: RequestError;
+  tracks: Track[];
 }

@@ -57,4 +57,22 @@ describe("Api.Artists", () => {
       });
     });
   });
+
+  describe("getArtist", () => {
+    it("should add method to prototype", () => {
+      expect(api.getArtistsTopTracks).not.toBeUndefined();
+    });
+
+    it("should call fetch with the correct args", () => {
+      const route = "/artists/1234/top-tracks";
+
+      api.getArtistsTopTracks("1234");
+      expect(fetchSpy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  });
 });
