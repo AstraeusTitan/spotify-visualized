@@ -1,8 +1,8 @@
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import Tabs from "../Shared/Tabs";
 import TrackList from "./TrackList";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 
 type Props = {
   limit?: number;
@@ -12,8 +12,8 @@ type Props = {
 
 const RecentTracks = ({ limit, includeCharts = false, className }: Props) => {
   const { spotify } = useSpotify();
-  const [tracks, setTracks] = useState<Api.Track[] | undefined>(undefined);
-  const [features, setFeatures] = useState<Api.AudioFeatures[] | undefined>(
+  const [tracks, setTracks] = useState<Track[] | undefined>(undefined);
+  const [features, setFeatures] = useState<AudioFeatures[] | undefined>(
     undefined
   );
 
@@ -31,7 +31,7 @@ const RecentTracks = ({ limit, includeCharts = false, className }: Props) => {
   useEffect(() => {
     if (spotify && tracks?.length) {
       const ids = tracks.map((t) => t.id);
-      const result = spotify.Api.getTracksAudioFeatures({ ids: ids });
+      const result = spotify.Api.getSeveralTrackAudioFeatures({ ids: ids });
       result
         .then((json) => setFeatures(json.audio_features))
         .catch((reason) => console.info(reason));

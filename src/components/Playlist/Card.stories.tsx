@@ -1,4 +1,4 @@
-import { UserPlaylist } from "@/utilities/Spotify/Api";
+import { UserPlaylist } from "@/utilities/Spotify/Api/playlists";
 import { Meta, StoryFn } from "@storybook/react";
 import Card from "./Card";
 

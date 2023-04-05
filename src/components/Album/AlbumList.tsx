@@ -1,6 +1,6 @@
-import { Album } from "@/utilities/Spotify/Api";
 import Item from "./Item";
 import RenderedItemList from "../Shared/RenderedItemList";
+import { Album } from "@/utilities/Spotify/Api/albums";
 
 const PassedItem = (data?: Album, index?: number) => {
   return <Item album={data} key={data ? data.id : index} />;

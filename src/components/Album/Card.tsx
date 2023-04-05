@@ -1,15 +1,16 @@
-import * as Api from "@/utilities/Spotify/Api";
+import { Artist } from "@/utilities/Spotify/Api/artists";
+import { Followers, SpotifyImage } from "@/utilities/Spotify/Api/common";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
   name?: string;
-  images?: Api.Image[];
+  images?: SpotifyImage[];
   id?: string;
-  followers?: Api.Followers;
+  followers?: Followers;
   total_tracks?: number;
   album_type?: "single" | "album" | "compilation";
-  artists?: Api.Artist[];
+  artists?: Artist[];
   route?: string;
 };
 

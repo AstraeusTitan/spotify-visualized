@@ -1,8 +1,9 @@
-import { Artist, Track } from "@/utilities/Spotify/Api";
+import { Artist } from "@/utilities/Spotify/Api/artists";
 import Tabs from "../Shared/Tabs";
 import ArtistList from "./ArtistList";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useEffect, useState } from "react";
+import { Track } from "@/utilities/Spotify/Api/tracks";
 
 type Props = {
   track?: Track;

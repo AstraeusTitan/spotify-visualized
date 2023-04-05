@@ -1,19 +1,20 @@
-import * as Api from "@/utilities/Spotify/Api";
+import { Followers, SpotifyImage } from "@/utilities/Spotify/Api/common";
+import { Owner } from "@/utilities/Spotify/Api/users";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
   name?: string;
-  images?: Api.Image[];
+  images?: SpotifyImage[];
   id?: string;
-  owner?: Api.Owner;
+  owner?: Owner;
   tracks?: {
     href: string;
     total: number;
   };
   _public?: boolean | null;
   collaborative?: boolean;
-  followers?: Api.Followers;
+  followers?: Followers;
   route?: string;
 };
 

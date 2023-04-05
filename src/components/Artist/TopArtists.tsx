@@ -1,7 +1,7 @@
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import ArtistList from "./ArtistList";
+import { Artist } from "@/utilities/Spotify/Api/artists";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
@@ -10,7 +10,7 @@ type Props = {
 
 const TopArtists = ({ time_range = "short_term", limit }: Props) => {
   const { spotify } = useSpotify();
-  const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
+  const [artists, setArtists] = useState<Artist[] | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -19,7 +19,7 @@ const TopArtists = ({ time_range = "short_term", limit }: Props) => {
         time_range: time_range,
       });
       result
-        .then((json) => setArtists(json.items as Api.Artist[]))
+        .then((json) => setArtists(json.items as Artist[]))
         .catch((reason) => console.info(reason));
     }
   }, [limit, spotify, time_range]);

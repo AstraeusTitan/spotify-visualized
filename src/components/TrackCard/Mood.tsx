@@ -1,4 +1,4 @@
-import { AudioFeatures } from "@/utilities/Spotify/Api";
+import { AudioFeatures } from "@/utilities/Spotify/Api/tracks";
 import clsx from "clsx";
 import Bullet from "../Chart/Bullet";
 export type MoodData = {

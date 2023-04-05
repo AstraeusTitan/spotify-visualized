@@ -1,4 +1,4 @@
-import { Album } from "@/utilities/Spotify/Api";
+import { Album } from "@/utilities/Spotify/Api/albums";
 import Link from "next/link";
 import ItemList from "../Shared/ItemList";
 

@@ -1,8 +1,9 @@
-import { Album, AudioFeatures, Track } from "@/utilities/Spotify/Api";
+import { Album } from "@/utilities/Spotify/Api/albums";
 import Tabs from "../Shared/Tabs";
 import TrackList from "./TrackList";
 import { useSpotify } from "@/hooks/useSpotify";
 import { useEffect, useState } from "react";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 
 type Props = {
   album?: Album;
@@ -34,7 +35,7 @@ const AlbumTracks = ({ album, className, includeCharts = false }: Props) => {
       const tracksResult = spotify.Api.getSeveralTracks({
         ids: trackIds,
       });
-      const featuresResult = spotify.Api.getTracksAudioFeatures({
+      const featuresResult = spotify.Api.getSeveralTrackAudioFeatures({
         ids: trackIds,
       });
       tracksResult

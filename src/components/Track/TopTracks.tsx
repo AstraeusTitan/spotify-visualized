@@ -3,6 +3,7 @@ import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import Tabs from "../Shared/Tabs";
 import TrackList from "./TrackList";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 
 type Props = {
   time_range?: "short_term" | "medium_term" | "long_term";
@@ -18,8 +19,8 @@ const TopTracks = ({
   className,
 }: Props) => {
   const { spotify } = useSpotify();
-  const [tracks, setTracks] = useState<Api.Track[] | undefined>(undefined);
-  const [features, setFeatures] = useState<Api.AudioFeatures[] | undefined>(
+  const [tracks, setTracks] = useState<Track[] | undefined>(undefined);
+  const [features, setFeatures] = useState<AudioFeatures[] | undefined>(
     undefined
   );
 
@@ -30,7 +31,7 @@ const TopTracks = ({
         time_range: time_range,
       });
       result
-        .then((json) => setTracks(json.items as Api.Track[]))
+        .then((json) => setTracks(json.items as Track[]))
         .catch((reason) => console.info(reason));
     }
   }, [limit, spotify, time_range]);
@@ -38,7 +39,7 @@ const TopTracks = ({
   useEffect(() => {
     if (spotify && tracks?.length) {
       const ids = tracks.map((t) => t.id);
-      const result = spotify.Api.getTracksAudioFeatures({ ids: ids });
+      const result = spotify.Api.getSeveralTrackAudioFeatures({ ids: ids });
       result
         .then((json) => setFeatures(json.audio_features))
         .catch((reason) => console.info(reason));

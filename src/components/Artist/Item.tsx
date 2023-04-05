@@ -1,4 +1,4 @@
-import { Artist } from "@/utilities/Spotify/Api";
+import { Artist } from "@/utilities/Spotify/Api/artists";
 import ItemList from "../Shared/ItemList";
 
 const Item = ({ artist }: { artist?: Artist }) => {

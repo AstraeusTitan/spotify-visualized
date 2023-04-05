@@ -1,15 +1,13 @@
 import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
 import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ArtistList from "@/components/Artist/ArtistList";
 import TrackArtists from "@/components/Artist/TrackArtists";
 import AlbumList from "@/components/Album/AlbumList";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
+import { Album } from "@/utilities/Spotify/Api/albums";
 
 const formatDuration = (durationMs: number) => {
   let duration = durationMs / 1000;
@@ -20,16 +18,15 @@ const formatDuration = (durationMs: number) => {
 
 const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
-const Track = () => {
+const TrackDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const { spotify } = useSpotify();
-  const [track, setTrack] = useState<Api.Track | undefined>(undefined);
-  const [features, setFeatures] = useState<Api.AudioFeatures | undefined>(
+  const [track, setTrack] = useState<Track | undefined>(undefined);
+  const [features, setFeatures] = useState<AudioFeatures | undefined>(
     undefined
   );
-  const [artists, setArtists] = useState<Api.Artist[] | undefined>(undefined);
-  const [album, setAlbum] = useState<Api.Album | undefined>(undefined);
+  const [album, setAlbum] = useState<Album | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -47,17 +44,6 @@ const Track = () => {
 
   useEffect(() => {
     if (spotify && track) {
-      const artistIds = track?.artists.map((a) => a.id);
-      const artistsResult = spotify.Api.getSeveralArtists({ ids: artistIds });
-      artistsResult
-        .then((json) => {
-          // TODO: do something once an error is identified
-          if (!json.error) {
-            setArtists(json.artists);
-          }
-        })
-        .catch((reason) => console.info(reason));
-
       const featuresResult = spotify.Api.getTrackAudioFeatures(id as string);
       featuresResult
         .then((json) => {
@@ -197,4 +183,4 @@ const Track = () => {
   );
 };
 
-export default Track;
+export default TrackDetails;

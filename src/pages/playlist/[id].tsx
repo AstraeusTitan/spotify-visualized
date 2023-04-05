@@ -2,20 +2,18 @@ import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
 import PlaylistTracks from "@/components/Track/PlaylistTracks";
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
+import { FullPlaylist } from "@/utilities/Spotify/Api/playlists";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const Playlist = () => {
+const PlaylistDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const { spotify } = useSpotify();
-  const [playlist, setPlaylist] = useState<Api.FullPlaylist | undefined>(
-    undefined
-  );
+  const [playlist, setPlaylist] = useState<FullPlaylist | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -24,7 +22,7 @@ const Playlist = () => {
         .then((json) => {
           // TODO: do something once an error is identified
           if (!json.error) {
-            setPlaylist(json as Api.FullPlaylist);
+            setPlaylist(json as FullPlaylist);
           }
         })
         .catch((reason) => console.info(reason));
@@ -153,4 +151,4 @@ const Playlist = () => {
   );
 };
 
-export default Playlist;
+export default PlaylistDetails;

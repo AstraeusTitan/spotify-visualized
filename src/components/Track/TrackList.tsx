@@ -1,4 +1,4 @@
-import * as Api from "@/utilities/Spotify/Api";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 import ItemList from "../Shared/ItemList";
 import Item from "./Item";
 
@@ -6,8 +6,8 @@ const TrackList = ({
   tracks,
   features,
 }: {
-  tracks?: Api.Track[];
-  features?: Api.AudioFeatures[];
+  tracks?: Track[];
+  features?: AudioFeatures[];
 }) => (
   <ItemList>
     <>

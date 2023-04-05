@@ -2,18 +2,18 @@ import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
 import AlbumTracks from "@/components/Track/AlbumTracks";
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
+import { Album } from "@/utilities/Spotify/Api/albums";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const Album = () => {
+const AlbumDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const { spotify } = useSpotify();
-  const [album, setAlbum] = useState<Api.Album | undefined>(undefined);
+  const [album, setAlbum] = useState<Album | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -22,7 +22,7 @@ const Album = () => {
         .then((json) => {
           // TODO: do something once an error is identified
           if (!json.error) {
-            setAlbum(json as Api.Album);
+            setAlbum(json as Album);
           }
         })
         .catch((reason) => console.info(reason));
@@ -202,4 +202,4 @@ const Album = () => {
   );
 };
 
-export default Album;
+export default AlbumDetails;

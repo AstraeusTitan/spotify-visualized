@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 import ItemList from "./ItemList";
-import { Artist } from "@/utilities/Spotify/Api";
+import { Artist } from "@/utilities/Spotify/Api/artists";
 import ArtistList from "../Artist/ArtistList";
 
 export default {

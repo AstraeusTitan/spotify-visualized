@@ -1,4 +1,4 @@
-import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 import AlbumCover from "./AlbumCover";
 import Details from "./Details";
 import Mood from "./Mood";

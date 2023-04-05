@@ -1,4 +1,4 @@
-import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 import Popularity from "./Popularity";
 
 const formatDuration = (durationMs: number) => {

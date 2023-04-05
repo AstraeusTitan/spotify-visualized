@@ -1,6 +1,6 @@
 import Item from "./Item";
 import RenderedItemList from "../Shared/RenderedItemList";
-import { Artist } from "@/utilities/Spotify/Api";
+import { Artist } from "@/utilities/Spotify/Api/artists";
 
 const PassedItem = (data: Artist | undefined, index: number | undefined) => {
   console.info("passed:");

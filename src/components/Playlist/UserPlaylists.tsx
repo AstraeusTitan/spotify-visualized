@@ -1,8 +1,8 @@
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
 import { useEffect, useState } from "react";
 import ItemList from "../Shared/ItemList";
 import Item from "./Item";
+import { UserPlaylist } from "@/utilities/Spotify/Api/playlists";
 
 type Props = {
   limit?: number;
@@ -10,7 +10,7 @@ type Props = {
 
 const UserPlaylists = ({ limit }: Props) => {
   const { spotify } = useSpotify();
-  const [playlists, setPlaylists] = useState<Api.UserPlaylist[] | undefined>(
+  const [playlists, setPlaylists] = useState<UserPlaylist[] | undefined>(
     undefined
   );
 

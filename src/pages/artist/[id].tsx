@@ -1,18 +1,18 @@
 import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
 import { useSpotify } from "@/hooks/useSpotify";
-import * as Api from "@/utilities/Spotify/Api";
+import { Artist } from "@/utilities/Spotify/Api/artists";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const Artist = () => {
+const ArtistDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const { spotify } = useSpotify();
-  const [artist, setArtist] = useState<Api.Artist | undefined>(undefined);
+  const [artist, setArtist] = useState<Artist | undefined>(undefined);
 
   useEffect(() => {
     if (spotify) {
@@ -21,7 +21,7 @@ const Artist = () => {
         .then((json) => {
           // TODO: do something once an error is identified
           if (!json.error) {
-            setArtist(json as Api.Artist);
+            setArtist(json as Artist);
           }
         })
         .catch((reason) => console.info(reason));
@@ -132,4 +132,4 @@ const Artist = () => {
   );
 };
 
-export default Artist;
+export default ArtistDetails;

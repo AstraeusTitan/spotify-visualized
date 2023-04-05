@@ -1,10 +1,6 @@
-import {
-  Album,
-  Artist,
-  AudioFeatures,
-  Track,
-  UserPlaylist,
-} from "@/utilities/Spotify/Api";
+import { Album } from "@/utilities/Spotify/Api/albums";
+import { UserPlaylist } from "@/utilities/Spotify/Api/playlists";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 
 export type FilterOptions = {
   name: string;

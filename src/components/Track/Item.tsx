@@ -1,6 +1,4 @@
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
-import Image from "next/image";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 import Link from "next/link";
 import ItemList from "../Shared/ItemList";
 

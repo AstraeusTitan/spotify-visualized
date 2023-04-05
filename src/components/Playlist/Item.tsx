@@ -1,4 +1,4 @@
-import { UserPlaylist } from "@/utilities/Spotify/Api";
+import { UserPlaylist } from "@/utilities/Spotify/Api/playlists";
 import ItemList from "../Shared/ItemList";
 
 const Item = ({ playlist }: { playlist?: UserPlaylist }) => {

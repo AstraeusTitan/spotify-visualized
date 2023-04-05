@@ -2,7 +2,7 @@ import { Container } from "@/components/Container";
 import Section from "@/components/Section";
 import TrackCard from "@/components/TrackCard";
 import { useSpotify } from "@/hooks/useSpotify";
-import { AudioFeatures, Track } from "@/utilities/Spotify/Api";
+import { AudioFeatures, Track } from "@/utilities/Spotify/Api/tracks";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -36,7 +36,7 @@ const Details = () => {
         .then((tracks) => (setRecentlyPlayed(tracks), tracks))
         .then((tracks) => tracks.map((track) => track.id))
         .then((ids) =>
-          spotify.Api.getTracksAudioFeatures({ ids: ids.join(",") })
+          spotify.Api.getSeveralTrackAudioFeatures({ ids: ids.join(",") })
         )
         .then(
           (json) => (

@@ -1,4 +1,4 @@
-import { Album } from "@/utilities/Spotify/Api";
+import { Album } from "@/utilities/Spotify/Api/albums";
 import clsx from "clsx";
 import Image from "next/image";
 
