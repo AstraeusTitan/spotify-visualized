@@ -1,5 +1,6 @@
 import { Container } from "@/components/Container";
 import DescriptionList from "@/components/Shared/DescriptionList";
+import ArtistsTopTracks from "@/components/Track/ArtistsTopTracks";
 import { useSpotify } from "@/hooks/useSpotify";
 import { Artist } from "@/utilities/Spotify/Api/artists";
 import Head from "next/head";
@@ -114,7 +115,7 @@ const ArtistDetails = () => {
               <DescriptionList.Item.Name>Top Tracks</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
                 {/* TODO: Figure out how to make a track list look nice */}
-                Track list goes here
+                <ArtistsTopTracks artist={artist} />
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
 
