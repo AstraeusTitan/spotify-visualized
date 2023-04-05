@@ -83,7 +83,7 @@ Api.prototype.getCurrentUsersPlaylists = function (
 };
 
 export interface GetCurrentUsersPlaylistsResponse {
-  error?: Error;
+  error?: RequestError;
   href: string;
   limit: number;
   next: string | null;

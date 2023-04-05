@@ -58,12 +58,8 @@ export interface GetAlbumTracksQuery {
 Api.prototype.getAlbumTracks = function (
   id: string,
   params?: GetAlbumTracksQuery
-) {
-  return this._makeRequest(
-    `/albums/${id}/tracks`,
-    null,
-    params
-  ) as Promise<GetAlbumTracksResponse>;
+): Promise<GetAlbumTracksResponse> {
+  return this._makeRequest(`/albums/${id}/tracks`, null, params);
 };
 
 export interface GetAlbumTracksResponse {
@@ -87,16 +83,12 @@ export interface GetCurrentUsersSavedAlbumsQuery {
 
 Api.prototype.getCurrentUsersSavedAlbums = function (
   params?: GetCurrentUsersSavedAlbumsQuery
-) {
-  return this._makeRequest(
-    "/me/albums",
-    ["user-library-read"],
-    params
-  ) as Promise<GetCurrentUsersSavedAlbumsResponse>;
+): Promise<GetCurrentUsersSavedAlbumsResponse> {
+  return this._makeRequest("/me/albums", ["user-library-read"], params);
 };
 
 export interface GetCurrentUsersSavedAlbumsResponse {
-  error?: Error;
+  error?: RequestError;
   href: string;
   limit: number;
   next: string | null;

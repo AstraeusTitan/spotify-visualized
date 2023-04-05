@@ -1,5 +1,5 @@
 import Api from ".";
-import { Context } from "./common";
+import { Context, RequestError } from "./common";
 import { Track } from "./tracks";
 
 // -----------------------------------------------------------
@@ -28,7 +28,7 @@ Api.prototype.getRecentlyPlayed = function (
 };
 
 export interface GetRecentlyPlayedResponse {
-  error?: Error;
+  error?: RequestError;
   href: string;
   limit: number;
   next: string | null;

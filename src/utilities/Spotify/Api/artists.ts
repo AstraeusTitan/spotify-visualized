@@ -1,5 +1,5 @@
 import Api from ".";
-import { ExternalUrls, SpotifyImage, Followers } from "./common";
+import { ExternalUrls, SpotifyImage, Followers, RequestError } from "./common";
 
 export interface Artist {
   external_urls: ExternalUrls;
@@ -20,7 +20,7 @@ Api.prototype.getArtist = function (id: string): Promise<GetArtistResponse> {
 };
 
 export interface GetArtistResponse extends Artist {
-  error?: Error;
+  error?: RequestError;
 }
 
 // -----------------------------------------------------------
@@ -36,6 +36,6 @@ Api.prototype.getSeveralArtists = function (
 };
 
 export interface GetSeveralArtistsResponse {
-  error?: Error;
+  error?: RequestError;
   artists?: Artist[];
 }
