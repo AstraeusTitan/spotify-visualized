@@ -1,8 +1,7 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import { useEffect, useState } from "react";
-import ItemList from "../Shared/ItemList";
-import Item from "./Item";
 import { UserPlaylist } from "@/utilities/Spotify/Api/playlists";
+import PlaylistList from "./PlaylistList";
 
 type Props = {
   limit?: number;
@@ -26,29 +25,7 @@ const UserPlaylists = ({ limit }: Props) => {
     }
   }, [limit, spotify]);
 
-  return (
-    <ItemList>
-      <>
-        {playlists === undefined && (
-          <>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-          </>
-        )}
-
-        {playlists?.length ? (
-          playlists?.map((playlist) => (
-            <Item playlist={playlist} key={playlist.id} />
-          ))
-        ) : (
-          <div>Empty State</div>
-        )}
-      </>
-    </ItemList>
-  );
+  return <PlaylistList playlists={playlists} />;
 };
 
 export default UserPlaylists;
