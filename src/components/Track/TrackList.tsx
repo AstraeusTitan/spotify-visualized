@@ -11,7 +11,7 @@ const TrackList = ({
 }) => (
   <ItemList>
     <>
-      {tracks === undefined && (
+      {tracks === undefined ? (
         <>
           <Item />
           <Item />
@@ -19,9 +19,7 @@ const TrackList = ({
           <Item />
           <Item />
         </>
-      )}
-
-      {tracks?.length ? (
+      ) : tracks?.length ? (
         tracks.map((track, i) => (
           <Item
             track={track}
