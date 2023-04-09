@@ -3,8 +3,6 @@ import RenderedItemList from "../Shared/RenderedItemList";
 import { Artist } from "@/utilities/Spotify/Api/artists";
 
 const PassedItem = (data: Artist | undefined, index: number | undefined) => {
-  console.info("passed:");
-  console.info("data:", data);
   return <Item artist={data} key={data ? data.id : index} />;
 };
 
