@@ -8,6 +8,8 @@ import {
 } from "./albums";
 import {
   GetArtistResponse,
+  GetArtistsAlbumsQuery,
+  GetArtistsAlbumsResponse,
   GetArtistsTopTracksQuery,
   GetArtistsTopTracksResponse,
   GetSeveralArtistsQuery,
@@ -72,6 +74,10 @@ class Api {
     id: string,
     params?: GetArtistsTopTracksQuery
   ) => Promise<GetArtistsTopTracksResponse>;
+  getArtistsAlbums!: (
+    id: string,
+    params?: GetArtistsAlbumsQuery
+  ) => Promise<GetArtistsAlbumsResponse>;
 
   // Player methods
   getRecentlyPlayed!: (

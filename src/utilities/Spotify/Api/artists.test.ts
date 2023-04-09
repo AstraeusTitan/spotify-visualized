@@ -58,7 +58,7 @@ describe("Api.Artists", () => {
     });
   });
 
-  describe("getArtist", () => {
+  describe("getArtistsTopTracks", () => {
     it("should add method to prototype", () => {
       expect(api.getArtistsTopTracks).not.toBeUndefined();
     });
@@ -68,6 +68,29 @@ describe("Api.Artists", () => {
 
       api.getArtistsTopTracks("1234");
       expect(fetchSpy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+    });
+  });
+
+  describe("getArtistsAlbums", () => {
+    it("should add method to prototype", () => {
+      expect(api.getArtistsAlbums).not.toBeUndefined();
+    });
+
+    it("should call fetch with the correct args", () => {
+      const route = "/artists/1234/albums";
+      const query = `?include_groups=${encodeURIComponent(
+        ["single", "appears_on"].join(",")
+      )}`;
+
+      api.getArtistsAlbums("1234", {
+        include_groups: ["single", "appears_on"],
+      });
+      expect(fetchSpy).toBeCalledWith(`${api.baseUrl}${route}${query}`, {
         headers: {
           Authorization: `Bearer TOKEN`,
           "Content-Type": "application/json",

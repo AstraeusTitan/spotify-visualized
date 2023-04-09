@@ -1,4 +1,5 @@
 import Api from ".";
+import { Album } from "./albums";
 import { ExternalUrls, SpotifyImage, Followers, RequestError } from "./common";
 import { Track } from "./tracks";
 
@@ -57,4 +58,31 @@ Api.prototype.getArtistsTopTracks = function (
 export interface GetArtistsTopTracksResponse {
   error?: RequestError;
   tracks: Track[];
+}
+
+// -----------------------------------------------------------
+type IncludeGroup = "album" | "single" | "appears_on" | "compilation";
+export interface GetArtistsAlbumsQuery {
+  include_groups?: IncludeGroup[];
+  limit?: number;
+  market?: string;
+  offset?: number;
+}
+
+Api.prototype.getArtistsAlbums = function (
+  id: string,
+  params?: GetArtistsAlbumsQuery
+): Promise<GetArtistsAlbumsResponse> {
+  return this._makeRequest(`/artists/${id}/albums`, null, params);
+};
+
+export interface GetArtistsAlbumsResponse {
+  error?: RequestError;
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+  items: Album[];
 }
