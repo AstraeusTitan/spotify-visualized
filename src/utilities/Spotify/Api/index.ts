@@ -54,6 +54,11 @@ class Api {
     requiredScopes?: string[] | null | undefined,
     params?: any
   ) => Promise<any>;
+  _requestAllPages!: (
+    route: string,
+    requiredScopes?: string[] | null | undefined,
+    params?: any
+  ) => Promise<any>;
 
   // Album methods
   getAlbum!: (id: string) => Promise<GetAlbumResponse>;

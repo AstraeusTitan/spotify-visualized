@@ -125,4 +125,45 @@ describe("Api.Core", () => {
       expect(() => api._makeRequest("/route", ["SCOPE_1"])).not.toThrow();
     });
   });
+
+  describe("_requestAllPages", () => {
+    beforeEach(() => {
+      mock.count = 0;
+      mock.fetch = (input: string, init?: any): Promise<any> => {
+        return new Promise((resolve, reject) => {
+          let page = {
+            offset: mock.count * 10,
+            limit: (mock.count + 1) * 10,
+            next: mock.count < 4,
+            items: [mock.count],
+          };
+          mock.count += 1;
+          resolve({
+            json: () => page,
+          });
+        });
+      };
+      fetchSpy = jest.spyOn(mock, "fetch") as any;
+      api = new Api({ ...passedConfig, fetch: fetchSpy });
+    });
+    it("should be defined on the instance", () => {
+      expect(api._requestAllPages).not.toBeUndefined();
+    });
+
+    // TODO: Figure out how to mock this
+    it("should make multiple fetch calls", async () => {
+      const route = "/me";
+      const result = await api._requestAllPages(route);
+      expect(fetchSpy).toBeCalledWith(`${api.baseUrl}${route}`, {
+        headers: {
+          Authorization: `Bearer TOKEN`,
+          "Content-Type": "application/json",
+        },
+      });
+      expect(fetchSpy).toBeCalledTimes(5);
+      expect(result.items).toEqual([0, 1, 2, 3, 4]);
+      expect(result.offset).toBe(40);
+      expect(result.limit).toBe(50);
+    });
+  });
 });

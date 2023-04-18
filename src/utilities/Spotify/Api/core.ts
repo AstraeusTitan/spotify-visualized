@@ -49,3 +49,25 @@ Api.prototype._makeRequest = function (
     .fetch(url, { headers })
     .then((response) => response.json());
 };
+
+Api.prototype._requestAllPages = function (
+  route: string,
+  requiredScopes?: string[] | null | undefined,
+  params?: any
+):Promise<any> {
+  return new Promise(async (resolve, reject) => {
+    const pagedParams = { ...params };
+    let page,
+      items = <any>[];
+
+    do {
+      // TODO: add error handling
+      page = await this._makeRequest(route, requiredScopes, pagedParams);
+      items = items.concat(page.items);
+      pagedParams.offset = page.offset + page.limit;
+    } while (page?.next);
+
+    page.items = items
+    resolve(page)
+  });
+};
