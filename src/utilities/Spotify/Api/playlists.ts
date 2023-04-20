@@ -73,13 +73,22 @@ export interface GetCurrentUsersPlaylistsQuery {
 }
 
 Api.prototype.getCurrentUsersPlaylists = function (
-  params?: GetCurrentUsersPlaylistsQuery
+  params?: GetCurrentUsersPlaylistsQuery,
+  all?: boolean
 ): Promise<GetCurrentUsersPlaylistsResponse> {
-  return this._makeRequest(
-    "/me/playlists",
-    ["playlist-read-private", "playlist-read-collaborative"],
-    params
-  );
+  if (all) {
+    return this._requestAllPages(
+      "/me/playlists",
+      ["playlist-read-private", "playlist-read-collaborative"],
+      params
+    );
+  } else {
+    return this._makeRequest(
+      "/me/playlists",
+      ["playlist-read-private", "playlist-read-collaborative"],
+      params
+    );
+  }
 };
 
 export interface GetCurrentUsersPlaylistsResponse {

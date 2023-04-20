@@ -71,9 +71,14 @@ export interface GetArtistsAlbumsQuery {
 
 Api.prototype.getArtistsAlbums = function (
   id: string,
-  params?: GetArtistsAlbumsQuery
+  params?: GetArtistsAlbumsQuery,
+  all?: boolean
 ): Promise<GetArtistsAlbumsResponse> {
-  return this._makeRequest(`/artists/${id}/albums`, null, params);
+  if (all) {
+    return this._requestAllPages(`/artists/${id}/albums`, null, params);
+  } else {
+    return this._makeRequest(`/artists/${id}/albums`, null, params);
+  }
 };
 
 export interface GetArtistsAlbumsResponse {

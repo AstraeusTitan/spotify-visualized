@@ -64,24 +64,27 @@ class Api {
   getAlbum!: (id: string) => Promise<GetAlbumResponse>;
   getAlbumTracks!: (
     id: string,
-    params?: GetAlbumTracksQuery
+    params?: GetAlbumTracksQuery,
+    all?: boolean
   ) => Promise<GetAlbumTracksResponse>;
+  getCurrentUsersSavedAlbums!: (
+    params?: GetCurrentUsersSavedAlbumsQuery,
+    all?: boolean
+  ) => Promise<GetCurrentUsersSavedAlbumsResponse>;
 
   // Artist methods
   getArtist!: (id: string) => Promise<GetArtistResponse>;
   getSeveralArtists!: (
     params?: GetSeveralArtistsQuery
   ) => Promise<GetSeveralArtistsResponse>;
-  getCurrentUsersSavedAlbums!: (
-    params?: GetCurrentUsersSavedAlbumsQuery
-  ) => Promise<GetCurrentUsersSavedAlbumsResponse>;
   getArtistsTopTracks!: (
     id: string,
     params?: GetArtistsTopTracksQuery
   ) => Promise<GetArtistsTopTracksResponse>;
   getArtistsAlbums!: (
     id: string,
-    params?: GetArtistsAlbumsQuery
+    params?: GetArtistsAlbumsQuery,
+    all?: boolean
   ) => Promise<GetArtistsAlbumsResponse>;
 
   // Player methods
@@ -95,7 +98,8 @@ class Api {
     params?: GetPlaylistQuery
   ) => Promise<GetPlaylistResponse>;
   getCurrentUsersPlaylists!: (
-    params?: GetCurrentUsersPlaylistsQuery
+    params?: GetCurrentUsersPlaylistsQuery,
+    all?: boolean
   ) => Promise<GetCurrentUsersPlaylistsResponse>;
 
   // Track methods
