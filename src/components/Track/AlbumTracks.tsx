@@ -9,9 +9,15 @@ type Props = {
   album?: Album;
   includeCharts?: boolean;
   className?: string;
+  all?: boolean;
 };
 
-const AlbumTracks = ({ album, className, includeCharts = false }: Props) => {
+const AlbumTracks = ({
+  album,
+  className,
+  includeCharts = false,
+  all,
+}: Props) => {
   const { spotify } = useSpotify();
   const [trackIds, setTrackIds] = useState<string[] | undefined>(undefined);
   const [tracks, setTracks] = useState<Track[] | undefined>(undefined);
@@ -21,14 +27,18 @@ const AlbumTracks = ({ album, className, includeCharts = false }: Props) => {
 
   useEffect(() => {
     if (spotify && album) {
-      const result = spotify.Api.getAlbumTracks(album.id, {
-        limit: 50,
-      });
+      const result = spotify.Api.getAlbumTracks(
+        album.id,
+        {
+          limit: 50,
+        },
+        all
+      );
       result
         .then((json) => setTrackIds(json.items.map((track) => track.id)))
         .catch((reason) => console.info(reason));
     }
-  }, [album, spotify]);
+  }, [album, all, spotify]);
 
   useEffect(() => {
     if (spotify && trackIds?.length) {

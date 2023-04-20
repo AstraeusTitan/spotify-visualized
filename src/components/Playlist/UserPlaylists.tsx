@@ -5,9 +5,10 @@ import PlaylistList from "./PlaylistList";
 
 type Props = {
   limit?: number;
+  all?: boolean;
 };
 
-const UserPlaylists = ({ limit }: Props) => {
+const UserPlaylists = ({ limit, all }: Props) => {
   const { spotify } = useSpotify();
   const [playlists, setPlaylists] = useState<UserPlaylist[] | undefined>(
     undefined
@@ -16,14 +17,17 @@ const UserPlaylists = ({ limit }: Props) => {
   useEffect(() => {
     // TODO: Add handling for paging past 50 results
     if (spotify) {
-      const result = spotify.Api.getCurrentUsersPlaylists({
-        limit: limit || 10,
-      });
+      const result = spotify.Api.getCurrentUsersPlaylists(
+        {
+          limit: limit || 10,
+        },
+        all
+      );
       result
         .then((json) => setPlaylists(json.items))
         .catch((reason) => console.info(reason));
     }
-  }, [limit, spotify]);
+  }, [all, limit, spotify]);
 
   return <PlaylistList playlists={playlists} />;
 };

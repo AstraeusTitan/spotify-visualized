@@ -7,7 +7,6 @@ import { Album } from "@/utilities/Spotify/Api/albums";
 import { Artist } from "@/utilities/Spotify/Api/artists";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -49,22 +48,38 @@ const ArtistDetails = () => {
         .catch((reason) => console.info(reason));
     };
     if (spotify && artist) {
-      const singlesResult = spotify.Api.getArtistsAlbums(artist.id, {
-        include_groups: ["single"],
-        limit: 50,
-      });
-      const albumsResult = spotify.Api.getArtistsAlbums(artist.id, {
-        include_groups: ["album"],
-        limit: 50,
-      });
-      const appearsOnResult = spotify.Api.getArtistsAlbums(artist.id, {
-        include_groups: ["appears_on"],
-        limit: 50,
-      });
-      const compilationsResult = spotify.Api.getArtistsAlbums(artist.id, {
-        include_groups: ["compilation"],
-        limit: 50,
-      });
+      const singlesResult = spotify.Api.getArtistsAlbums(
+        artist.id,
+        {
+          include_groups: ["single"],
+          limit: 50,
+        },
+        true
+      );
+      const albumsResult = spotify.Api.getArtistsAlbums(
+        artist.id,
+        {
+          include_groups: ["album"],
+          limit: 50,
+        },
+        true
+      );
+      const appearsOnResult = spotify.Api.getArtistsAlbums(
+        artist.id,
+        {
+          include_groups: ["appears_on"],
+          limit: 50,
+        },
+        true
+      );
+      const compilationsResult = spotify.Api.getArtistsAlbums(
+        artist.id,
+        {
+          include_groups: ["compilation"],
+          limit: 50,
+        },
+        true
+      );
       storeResult(singlesResult, setSingles);
       storeResult(albumsResult, setAlbums);
       storeResult(appearsOnResult, setAppearsOn);

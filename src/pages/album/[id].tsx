@@ -192,7 +192,7 @@ const AlbumDetails = () => {
             <DescriptionList.Item>
               <DescriptionList.Item.Name>Track List</DescriptionList.Item.Name>
               <DescriptionList.Item.Description>
-                <AlbumTracks album={album} includeCharts />
+                <AlbumTracks album={album} includeCharts all />
               </DescriptionList.Item.Description>
             </DescriptionList.Item>
           </DescriptionList.List>
